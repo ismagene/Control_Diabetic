@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
             app:layout_constraintVertical_bias="0.203"
-            android:onClick="@{ () -> viewModel.onButtonClicked(username.getText().toString(), password.getText().toString()) }"/>
+            android:onClick="@{ () -> viewModel.onButtonLoginClicked(username.getText().toString(), password.getText().toString()) }"/>
 
         <Button
             android:id="@+id/registrarse"
@@ -88,7 +88,7 @@
             app:layout_constraintHorizontal_bias="0.255"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.209" />
+            app:layout_constraintVertical_bias="0.209"/>
 
         <CheckBox
             android:id="@+id/guardarUsuari"

@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -23,11 +24,18 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+         binding.registrarse.setOnClickListener{
+            intent = Intent(this, RegistreActivity::class.java)
+            startActivity(intent)
+        }
+
 //        with(binding){
 //            login.setOnClickListener(){
 //                viewModel.onButtonClicked(username.text.toString(),password.text.toString())
 //            }
 //        }
     }
+
+
 
 }

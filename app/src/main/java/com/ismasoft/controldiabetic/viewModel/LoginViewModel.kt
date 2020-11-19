@@ -1,9 +1,15 @@
 package com.ismasoft.controldiabetic.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.content.Intent
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.*
+import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.ui.activities.LoginActivity
+import com.ismasoft.controldiabetic.ui.activities.RegistreActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,7 +25,11 @@ class LoginViewModel : ViewModel(){
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> get() = _message
 
-    fun onButtonClicked(user: String, pass: String){
+    /** Funció que s'executa al apretar el botó de fer login a l'aplicació
+     *   @param user - email de l'usuari que es registre
+     *   @param pass - contrasenya **/
+    fun onButtonLoginClicked(user: String, pass: String){
+
         viewModelScope.launch {
             _progressVisibility.value = true
             _message.value = withContext(Dispatchers.IO){
@@ -28,11 +38,7 @@ class LoginViewModel : ViewModel(){
             }
             _progressVisibility.value = false
         }
-//        _progressVisibility.value = false
-//        _progressVisibility.value = _progressVisibility.value != true
     }
-
-
 
 
 

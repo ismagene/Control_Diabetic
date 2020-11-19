@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="20dp"
-    tools:context=".ui.activities.RegistreActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/loginName"
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.ismasoft.controldiabetic.viewModel.RegistreViewModel"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginBottom="30px"
-        android:inputType="textPersonName"
-        android:text="@string/loginNom"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        tools:context=".ui.activities.RegistreActivity">
 
-    <EditText
-        android:id="@+id/loginSurname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginBottom="30px"
-        android:inputType="textPersonName"
-        android:text="@string/loginCognom"/>
+        <EditText
+            android:id="@+id/loginName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginBottom="30dp"
+            android:inputType="textPersonName"
+            android:hint="@string/loginNom"
+            android:autofillHints="" />
 
-    <EditText
-        android:id="@+id/loginEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginBottom="30px"
-        android:inputType="textEmailAddress"
-        android:text="@string/loginEmail"/>
+        <EditText
+            android:id="@+id/loginSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginBottom="30dp"
+            android:inputType="textPersonName"
+            android:hint="@string/loginCognom"
+            android:autofillHints="" />
 
-    <EditText
-        android:id="@+id/loginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginBottom="30px"
-        android:inputType="textPassword"
-        android:text="@string/loginPassword"/>
+        <EditText
+            android:id="@+id/loginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginBottom="30dp"
+            android:inputType="textEmailAddress"
+            android:hint="@string/loginEmail"
+            android:autofillHints="" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/crearCompte"
-        app:backgroundTint="#00BCD4" />
+        <EditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginBottom="30dp"
+            android:inputType="textPassword"
+            android:hint="@string/loginPassword"
+            android:autofillHints="" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crearCompte"
+            app:backgroundTint="#00BCD4"/>
+
+    </LinearLayout>
+</layout>
