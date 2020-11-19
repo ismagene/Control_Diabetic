@@ -1,4 +1,4 @@
-package com.ismasoft.controldiabtic
+package com.ismasoft.controldiabetic
 
 import org.junit.Test
 

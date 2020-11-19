@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ismasoft.controldiabtic">
+    package="com.ismasoft.controldiabetic">
 
     <application
         android:allowBackup="true"
@@ -8,8 +8,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ControlDiabètic">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.ControlDiabètic"
+        >
+        <activity android:name="com.ismasoft.controldiabetic.ui.RegistreActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.ismasoft.controldiabetic.ui.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.ismasoft.controldiabetic.ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

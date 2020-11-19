@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Control Diabètic</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Correu electrònic</string>
+    <string name="prompt_password">Contrasenya</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="registrarse">Registrar-se</string>
+    <string name="guardarUsuari">Mantenir conectat</string>
+
+    <!-- Strings related to registre -->
+    <string name="loginNom">Nom</string>
+    <string name="loginCognom">Cognoms</string>
+    <string name="loginEmail">Correu electrònic</string>
+    <string name="loginPassword">Contrasenya</string>
+    <string name="crearCompte">Crear compte</string>
+
 </resources>
