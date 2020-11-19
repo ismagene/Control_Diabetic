@@ -1,4 +1,4 @@
-package com.ismasoft.controldiabetic.ui
+package com.ismasoft.controldiabetic.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,13 +23,11 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        with(binding){
-            registrarse.setOnClickListener(){
-
-                binding.login.setHint("Prova")
+//        with(binding){
+//            login.setOnClickListener(){
 //                viewModel.onButtonClicked(username.text.toString(),password.text.toString())
-            }
-        }
+//            }
+//        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ismasoft.controldiabetic.ui
+package com.ismasoft.controldiabetic.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

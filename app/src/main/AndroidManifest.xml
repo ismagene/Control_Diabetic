@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic"
         >
-        <activity android:name="com.ismasoft.controldiabetic.ui.RegistreActivity"
+        <activity android:name="com.ismasoft.controldiabetic.ui.activities.RegistreActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name="com.ismasoft.controldiabetic.ui.LoginActivity"
+        <activity android:name="com.ismasoft.controldiabetic.ui.activities.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name="com.ismasoft.controldiabetic.ui.MainActivity"
+        <activity android:name="com.ismasoft.controldiabetic.ui.activities.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
