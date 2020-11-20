@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 
 class LoginViewModel(application: Application) : AndroidViewModel(application){
     // Definim el repository per accedir a la BBDD
-    private val repository = LoginRepository(application)
+    private var repository = LoginRepository(application)
 
     /* Variables que recuperem directament des de la vista */
     private val _progressVisibility = MutableLiveData<Boolean>()
@@ -21,6 +21,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
      *   @param user - email de l'usuari que es registre
      *   @param pass - contrasenya **/
     fun onButtonLoginClicked(user: String, pass: String){
+        // inicialitzem el valor del missatge de resposta.
+        _message.value = ""
 
         viewModelScope.launch {
             _progressVisibility.value = true
@@ -32,10 +34,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
                 _message.value = "No s'ha introduit correu electrònic ni contrasenya"
             }
             else {
-                repository.requestLogin(user, pass)
+                var returnLogin : Boolean = true
+                returnLogin = repository.requestLogin(user, pass)
                 _message.value = withContext(Dispatchers.IO) {
                     Thread.sleep(2000)
-                    if (user.isNotEmpty() && pass.isNotEmpty()) "Succes" else "Failure"
+                    if (returnLogin) "Succes" else "Failure"
                 }
             }
             _progressVisibility.value = false
