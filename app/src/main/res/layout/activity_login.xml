@@ -72,8 +72,9 @@
             app:layout_constraintHorizontal_bias="0.959"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.203"
-            android:onClick="@{ () -> viewModel.onButtonLoginClicked(username.getText().toString(), password.getText().toString()) }"/>
+            app:layout_constraintVertical_bias="0.203"/>
+
+<!--            android:onClick="@{ () -> viewModel.onButtonLoginClicked(username.getText().toString(), password.getText().toString()) }"/>-->
 
         <Button
             android:id="@+id/registrarse"

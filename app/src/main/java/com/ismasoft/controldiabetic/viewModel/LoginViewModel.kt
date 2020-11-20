@@ -10,6 +10,10 @@ import kotlinx.coroutines.withContext
 class LoginViewModel(application: Application) : AndroidViewModel(application){
     // Definim el repository per accedir a la BBDD
     private var repository = LoginRepository(application)
+    val logged : MutableLiveData<Boolean>
+    init {
+        logged = repository.logged
+    }
 
     /* Variables que recuperem directament des de la vista */
     private val _progressVisibility = MutableLiveData<Boolean>()
@@ -20,29 +24,31 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     /** Funció que s'executa al apretar el botó de fer login a l'aplicació
      *   @param user - email de l'usuari que es registre
      *   @param pass - contrasenya **/
-    fun onButtonLoginClicked(user: String, pass: String){
+    fun onButtonLoginClicked(user: String, pass: String) {
         // inicialitzem el valor del missatge de resposta.
         _message.value = ""
 
         viewModelScope.launch {
             _progressVisibility.value = true
-            if(user.isEmpty()){
+            if (user.isEmpty()) {
                 _message.value = "No s'ha introduit el correu electrònic"
-            }else if(pass.isEmpty()){
+            } else if (pass.isEmpty()) {
                 _message.value = "No s'ha introduit la contrasenya"
-            }else if(user.isEmpty() || pass.isEmpty()){
+            } else if (user.isEmpty() || pass.isEmpty()) {
                 _message.value = "No s'ha introduit correu electrònic ni contrasenya"
-            }
-            else {
-                var returnLogin : Boolean = true
-                returnLogin = repository.requestLogin(user, pass)
+            } else {
+                repository.requestLogin(user, pass)
                 _message.value = withContext(Dispatchers.IO) {
                     Thread.sleep(2000)
-                    if (returnLogin) "Succes" else "Failure"
+                    if(logged.value == true){
+                        "Succes"
+                    }else{
+                        "Failure"
+                    }
                 }
             }
             _progressVisibility.value = false
         }
-    }
 
+    }
 }

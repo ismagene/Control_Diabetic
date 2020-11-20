@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.viewModel.LoginViewModel
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
+import kotlinx.coroutines.GlobalScope.coroutineContext
+import kotlin.coroutines.coroutineContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -27,6 +29,15 @@ class LoginActivity : AppCompatActivity() {
          binding.registrarse.setOnClickListener{
             intent = Intent(this, RegistreActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.login.setOnClickListener{
+            viewModel.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString())
+            /* OJOISMA - perquè no se'm actualitza? */
+            if (viewModel.logged.value == true) {
+                intent = Intent(this, RegistreActivity::class.java)
+                startActivity(intent)
+            }
         }
 
 //        with(binding){
