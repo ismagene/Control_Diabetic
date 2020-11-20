@@ -1,27 +1,19 @@
 package com.ismasoft.controldiabetic.viewModel
 
-import android.content.Intent
-import android.view.View
-import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
+import android.app.Application
 import androidx.lifecycle.*
-import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.ui.activities.LoginActivity
-import com.ismasoft.controldiabetic.ui.activities.RegistreActivity
+import com.ismasoft.controldiabetic.data.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginViewModel : ViewModel(){
+class LoginViewModel(application: Application) : AndroidViewModel(application){
+    // Definim el repository per accedir a la BBDD
+    private val repository = LoginRepository(application)
 
-//    private lateinit var appRepository:LoginRepository
-//    private val userMutableLiveData : MutableLiveData<FirebaseUser>()
-
+    /* Variables que recuperem directament des de la vista */
     private val _progressVisibility = MutableLiveData<Boolean>()
     val progressVisibility : LiveData<Boolean> get() = _progressVisibility
-
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> get() = _message
 
@@ -32,29 +24,22 @@ class LoginViewModel : ViewModel(){
 
         viewModelScope.launch {
             _progressVisibility.value = true
-            _message.value = withContext(Dispatchers.IO){
-                Thread.sleep(2000)
-                if (user.isNotEmpty() && pass.isNotEmpty()) "Succes" else "Failure"
+            if(user.isEmpty()){
+                _message.value = "No s'ha introduit el correu electrònic"
+            }else if(pass.isEmpty()){
+                _message.value = "No s'ha introduit la contrasenya"
+            }else if(user.isEmpty() || pass.isEmpty()){
+                _message.value = "No s'ha introduit correu electrònic ni contrasenya"
+            }
+            else {
+                repository.requestLogin(user, pass)
+                _message.value = withContext(Dispatchers.IO) {
+                    Thread.sleep(2000)
+                    if (user.isNotEmpty() && pass.isNotEmpty()) "Succes" else "Failure"
+                }
             }
             _progressVisibility.value = false
         }
     }
-
-
-
-//    private val _progressVisibility = MutableLiveData<Boolean>()
-//    val progressVisibility = LiveData<Boolean> get() = _progressVisibility
-//
-//    val message = MutableLiveData<String>()
-//
-//    fun onButtonClicked (user: String, pass: String){
-//        viewModelScope.launch {
-//            _progressVisibility.value = true
-//            message.value =
-//
-//
-//            _progressVisibility.value = false
-//        }
-//    }
 
 }

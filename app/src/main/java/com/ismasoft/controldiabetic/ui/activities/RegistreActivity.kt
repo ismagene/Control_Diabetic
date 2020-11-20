@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -26,11 +27,14 @@ class RegistreActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.buttonRegister.setOnClickListener{
+        binding.buttonRegister.setOnClickListener {
             viewModel.onButtonRegistreClicked(binding)
         }
 
-
+        binding.buttonTornar.setOnClickListener {
+            intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 //    private lateinit var dbReference:DatabaseReference

@@ -65,5 +65,13 @@
             android:text="@string/crearCompte"
             app:backgroundTint="#00BCD4"/>
 
+        <Button
+            android:id="@+id/buttonTornar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tornar"
+            android:layout_marginBottom="30dp"
+            app:backgroundTint="#00BCD4" />
+
     </LinearLayout>
 </layout>

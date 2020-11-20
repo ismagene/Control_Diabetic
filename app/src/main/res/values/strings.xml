@@ -18,5 +18,6 @@
     <string name="loginEmail">Correu electrònic</string>
     <string name="loginPassword">Contrasenya</string>
     <string name="crearCompte">Crear compte</string>
+    <string name="tornar">Tornar</string>
 
 </resources>
