@@ -12,10 +12,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     // Definim el repository per accedir a la BBDD
     private var repository = LoginRepository(application)
     private val _logged : MutableLiveData<Boolean>
-    val logged : LiveData<Boolean> get() = _logged
     init {
         _logged = repository.logged
     }
+    val logged : LiveData<Boolean> get() = _logged
 
     /* Variables que recuperem directament des de la vista */
     private val _progressVisibility = MutableLiveData<Boolean>()
