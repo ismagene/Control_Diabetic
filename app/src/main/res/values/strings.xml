@@ -19,5 +19,6 @@
     <string name="loginPassword">Contrasenya</string>
     <string name="crearCompte">Crear compte</string>
     <string name="tornar">Tornar</string>
+    <string name="titolRegistre">Registre</string>
 
 </resources>
