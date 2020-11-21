@@ -1,6 +1,7 @@
 package com.ismasoft.controldiabetic.viewModel
 
 import android.app.Application
+import android.os.Bundle
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
@@ -10,9 +11,10 @@ import kotlinx.coroutines.withContext
 class LoginViewModel(application: Application) : AndroidViewModel(application){
     // Definim el repository per accedir a la BBDD
     private var repository = LoginRepository(application)
-    val logged : MutableLiveData<Boolean>
+    private val _logged : MutableLiveData<Boolean>
+    val logged : LiveData<Boolean> get() = _logged
     init {
-        logged = repository.logged
+        _logged = repository.logged
     }
 
     /* Variables que recuperem directament des de la vista */
@@ -40,16 +42,14 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
                 repository.requestLogin(user, pass)
                 _message.value = withContext(Dispatchers.IO) {
                     Thread.sleep(2000)
-                    if(logged.value == true){
+                    if(_logged.value == true){
                         "Succes"
                     }else{
                         "Failure"
                     }
                 }
             }
-
             _progressVisibility.value = false
         }
-
     }
 }

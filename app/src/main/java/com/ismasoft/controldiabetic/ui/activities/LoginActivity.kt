@@ -24,27 +24,28 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-         binding.registrarse.setOnClickListener{
-            intent = Intent(this, RegistreActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.login.setOnClickListener{
-            viewModel.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString())
-            /* OJOISMA - perquè no se'm actualitza? */
-            if (viewModel.logged.value == true) {
-                intent = Intent(this, MenuPrincipalActivity::class.java)
+        with(binding){
+            /* Funció Login */
+            login.setOnClickListener{
+                viewModel?.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString())
+                /* OJOISMA - perquè no se'm actualitza? */
+                if (viewModel?.logged?.value == true) {
+                    intent = Intent(this, MenuPrincipalActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            /* Funció de registre */
+            registrarse.setOnClickListener{
+                intent = Intent(this, RegistreActivity::class.java)
                 startActivity(intent)
             }
         }
-
-//        with(binding){
-//            login.setOnClickListener(){
-//                viewModel.onButtonClicked(username.text.toString(),password.text.toString())
-//            }
-//        }
     }
 
+    private fun Intent(activityLoginBinding: ActivityLoginBinding, java: Class<*>): Intent? {
+        intent = Intent(this, java)
+        return intent
+    }
 
 
 }
