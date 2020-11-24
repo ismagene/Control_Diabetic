@@ -1,24 +1,27 @@
 package com.ismasoft.controldiabetic.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel(){
+class MainViewModel (application: Application) : AndroidViewModel(application){
 
-    private val _progressVisibility = MutableLiveData<Boolean>()
-//    val progressVisibility = LiveData<Boolean> get() = _progressVisibility
+    /* Variables que recuperem directament des de la vista */
+    private val _progressFinish = MutableLiveData<Boolean>()
+    val progressFinish : LiveData<Boolean> get() = _progressFinish
 
     val message = MutableLiveData<String>()
 
-    fun onButtonClicked (user: String, pass: String){
-        viewModelScope.launch {
-            _progressVisibility.value = true
-//            message.value =
-
-
-            _progressVisibility.value = false
+    suspend fun onButtonClicked (){
+        coroutineScope  {
+            val deferredOne = async {
+                _progressFinish.value = true
+                // Funcions varies inicials de l'aplicació
+                Thread.sleep(3000)
+            }
+            deferredOne.await()
         }
     }
 

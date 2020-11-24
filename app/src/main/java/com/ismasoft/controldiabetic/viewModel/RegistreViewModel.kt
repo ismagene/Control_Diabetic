@@ -28,6 +28,8 @@ class RegistreViewModel(application: Application) : AndroidViewModel(application
 //                _message.value = "No s'ha introduit correu electrònic ni contrasenya"
             } else {
                 repository.requestRegistreUsuari(binding.loginEmail.text.toString(), binding.loginPassword.text.toString())
+
+
             }
         }
     }

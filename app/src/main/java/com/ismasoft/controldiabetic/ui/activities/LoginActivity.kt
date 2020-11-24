@@ -37,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.login.isEnabled = false
                 binding.registrarse.isEnabled = false
 
+                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.username.windowToken, 0)
 
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                         viewModel?.onButtonLoginClicked(binding.username.text.toString(), binding.password.text.toString())
                     }
                     deferred.await()
-                    /* OJOISMA - perquè no se'm actualitza? */
+
                     if (viewModel?.logged?.value == true) {
                         intent = Intent(this, MenuPrincipalActivity::class.java)
                         startActivity(intent)
@@ -58,6 +59,11 @@ class LoginActivity : AppCompatActivity() {
 
         /* Funció de registre */
        binding.registrarse.setOnClickListener{
+           /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+           val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+           inputMethodManager.hideSoftInputFromWindow(binding.username.windowToken, 0)
+
+           /* Accedim a la activitat de registreActivity */
             intent = Intent(this, RegistreActivity::class.java)
             startActivity(intent)
         }

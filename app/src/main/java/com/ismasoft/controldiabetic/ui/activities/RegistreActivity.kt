@@ -15,7 +15,6 @@ class RegistreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_registre)
 
         binding = ActivityRegistreBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,31 +31,8 @@ class RegistreActivity : AppCompatActivity() {
         }
 
         binding.buttonTornar.setOnClickListener {
-            intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
-
-//    private lateinit var dbReference:DatabaseReference
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_registre)
-
-//        buttonRegister = findViewById<TextView>(R.id.registrarse) as Button
-//        buttonRegister.setOnClickListener{
-//            when{
-//                TextUtils.isEmpty(loginNom.text.toString().trim(){ it <= ' ' }) ->{
-//                    Toast.makeText(
-//                        this@RegistreActivity,
-//                        "Siusplau entra el nom",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//
-//
-//            }
-//        }
-
 
 }
