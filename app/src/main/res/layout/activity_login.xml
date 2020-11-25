@@ -132,11 +132,12 @@
             android:layout_marginBottom="64dp"
             app:visible="@{viewModel.progressVisibility}" />
 
-<!--        <View-->
-<!--            android:layout_width="80dp"-->
-<!--            android:layout_height="80dp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:background="@drawable/recuadre_spinner" />-->
+        <View
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/recuadre_spinner"
+            app:visible="@{viewModel.progressVisibility}" />
 
     </RelativeLayout>
 </layout>

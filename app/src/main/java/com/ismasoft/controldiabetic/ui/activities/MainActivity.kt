@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel?.onButtonClicked()
             }
             deferred.await()
+            // Comprobar que no s'hagi posat en sogon pla l'aplicació
             if (viewModel?.progressFinish?.value == true) {
                 intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -66,24 +67,4 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-//    fun fotliPou() {
-//        super.onStart()
-//        setContentView(R.layout.activity_main)
-//
-//        val scope = CoroutineScope(Job() + Dispatchers.Main)
-//        /** Coroutina automatica que mirarà si tenim el login guardat i el recuperarà per fer login automàtic **/
-//        scope.launch {
-//            val deferred = async {
-//                Thread.sleep(5000)
-//            }
-//            deferred.await()
-//            intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//        }
-//    }
-
-//    private fun Intent(activityLoginBinding: CoroutineScope, java: Class<*>): Intent? {
-//        intent = Intent(this, java)
-//        return intent
-//    }
 

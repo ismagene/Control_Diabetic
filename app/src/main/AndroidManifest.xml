@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
-        <activity android:name=".ui.activities.MenuPrincipalActivity"></activity>
+        <activity android:name=".ui.activities.Registre2Activity"></activity>
+        <activity android:name=".ui.activities.MenuPrincipalActivity" />
         <activity
             android:name=".ui.activities.RegistreActivity"
-            android:label="@string/titolRegistre"/>
+            android:label="@string/titolRegistre" />
         <activity
             android:name=".ui.activities.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

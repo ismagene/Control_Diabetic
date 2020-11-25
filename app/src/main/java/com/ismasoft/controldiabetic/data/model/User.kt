@@ -1,15 +1,27 @@
 package com.ismasoft.controldiabetic.data.model
 
+import java.util.*
+
 data class User(
-    var uid: String? = null,
-    var email: String? = null,
-    var username: String? = null,
-    var biography: String? = null,
-    var website: String? = null,
-    var media_count: Int? = 0,
-    var followers: List<String>? = null,
-    var following: List<String>? = null,
-    var profile_picture_url: String? = null
+    var nom: String? = null,
+    var primerCognom: String? = null,
+    var segonCognom: String? = null,
+    var dataNaixement: Date? = null,
+    var correuElectronic: String? = null,
+    var genere: String? = null,
+    var pes: Number? = null,
+    var altura: Number? = null,
+    var centre: String? = null,
+    var nomMetge: String? = null,
+    var correuElectronicMetge: String? = null,
+    var tipusDiabetis : String? = null,
+    var dataDiagnosi : Date? = null,
+    var glucosaMoltBaixa : Number? = null,
+    var glucosaBaixa : Number? = null,
+    var glucosaAlta : Number? = null,
+    var glucosaMoltAlta : Number? = null,
+    var glucosaBaixaDespresApat : Number? = null,
+    var glucosaAltaDespresApat : Number? = null
 ) {
 
 }

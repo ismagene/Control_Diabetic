@@ -4,74 +4,211 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
-            type="com.ismasoft.controldiabetic.viewModel.RegistreViewModel"/>
+            type="com.ismasoft.controldiabetic.viewModel.RegistreViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="20dp"
-        tools:context=".ui.activities.RegistreActivity">
+        android:padding="12dp">
 
-        <EditText
-            android:id="@+id/loginName"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginBottom="30dp"
-            android:inputType="textPersonName"
-            android:hint="@string/loginNom"
-            android:autofillHints="" />
+            android:layout_above="@id/buttonRegister">
 
-        <EditText
-            android:id="@+id/loginSurname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginBottom="30dp"
-            android:inputType="textPersonName"
-            android:hint="@string/loginCognom"
-            android:autofillHints="" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                tools:context=".ui.activities.RegistreActivity">
 
-        <EditText
-            android:id="@+id/loginEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginBottom="30dp"
-            android:inputType="textEmailAddress"
-            android:hint="@string/loginEmail"
-            android:autofillHints="" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personalData"
+                    android:textStyle="bold"/>
 
-        <EditText
-            android:id="@+id/loginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginBottom="30dp"
-            android:inputType="textPassword"
-            android:hint="@string/loginPassword"
-            android:autofillHints="" />
+                <EditText
+                    android:id="@+id/loginName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginNom"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/loginSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginCognom"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/loginBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginBirthday"
+                    android:inputType="date" />
+
+                <EditText
+                    android:id="@+id/loginEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginEmail"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/loginGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginGenre" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/loginWeight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/loginWeight"
+                        android:inputType="numberDecimal" />
+
+                    <EditText
+                        android:id="@+id/loginHeight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/loginHeight"
+                        android:inputType="numberDecimal" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/loginDiabetesType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginDiabetesType" />
+
+                <EditText
+                    android:id="@+id/loginDiagnosisDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginDiagnosisDate" />
+
+                <EditText
+                    android:id="@+id/loginGlucoseRank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginDiagnosisDate" />
+
+                <EditText
+                    android:id="@+id/loginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginPassword"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personalData"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/loginMedicalCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginMedicalCenter" />
+
+                <EditText
+                    android:id="@+id/loginDoctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginDoctor" />
+
+                <EditText
+                    android:id="@+id/loginEmailMedicalCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="6dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginEmailMedicalCenter" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:text="@string/crearCompte"
-            app:backgroundTint="#00BCD4"/>
-
-        <Button
-            android:id="@+id/buttonTornar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tornar"
-            android:layout_marginBottom="30dp"
             app:backgroundTint="#00BCD4" />
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

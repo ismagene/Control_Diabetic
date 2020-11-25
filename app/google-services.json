@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "195953859969",
-    "firebase_url": "https://control-diabetic.firebaseio.com",
-    "project_id": "control-diabetic",
-    "storage_bucket": "control-diabetic.appspot.com"
+    "project_number": "936566313186",
+    "firebase_url": "https://control-diabetic-bbdd.firebaseio.com",
+    "project_id": "control-diabetic-bbdd",
+    "storage_bucket": "control-diabetic-bbdd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:195953859969:android:3aa931effd68aff9c51c80",
+        "mobilesdk_app_id": "1:936566313186:android:9b02da03a78c684e95cebb",
         "android_client_info": {
           "package_name": "com.ismasoft.controldiabetic"
         }
       },
       "oauth_client": [
         {
-          "client_id": "195953859969-5sc8kkajqi68viglv0jf8gthp83ks74j.apps.googleusercontent.com",
+          "client_id": "936566313186-vrk99je6746o8qk54svugp6qsl6cb25c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ismasoft.controldiabetic",
+            "certificate_hash": "2b0e72914eb572125126b27188d7560844a7f77e"
+          }
+        },
+        {
+          "client_id": "936566313186-qtakvs337qehksbg7d6r7uau24cssklr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTIjGmkAvapUZO6MBMKqr4HKBHkYzisM4"
+          "current_key": "AIzaSyDNFQW3JY8qSPUw9M-I898rx8z7gvlj8zM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "195953859969-5sc8kkajqi68viglv0jf8gthp83ks74j.apps.googleusercontent.com",
+              "client_id": "936566313186-qtakvs337qehksbg7d6r7uau24cssklr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
