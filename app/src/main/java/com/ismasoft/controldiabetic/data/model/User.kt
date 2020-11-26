@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.data.model
 
+import java.net.PasswordAuthentication
 import java.util.*
 
 data class User(
@@ -8,9 +9,11 @@ data class User(
     var segonCognom: String? = null,
     var dataNaixement: Date? = null,
     var correuElectronic: String? = null,
+    var contrasenya: String? = null,
     var genere: String? = null,
     var pes: Number? = null,
     var altura: Number? = null,
+
     var centre: String? = null,
     var nomMetge: String? = null,
     var correuElectronicMetge: String? = null,

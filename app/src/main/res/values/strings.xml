@@ -14,10 +14,11 @@
 
     <!-- Strings related to registre -->
     <string name="loginNom">Nom</string>
-    <string name="loginCognom">Primer Cognoms</string>
+    <string name="loginCognom">Primer Cognom</string>
     <string name="loginCognom2">Segon Cognom</string>
     <string name="loginEmail">Correu electrònic</string>
     <string name="loginPassword">Contrasenya</string>
+    <string name="continuarRegistre">Continuar</string>
     <string name="crearCompte">Crear compte</string>
     <string name="tornar">Tornar</string>
     <string name="titolRegistre">Registre</string>
