@@ -20,7 +20,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/buttonRegister">
+            android:layout_above="@id/buttonContinuar"
+            android:layout_marginBottom="183dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,58 +34,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/personalData"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/loginName"
+                    android:id="@+id/loginNom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginNom"
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/loginSurname"
+                    android:id="@+id/loginCognom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginCognom"
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/loginBirthday"
+                    android:id="@+id/loginCognom2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/loginCognom2"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/loginNaixament"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginBirthday"
                     android:inputType="date" />
 
                 <EditText
-                    android:id="@+id/loginEmail"
+                    android:id="@+id/loginGenere"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginEmail"
-                    android:inputType="textEmailAddress" />
-
-                <EditText
-                    android:id="@+id/loginGenre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginGenre" />
@@ -96,11 +97,11 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/loginWeight"
+                        android:id="@+id/loginPes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:layout_marginStart="6dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:autofillHints=""
                         android:ems="10"
@@ -108,7 +109,7 @@
                         android:inputType="numberDecimal" />
 
                     <EditText
-                        android:id="@+id/loginHeight"
+                        android:id="@+id/loginAltura"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -122,93 +123,37 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/loginDiabetesType"
+                    android:id="@+id/loginCorreuElectronic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:hint="@string/loginDiabetesType" />
-
-                <EditText
-                    android:id="@+id/loginDiagnosisDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginDiagnosisDate" />
-
-                <EditText
-                    android:id="@+id/loginGlucoseRank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginDiagnosisDate" />
+                    android:hint="@string/loginEmail"
+                    android:inputType="textEmailAddress" />
 
                 <EditText
                     android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginBottom="10dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginPassword"
                     android:inputType="textPassword" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/personalData"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/loginMedicalCenter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginMedicalCenter" />
-
-                <EditText
-                    android:id="@+id/loginDoctor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginDoctor" />
-
-                <EditText
-                    android:id="@+id/loginEmailMedicalCenter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="6dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/loginEmailMedicalCenter" />
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
         <Button
-            android:id="@+id/buttonRegister"
+            android:id="@+id/buttonContinuar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/crearCompte"
+            android:text="@string/continuarRegistre"
             app:backgroundTint="#00BCD4" />
     </RelativeLayout>
 </layout>
