@@ -75,15 +75,19 @@ class LoginActivity : AppCompatActivity() {
 
                     validacionsLogin()
 
-                    /* Si el valor logged es true, es que s'ha fet login correctament i anirem al menú principal */
-                    if (viewModel?.logged?.value == true) {
-                        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
-                        startActivity(intent)
-                        guardarUsuariAlPreference(binding)
-                    }
-                    login.isEnabled = true
-                    registrarse.isEnabled = true
+                    scope.cancel()
                 }
+                while(scope.isActive){
+
+                }
+                /* Si el valor logged es true, es que s'ha fet login correctament i anirem al menú principal */
+                if (viewModel?.logged?.value == true) {
+                    intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
+                    startActivity(intent)
+                    guardarUsuariAlPreference(binding)
+                }
+                login.isEnabled = true
+                registrarse.isEnabled = true
 
                 // Desbloquejem que no es permeti fer clics
                 window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

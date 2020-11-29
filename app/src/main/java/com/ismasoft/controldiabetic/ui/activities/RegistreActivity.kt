@@ -52,17 +52,16 @@ class RegistreActivity : AppCompatActivity() {
         /** Funció quan apretem Continuar al registre **/
         binding.buttonContinuar.setOnClickListener {
 
-            if(validacionsRegistre()){
+//            if(validacionsRegistre()){
 
-                var prova :Boolean = false
                 scope.launch {
                     val deferred = async {
                         // Es comprova que l'email no estigui ja registrat
-                        viewModel.onButtonContinuarClicked(binding.loginCorreuElectronic.text.toString())
+                        viewModel?.onButtonContinuarClicked(binding.loginCorreuElectronic.text.toString())
                     }
                     deferred.await()
-//
-                    if (viewModel?.mailTrobat?.value == false) {
+
+                    if (viewModel.mailTrobat.value == false) {
                         anarALaSegonaPaginaDeRegistre()
                     }
                     else{
@@ -70,7 +69,7 @@ class RegistreActivity : AppCompatActivity() {
                     }
                 }
 
-            }
+//            }
         }
 
         binding.loginNaixament.setOnFocusChangeListener { v, hasFocus ->
@@ -218,7 +217,7 @@ class RegistreActivity : AppCompatActivity() {
         }else{
             var mailCorrecte = android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginCorreuElectronic.text.toString()).matches()
             if(!mailCorrecte){
-                binding.loginCorreuElectronic.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+                binding.loginCorreuElectronic.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
                 Toast.makeText(this, "El format del correu electrònic no es correcte", Toast.LENGTH_SHORT).show()
                 return false
             }

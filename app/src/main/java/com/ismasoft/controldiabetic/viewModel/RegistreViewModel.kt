@@ -4,10 +4,9 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.RegistreRepository
-import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import kotlinx.coroutines.*
 
-class RegistreViewModel(application: Application) : AndroidViewModel(application), RegistreRepositoryInterface {
+class RegistreViewModel(application: Application) : AndroidViewModel(application){
 
     // Definim el repository per accedir a la BBDD
     private var repository = RegistreRepository(application)
@@ -20,28 +19,25 @@ class RegistreViewModel(application: Application) : AndroidViewModel(application
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> get() = _message
 
-    private val registreInterface : RegistreRepositoryInterface = this
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
-
+//    private val registreInterface : RegistreRepositoryInterface = this
+//
     suspend fun onButtonContinuarClicked(correuElectronic: String) {
         // inicialitzem el valor del missatge de resposta.
         _message.value = ""
         coroutineScope {
             val deferredOne = async {
                 //Fer consulta ala BBDD si existeix l'email insertat.
-                    repository.comprobarExisteixEmail(correuElectronic)
-                    _message.value = withContext(Dispatchers.IO) {
-                        if (_mailTrobat.value == true) {
-                            "Succes"
-                        } else {
-                            "Failure"
-                        }
+                repository.comprobarExisteixEmail(correuElectronic)
+                _message.value = withContext(Dispatchers.IO) {
+                    if (_mailTrobat.value == true) {
+                        "Succes"
+                    } else {
+                        "Failure"
                     }
+                }
             }
             deferredOne.await()
         }
-
-
     }
 
     fun onButtonRegistreClicked(usuari: User) : Boolean{
@@ -51,13 +47,13 @@ class RegistreViewModel(application: Application) : AndroidViewModel(application
         return true
     }
 
-    override fun comprobarExisteixEmailOK() {
-        _mailTrobat.value = true
-    }
-
-    override fun comprobarExisteixEmailNOK() {
-        _mailTrobat.value = false
-    }
+//    override fun comprobarExisteixEmailOK() {
+//        _mailTrobat.value = true
+//    }
+//
+//    override fun comprobarExisteixEmailNOK() {
+//        _mailTrobat.value = false
+//    }
 
 
 }

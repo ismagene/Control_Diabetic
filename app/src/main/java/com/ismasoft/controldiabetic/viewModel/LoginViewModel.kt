@@ -36,7 +36,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
                 if (validacionsEntrada(user, pass)) {
                     repository.requestLogin(user, pass)
                     _message.value = withContext(Dispatchers.IO) {
-
                         if (_logged.value == true) {
                             "Succes"
                         } else {

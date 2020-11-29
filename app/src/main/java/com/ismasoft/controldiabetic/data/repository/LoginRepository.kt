@@ -15,15 +15,13 @@ class LoginRepository(val application: Application) {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var logged = MutableLiveData<Boolean>()
 
-    fun requestLogin(mail:String,password:String)  {
+    suspend fun requestLogin(mail:String,password:String)  {
         firebaseAuth.signInWithEmailAndPassword(mail, password)
                 .addOnCompleteListener{
             if(it.isSuccessful){
-//                Toast.makeText(application.baseContext,"this is toast message",Toast.LENGTH_SHORT).show()
                 logged.value = it.isSuccessful
                 print("Login correcte")
             }else {
-//                Toast.makeText(application.baseContext,"this is toast message",Toast.LENGTH_SHORT).show()
                 logged.value = false
                 print("Login incorrecte")
             }

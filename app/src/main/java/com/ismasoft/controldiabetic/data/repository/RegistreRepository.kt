@@ -25,7 +25,7 @@ class RegistreRepository(val application: Application) {
                     if (document.get("correuElectronic").toString().equals(mail)) {
                         mailTrobat.value = true
 //                        registreRepositoryInterface.comprobarExisteixEmailOK()
-                        break
+//                        break
                     }
                 }
 //                if(mailTrobat.value == false){
