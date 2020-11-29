@@ -13,24 +13,22 @@
     <string name="guardarUsuari">Mantenir conectat</string>
 
     <!-- Strings related to registre -->
-    <string name="loginNom">Nom</string>
-    <string name="loginCognom">Primer Cognom</string>
-    <string name="loginCognom2">Segon Cognom</string>
-    <string name="loginEmail">Correu electrònic</string>
-    <string name="loginPassword">Contrasenya</string>
+    <string name="personalData">Dades personals</string>
+    <string name="loginNom">Nom *</string>
+    <string name="loginCognom">Primer Cognom *</string>
+    <string name="loginCognom2">Segon Cognom *</string>
+    <string name="loginBirthday">Data naixement *</string>
+    <string name="loginGenre">Gènere *</string>
+    <string name="loginHeight">Alçada *</string>
+    <string name="loginWeight">Pes *</string>
+    <string name="loginEmail">Correu electrònic *</string>
+    <string name="loginPassword">Contrasenya *</string>
     <string name="continuarRegistre">Continuar</string>
     <string name="crearCompte">Crear compte</string>
     <string name="tornar">Tornar</string>
     <string name="titolRegistre">Registre</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Strings related to registre -->
-    <string name="personalData">Dades personals</string>
-    <string name="loginBirthday">Data naixement</string>
-    <string name="loginGenre">Gènere</string>
-    <string name="loginHeight">Alçada</string>
-    <string name="loginWeight">Pes</string>
+    <string name="medicalData">Dades mèdiques</string>
     <string name="loginDiabetesType">Tipus diabetis</string>
     <string name="loginDiagnosisDate">Data diagnosi</string>
     <string name="loginGlucoseRank">Ranc glucosa</string>

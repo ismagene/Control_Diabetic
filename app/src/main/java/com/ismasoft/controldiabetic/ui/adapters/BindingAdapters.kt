@@ -7,3 +7,4 @@ import androidx.databinding.BindingAdapter
 fun View.bindVisible(visible:Boolean?){
     visibility = if (visible == true) View.VISIBLE else View.GONE
 }
+

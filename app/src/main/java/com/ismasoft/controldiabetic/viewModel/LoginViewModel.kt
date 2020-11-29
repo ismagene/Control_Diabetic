@@ -36,11 +36,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
                 if (validacionsEntrada(user, pass)) {
                     repository.requestLogin(user, pass)
                     _message.value = withContext(Dispatchers.IO) {
-                        Thread.sleep(2000)
+
                         if (_logged.value == true) {
                             "Succes"
                         } else {
-                            "Failure"
+                            "Error al fer login"
                         }
                     }
                 }

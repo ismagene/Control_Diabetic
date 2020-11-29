@@ -18,10 +18,10 @@
         android:padding="12dp">
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="399dp"
+            android:layout_height="649dp"
             android:layout_above="@id/buttonContinuar"
-            android:layout_marginBottom="183dp">
+            android:layout_marginBottom="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,22 +102,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/loginWeight"
                         android:inputType="numberDecimal" />
+
+                    <TextView
+                        android:id="@+id/textViewPes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Kg" />
 
                     <EditText
                         android:id="@+id/loginAltura"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/loginHeight"
                         android:inputType="numberDecimal" />
+
+                    <TextView
+                        android:id="@+id/textViewAltura"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="cm" />
+
 
 
                 </LinearLayout>
