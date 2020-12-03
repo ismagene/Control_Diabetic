@@ -18,9 +18,17 @@
     <string name="loginCognom">Primer Cognom *</string>
     <string name="loginCognom2">Segon Cognom *</string>
     <string name="loginBirthday">Data naixement *</string>
-    <string name="loginGenre">Gènere *</string>
+    <string name="titolGenere">Gènere *</string>
+    <string-array name="genere">
+        <item>Selecciona</item>
+        <item>Home</item>
+        <item>Dona</item>
+        <item>Altres</item>
+    </string-array>
     <string name="loginHeight">Alçada *</string>
+    <string name="mesuraPes">Kg</string>
     <string name="loginWeight">Pes *</string>
+    <string name="mesuraAltura">Cm</string>
     <string name="loginEmail">Correu electrònic *</string>
     <string name="loginPassword">Contrasenya *</string>
     <string name="continuarRegistre">Continuar</string>
@@ -29,11 +37,32 @@
     <string name="titolRegistre">Registre</string>
 
     <string name="medicalData">Dades mèdiques</string>
-    <string name="loginDiabetesType">Tipus diabetis</string>
-    <string name="loginDiagnosisDate">Data diagnosi</string>
-    <string name="loginGlucoseRank">Ranc glucosa</string>
-    <string name="loginMedicalCenter">Centre</string>
-    <string name="loginDoctor">Metge</string>
-    <string name="loginEmailMedicalCenter">Correu electrònic</string>
+    <string name="loginMedicalCenter">Nom del centre *</string>
+    <string name="loginDoctor">Nom del metge *</string>
+    <string name="loginEmailMedicalCenter">Correu electrònic del metge *</string>
+    <string name="titolTipusDiabetis">Tipus diabetis</string>
+    <string-array name="loginDiabetesType">
+        <item>Selecciona</item>
+        <item>Tipus 1</item>
+        <item>Tipus 2</item>
+        <item>Gestacional</item>
+        <item>LADA o Tipus 1.5</item>
+        <item>MODY</item>
+        <item>Secundaria</item>
+        <item>Sense diagnòsis</item>
+    </string-array>
+    <string name="loginDiagnosisDate">Data diagnosi *</string>
+    <string name="glucosaData">Dades glucosa - Els valors entre parentesis son estàndars, que s"'"utilitzaràn en cas de no introduirne cap.</string>
+    <string name="mesuraGlucosa">mg/dL</string>
+    <string name="glucosaMoltBaixa">Molt baixa (54)</string>
+    <string name="glucosaBaixa">Baixa (80)</string>
+    <string name="glucosaBaixaDespresApat">Baixa desprès d"'"un àpat (120)</string>
+    <string name="glucosaMoltAlta">Molt alta (250)</string>
+    <string name="glucosaAlta">Alta (130)</string>
+    <string name="glucosaAltaDespresApat">Alta desprès d"'"un àpat (180)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

@@ -10,18 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
 
-        <activity android:name=".ui.activities.MenuPrincipalActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity
-            android:name=".ui.activities.RegistreActivity"
-            android:label="@string/titolRegistre"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.activities.Registre2Activity"
-            android:label="@string/titolRegistre"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity
-            android:name=".ui.activities.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -31,6 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.activities.RegistreActivity"
+            android:label="@string/titolRegistre"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.activities.Registre2Activity"
+            android:label="@string/titolRegistre"
+            android:windowSoftInputMode="adjustResize">
+       </activity>
+
+        <activity android:name=".ui.activities.MenuPrincipalActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
     </application>
 
 </manifest>

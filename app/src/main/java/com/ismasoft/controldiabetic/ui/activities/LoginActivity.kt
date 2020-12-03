@@ -1,21 +1,23 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.LoginViewModel
-import kotlinx.coroutines.*
 
-
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
@@ -38,8 +40,6 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val scope = CoroutineScope(Job() + Dispatchers.Main)
-
         /* Preferences per guardar dades en un xml local */
         preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
         editor = preferences.edit()
@@ -47,50 +47,23 @@ class LoginActivity : AppCompatActivity() {
         colorHintUser = binding.username.hintTextColors
         colorHintPass = binding.password.hintTextColors
 
+        val loginRepositoryInterface : LoginRepositoryInterface = this
+
         recuperarUsuariDelPreference(binding)
 
         with(binding){
 
             /* Funció Login */
             login.setOnClickListener {
-                /* Deseleccionem els valors dels editText perquè s'amagui el teclat i desabilitar els botons perquè fem una crida amb coroutine al Login*/
-                login.isEnabled = false
-                registrarse.isEnabled = false
-
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(username.windowToken, 0)
+                // TODO cridar al hideKeyboard
 
                 // Bloquejem que es permeti fer clics durant el proces
                 window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-                scope.launch {
-                    val deferred = async {
-                        viewModel?.onButtonLoginClicked(
-                                username.text.toString(),
-                                password.text.toString()
-                        )
-                    }
-                    deferred.await()
-
-                    validacionsLogin()
-
-                    scope.cancel()
-                }
-                while(scope.isActive){
-
-                }
-                /* Si el valor logged es true, es que s'ha fet login correctament i anirem al menú principal */
-                if (viewModel?.logged?.value == true) {
-                    intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
-                    startActivity(intent)
-                    guardarUsuariAlPreference(binding)
-                }
-                login.isEnabled = true
-                registrarse.isEnabled = true
-
-                // Desbloquejem que no es permeti fer clics
-                window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                viewModel?.onButtonLoginClicked(username.text.toString(),password.text.toString(),loginRepositoryInterface)
             }
 
             /* Funció de registre */
@@ -104,17 +77,28 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            username.setOnFocusChangeListener { v, hasFocus ->
+            username.setOnClickListener() {
                 username.setHintTextColor(colorHintUser)
                 password.setHintTextColor(colorHintPass)
             }
-
-            password.setOnFocusChangeListener { v, hasFocus ->
+            username.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus) {
+                    username.setHintTextColor(colorHintUser)
+                    password.setHintTextColor(colorHintPass)
+                }
+            }
+            password.setOnClickListener() {
                 username.setHintTextColor(colorHintUser)
                 password.setHintTextColor(colorHintPass)
             }
+            password.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    username.setHintTextColor(colorHintUser)
+                    password.setHintTextColor(colorHintPass)
+                }
+            }
 
-            guardarUsuari.setOnFocusChangeListener { v, hasFocus ->
+            guardarUsuari.setOnClickListener() {
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(username.windowToken, 0)
@@ -171,6 +155,21 @@ class LoginActivity : AppCompatActivity() {
                 binding.password.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             }
         }
+    }
+
+    override fun credencialsOK() {
+        // Desbloquejem que no es permeti fer clics
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
+        startActivity(intent)
+        guardarUsuariAlPreference(binding)
+    }
+
+    override fun credencialsNOK() {
+        Log.d("LoginActivity", "Les credencials no existeixen")
+        // Desbloquejem que no es permeti fer clics
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        validacionsLogin()
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.databinding.ActivityMainBinding
 import com.ismasoft.controldiabetic.viewModel.MainViewModel
 import kotlinx.coroutines.*
@@ -18,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         viewModel = ViewModelProvider(this).get()
 
         binding.viewModel = viewModel

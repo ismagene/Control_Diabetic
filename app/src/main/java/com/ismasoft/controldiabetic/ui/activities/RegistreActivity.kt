@@ -5,23 +5,23 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.data.model.User
+import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.selects.select
 import java.util.*
-import kotlin.math.absoluteValue
 
-class RegistreActivity : AppCompatActivity() {
+
+class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private lateinit var viewModel: RegistreViewModel
     private lateinit var binding: ActivityRegistreBinding
@@ -47,106 +47,98 @@ class RegistreActivity : AppCompatActivity() {
         colorHintDefault = binding.loginNom.hintTextColors
         colorTextDefault = binding.loginNom.textColors
 
-        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        // Opcións del spiner
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.genere,
+            android.R.layout.simple_spinner_dropdown_item
+        )
+        binding.loginGenereSpiner.adapter = adapter
 
         /** Funció quan apretem Continuar al registre **/
         binding.buttonContinuar.setOnClickListener {
 
-//            if(validacionsRegistre()){
-
-                scope.launch {
-                    val deferred = async {
-                        // Es comprova que l'email no estigui ja registrat
-                        viewModel?.onButtonContinuarClicked(binding.loginCorreuElectronic.text.toString())
-                    }
-                    deferred.await()
-
-                    if (viewModel.mailTrobat.value == false) {
-                        anarALaSegonaPaginaDeRegistre()
-                    }
-                    else{
-                        errorCorreuElectronicExistent()
-                    }
-                }
-
-//            }
-        }
-
-        binding.loginNaixament.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) {
+            if(validacionsRegistre()){
+                // Es comprova que l'email no estigui ja registrat
+                viewModel.onButtonContinuarClicked(binding.loginCorreuElectronic.text.toString(),this)
+            }
+            else{
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
+            }
+        }
 
-                binding.loginNaixament.setHintTextColor(colorHintDefault)
-
-                val c = Calendar.getInstance()
-                val year = c.get(Calendar.YEAR)
-                val month = c.get(Calendar.MONTH)
-                val day = c.get(Calendar.DAY_OF_MONTH)
-
-                val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
-                    // Display Selected date in textbox
-                    binding.loginNaixament.setText("$dayOfMonth/$monthOfYear/$year")
-                }, year, month, day)
-
-                dpd.show()
+        /* Recuperem els valors de Hint i de Color del text si han estat marcats com error */
+        binding.loginNom.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) {
+                binding.loginNom.setHintTextColor(colorHintDefault)
+            }
+        }
+        binding.loginCognom.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) binding.loginNom.setHintTextColor(colorHintDefault)
+        }
+        binding.loginCognom2.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) binding.loginCognom2.setHintTextColor(colorHintDefault)
+        }
+        binding.loginNaixament.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) {
+                obrirCalendariPerSeleccionarData()
             }
         }
         binding.loginNaixament.setOnClickListener {
-
-            /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
-
-            binding.loginNaixament.setHintTextColor(colorHintDefault)
-
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
-                // Display Selected date in textbox
-                binding.loginNaixament.setText("$dayOfMonth/$monthOfYear/$year")
-            }, year, month, day)
-
-            dpd.show()
-
+            obrirCalendariPerSeleccionarData()
         }
-
-
-        binding.loginNom.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) binding.loginNom.setHintTextColor(colorHintDefault)
+        binding.loginGenereSpiner.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) binding.loginGenere.setTextColor(colorHintDefault)
         }
-        binding.loginCognom.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) binding.loginNom.setHintTextColor(colorHintDefault)
-        }
-        binding.loginCognom2.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) binding.loginCognom2.setHintTextColor(colorHintDefault)
-        }
-        binding.loginGenere.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) binding.loginGenere.setHintTextColor(colorHintDefault)
-        }
-        binding.loginPes.setOnFocusChangeListener { v, hasFocus ->
+        binding.loginPes.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.loginPes.setHintTextColor(colorHintDefault)
         }
-        binding.loginAltura.setOnFocusChangeListener { v, hasFocus ->
+        binding.loginAltura.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.loginAltura.setHintTextColor(colorHintDefault)
         }
-        binding.loginCorreuElectronic.setOnFocusChangeListener { v, hasFocus ->
+        binding.loginCorreuElectronic.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
                 binding.loginCorreuElectronic.setHintTextColor(colorHintDefault)
                 binding.loginCorreuElectronic.setTextColor(colorTextDefault)
             }
         }
-        binding.loginPassword.setOnFocusChangeListener { v, hasFocus ->
+        binding.loginPassword.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
                 binding.loginPassword.setHintTextColor(colorHintDefault)
                 binding.loginPassword.setTextColor(colorTextDefault)
             }
         }
 
+    }
+
+    private fun obrirCalendariPerSeleccionarData(){
+        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
+
+        binding.loginNaixament.setHintTextColor(colorHintDefault)
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
+                // Display Selected date in textbox
+                binding.loginNaixament.setText("$dayOfMonth/$monthOfYear/$year")
+            },
+            year,
+            month,
+            day
+        )
+
+        dpd.show()
+        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+        inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
     }
 
     private fun errorCorreuElectronicExistent() {
@@ -157,15 +149,15 @@ class RegistreActivity : AppCompatActivity() {
     private fun anarALaSegonaPaginaDeRegistre() {
         intent = Intent(this, Registre2Activity::class.java)
         val b : Bundle = Bundle()
-        b.putString("nom",binding.loginNom.text.toString())
-        b.putString("cognom",binding.loginCognom.text.toString())
-        b.putString("cognom2",binding.loginCognom2.text.toString())
-        b.putString("dataNaixement",binding.loginNaixament.text.toString())
-        b.putString("genere",binding.loginGenere.text.toString())
-        b.putString("pes",binding.loginPes.text.toString())
-        b.putString("altura",binding.loginAltura.text.toString())
-        b.putString("correuElectronic",binding.loginCorreuElectronic.text.toString())
-        b.putString("contrasenya",binding.loginPassword.text.toString())
+        b.putString("nom", binding.loginNom.text.toString())
+        b.putString("cognom", binding.loginCognom.text.toString())
+        b.putString("cognom2", binding.loginCognom2.text.toString())
+        b.putString("dataNaixement", binding.loginNaixament.text.toString())
+        b.putString("genere", binding.loginGenereSpiner.selectedItem.toString())
+        b.putString("pes", binding.loginPes.text.toString())
+        b.putString("altura", binding.loginAltura.text.toString())
+        b.putString("correuElectronic", binding.loginCorreuElectronic.text.toString())
+        b.putString("contrasenya", binding.loginPassword.text.toString())
         intent.putExtras(b)
         startActivity(intent)
     }
@@ -195,8 +187,8 @@ class RegistreActivity : AppCompatActivity() {
             Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginGenere.text == null || binding.loginGenere.text.toString() == ""){
-            binding.loginGenere.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.loginGenereSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER){
+            binding.loginGenere.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El genere és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -217,21 +209,46 @@ class RegistreActivity : AppCompatActivity() {
         }else{
             var mailCorrecte = android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginCorreuElectronic.text.toString()).matches()
             if(!mailCorrecte){
-                binding.loginCorreuElectronic.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(this, "El format del correu electrònic no es correcte", Toast.LENGTH_SHORT).show()
+                binding.loginCorreuElectronic.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+                Toast.makeText(
+                    this,
+                    "El format del correu electrònic no es correcte",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return false
             }
         }
         if(binding.loginPassword.text == null || binding.loginPassword.text.toString() == "" || binding.loginPassword.text.length < 6){
             if(binding.loginPassword.text.length < 6){
                 binding.loginPassword.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(this, "La contrasenya ha de ser mínim de 6 caracters", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "La contrasenya ha de ser mínim de 6 caracters",
+                    Toast.LENGTH_SHORT
+                ).show()
             }else{
                 binding.loginPassword.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
                 Toast.makeText(this, "La contrasenya és un camp obligatori", Toast.LENGTH_SHORT).show()
             }
             return false
         }
+        return true
+    }
+
+    override fun comprobarExisteixEmailOK() {
+        errorCorreuElectronicExistent()
+    }
+    override fun comprobarExisteixEmailNOK() {
+        anarALaSegonaPaginaDeRegistre()
+    }
+
+    override fun registreOK() {}
+    override fun registreNOK() {}
+    override fun registreInsertarOK() {}
+    override fun registreInsertarNOK() {}
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
         return true
     }
 

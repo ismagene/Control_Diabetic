@@ -21,5 +21,6 @@ object Constants {
 
     const val COLOR_ERROR_FALTA_CAMP : Int = -65536
 
+    const val OPCIO_DEFECTE_SPINER : String = "Selecciona"
 
 }

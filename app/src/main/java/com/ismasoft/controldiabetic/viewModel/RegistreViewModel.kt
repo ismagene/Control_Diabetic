@@ -3,57 +3,27 @@ package com.ismasoft.controldiabetic.viewModel
 import android.app.Application
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.User
+import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.data.repository.RegistreRepository
-import kotlinx.coroutines.*
+import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 
 class RegistreViewModel(application: Application) : AndroidViewModel(application){
 
     // Definim el repository per accedir a la BBDD
     private var repository = RegistreRepository(application)
-    private val _mailTrobat : MutableLiveData<Boolean>
-    init {
-        _mailTrobat = repository.mailTrobat
-    }
-    val mailTrobat : LiveData<Boolean> get() = _mailTrobat
 
-    private val _message = MutableLiveData<String>()
-    val message : LiveData<String> get() = _message
-
-//    private val registreInterface : RegistreRepositoryInterface = this
-//
-    suspend fun onButtonContinuarClicked(correuElectronic: String) {
+    fun onButtonContinuarClicked(correuElectronic: String, registreRepositoryInterface : RegistreRepositoryInterface) {
         // inicialitzem el valor del missatge de resposta.
-        _message.value = ""
-        coroutineScope {
-            val deferredOne = async {
-                //Fer consulta ala BBDD si existeix l'email insertat.
-                repository.comprobarExisteixEmail(correuElectronic)
-                _message.value = withContext(Dispatchers.IO) {
-                    if (_mailTrobat.value == true) {
-                        "Succes"
-                    } else {
-                        "Failure"
-                    }
-                }
-            }
-            deferredOne.await()
-        }
+        //Fer consulta ala BBDD si existeix l'email insertat.
+        repository.comprobarExisteixEmail(correuElectronic, registreRepositoryInterface)
     }
 
-    fun onButtonRegistreClicked(usuari: User) : Boolean{
-        repository.requestRegistreUsuari(usuari.correuElectronic.toString(), usuari.contrasenya.toString())
-        repository.insertarUsuariBBDD()
-
-        return true
+    fun onButtonRegistreClicked(usuari: User, registreRepositoryInterface : RegistreRepositoryInterface) {
+        repository.requestRegistreUsuari(usuari.correuElectronic.toString(), usuari.contrasenya.toString(),registreRepositoryInterface)
     }
 
-//    override fun comprobarExisteixEmailOK() {
-//        _mailTrobat.value = true
-//    }
-//
-//    override fun comprobarExisteixEmailNOK() {
-//        _mailTrobat.value = false
-//    }
-
+    fun registreUsuariABBDD(usuari: User, registreRepositoryInterface : RegistreRepositoryInterface){
+        repository.insertarUsuariBBDD(usuari,registreRepositoryInterface)
+    }
 
 }

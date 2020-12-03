@@ -3,68 +3,62 @@ package com.ismasoft.controldiabetic.data.repository
 import android.app.Application
 import android.content.ContentValues.TAG
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
 
 class RegistreRepository(val application: Application) {
 
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    var retornRegistre = MutableLiveData<Boolean>()
-    var mailTrobat = MutableLiveData<Boolean>(false)
 
-    fun comprobarExisteixEmail(mail: String){
-
+    fun comprobarExisteixEmail(mail: String, registreRepositoryInterface : RegistreRepositoryInterface){
+        // call fireBaseService
         db.collection("usuaris")
             .get()
-            .addOnSuccessListener{
-                for(document in it) {
+            .addOnSuccessListener {
+                var mailTrobat = false
+                for (document in it) {
                     Log.d(TAG, "Document recuperat: ${document.id} => ${document.get("correuElectronic")}")
                     if (document.get("correuElectronic").toString().equals(mail)) {
-                        mailTrobat.value = true
-//                        registreRepositoryInterface.comprobarExisteixEmailOK()
-//                        break
+                        mailTrobat = true
+                        registreRepositoryInterface.comprobarExisteixEmailOK()
+                        break
                     }
                 }
-//                if(mailTrobat.value == false){
-//                    registreRepositoryInterface.comprobarExisteixEmailNOK()
-//                }
-            }
-    }
-
-    fun requestRegistreUsuari(mail:String,password:String) {
-
-        // call fireBaseservice
-        firebaseAuth.createUserWithEmailAndPassword(mail, password)
-            .addOnCompleteListener{
-                var prova = it.result
-                if(it.isSuccessful){
-                    retornRegistre.value = it.isSuccessful
-                }else{
-                    retornRegistre.value = false
+                if(!mailTrobat) {
+                    registreRepositoryInterface.comprobarExisteixEmailNOK()
                 }
         }
     }
 
-    fun insertarUsuariBBDD(){
-        var rutaIdUsuari : String =""
+    fun requestRegistreUsuari(mail:String,password:String, registreRepositoryInterface : RegistreRepositoryInterface) {
+
+        // call fireBaseservice
+        firebaseAuth.createUserWithEmailAndPassword(mail, password)
+            .addOnCompleteListener{
+                if(it.isSuccessful){
+                    Log.w(TAG, "Usuari creat a firebase")
+                    registreRepositoryInterface.registreOK()
+                }else{
+                    Log.w(TAG, "Error al crear l'usuari a firebase")
+                    registreRepositoryInterface.registreNOK()
+                }
+        }
+    }
+
+    fun insertarUsuariBBDD(user: com.ismasoft.controldiabetic.data.model.User, registreRepositoryInterface: RegistreRepositoryInterface){
+
         db.collection("usuaris")
             .add(user)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
+                registreRepositoryInterface.registreInsertarOK()
             }
             .addOnFailureListener {
                 Log.w(TAG, "Error adding document", it)
+                registreRepositoryInterface.registreInsertarNOK()
             }
 
     }
-
-    val user = hashMapOf(
-            "first" to "Ada",
-            "last" to "Lovelace",
-            "born" to 1815
-    )
 
 }

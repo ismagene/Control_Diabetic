@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.data.model
 
+import java.sql.Timestamp
 import java.util.*
 
 data class User(
