@@ -84,4 +84,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }

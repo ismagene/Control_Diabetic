@@ -16,6 +16,7 @@ data class User(
         var altura: Number? = null,
         // dades mediques
         var centre: String? = null,
+        var poblacioCentre: String? = null,
         var nomMetge: String? = null,
         var correuElectronicMetge: String? = null,
         var tipusDiabetis: String? = null,

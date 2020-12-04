@@ -16,6 +16,8 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.Constants.REGISTRE_2_CODE
+import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import kotlinx.coroutines.*
 import java.util.*
@@ -55,6 +57,10 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         )
         binding.loginGenereSpiner.adapter = adapter
 
+        // Per tornar endarrera
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         /** Funció quan apretem Continuar al registre **/
         binding.buttonContinuar.setOnClickListener {
 
@@ -64,8 +70,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
             }
             else{
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
+                hideKeyboard(this)
             }
         }
 
@@ -89,8 +94,10 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         binding.loginNaixament.setOnClickListener {
             obrirCalendariPerSeleccionarData()
         }
-        binding.loginGenereSpiner.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus) binding.loginGenere.setTextColor(colorHintDefault)
+        binding.loginGenereSpiner.setOnTouchListener { view, motionEvent ->
+            binding.loginGenere.setTextColor(colorTextDefault)
+            view.performClick()
+            return@setOnTouchListener true
         }
         binding.loginPes.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.loginPes.setHintTextColor(colorHintDefault)
@@ -115,8 +122,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private fun obrirCalendariPerSeleccionarData(){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
+        hideKeyboard(this)
 
         binding.loginNaixament.setHintTextColor(colorHintDefault)
 
@@ -129,7 +135,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.loginNaixament.setText("$dayOfMonth/$monthOfYear/$year")
+                binding.loginNaixament.setText("$dayOfMonth/${monthOfYear+1}/$year")
             },
             year,
             month,
@@ -138,7 +144,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
         dpd.show()
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        inputMethodManager.hideSoftInputFromWindow(binding.loginNaixament.windowToken, 0)
+        hideKeyboard(this)
     }
 
     private fun errorCorreuElectronicExistent() {
@@ -159,7 +165,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         b.putString("correuElectronic", binding.loginCorreuElectronic.text.toString())
         b.putString("contrasenya", binding.loginPassword.text.toString())
         intent.putExtras(b)
-        startActivity(intent)
+        startActivityForResult(intent, constants.REGISTRE_2_CODE)
     }
 
     /** Funció que s'executa al apretar continuar en el registre d'usuari
@@ -251,5 +257,17 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         onBackPressed()
         return true
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            constants.REGISTRE_2_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    finish()
+                }
+            }
+        }
+    }
+
 
 }

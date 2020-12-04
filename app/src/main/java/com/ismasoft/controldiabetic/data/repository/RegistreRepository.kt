@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 
 class RegistreRepository(val application: Application) {
 
@@ -13,7 +14,7 @@ class RegistreRepository(val application: Application) {
 
     fun comprobarExisteixEmail(mail: String, registreRepositoryInterface : RegistreRepositoryInterface){
         // call fireBaseService
-        db.collection("usuaris")
+        db.collection(DB_ROOT_USUARIS)
             .get()
             .addOnSuccessListener {
                 var mailTrobat = false
@@ -48,7 +49,7 @@ class RegistreRepository(val application: Application) {
 
     fun insertarUsuariBBDD(user: com.ismasoft.controldiabetic.data.model.User, registreRepositoryInterface: RegistreRepositoryInterface){
 
-        db.collection("usuaris")
+        db.collection(DB_ROOT_USUARIS)
             .add(user)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")

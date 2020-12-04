@@ -8,4 +8,5 @@ interface RegistreRepositoryInterface {
     fun registreNOK()
     fun registreInsertarOK()
     fun registreInsertarNOK()
+
 }

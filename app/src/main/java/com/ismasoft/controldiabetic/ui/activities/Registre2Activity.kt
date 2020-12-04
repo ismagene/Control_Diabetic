@@ -1,14 +1,12 @@
 package com.ismasoft.controldiabetic.ui.activities
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
+import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +16,9 @@ import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
+import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,12 +36,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registre2)
 
         binding = ActivityRegistre2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider (this).get()
+        viewModel = ViewModelProvider(this).get()
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -58,17 +57,20 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         )
         binding.loginTipusDiabetisSpiner.adapter = adapter
 
+        // Per tornar endarrera
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         binding.buttonRegister.setOnClickListener {
+
+            /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+            hideKeyboard(this)
 
             if(validacionsRegistre()){
                 usuari = inicialitzarUsuari(binding)
-                viewModel.onButtonRegistreClicked(usuari!!,this)
+                viewModel.onButtonRegistreClicked(usuari,this)
             }
-            else{
-                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(binding.loginCentre.windowToken, 0)
-            }
+
         }
 
         /* Recuperem els valors de Hint i de Color del text si han estat marcats com error */
@@ -92,6 +94,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
                 binding.loginEmailMetge.setHintTextColor(colorHintDefault)
                 binding.loginEmailMetge.setTextColor(colorTextDefault)
+        }
+        binding.loginTipusDiabetisSpiner.setOnTouchListener { view, motionEvent ->
+            binding.loginTipusDiabetis.setTextColor(colorTextDefault)
+            view.performClick()
+            return@setOnTouchListener true
         }
         binding.loginDataDiagnosi.setOnFocusChangeListener { _, hasFocus->
             if(hasFocus){
@@ -121,49 +128,50 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         val contrasenya: String? = bundle?.getString("contrasenya")
 
         val centre = binding.loginCentre.text.toString()
+        val poblacioCentre = binding.loginPoblacioCentre.text.toString()
         val nomMetge = binding.loginNomMetge.text.toString()
-        val correuElectronicMetge = binding.loginEmailMetge.toString()
-        val tipusDiabetis = binding.loginTipusDiabetis.toString()
-        val date2 = binding.loginDataDiagnosi.toString()
+        val correuElectronicMetge = binding.loginEmailMetge.text.toString()
+        val tipusDiabetis = binding.loginTipusDiabetisSpiner.selectedItem.toString()
+        val date2 = binding.loginDataDiagnosi.text.toString()
         val dataDiagnosi  = SimpleDateFormat("dd/MM/yyyy").parse(date2)
-        var glucosaMoltBaixa = 0
-        if(binding.loginGlucosaMoltBaixa != null && binding.loginGlucosaMoltBaixa.toString().trim() != ""){
-            glucosaMoltBaixa  = binding.loginGlucosaMoltBaixa.toString().toInt()
+        var glucosaMoltBaixa : Int
+        if(binding.loginGlucosaMoltBaixa.text != null && binding.loginGlucosaMoltBaixa.text.toString().trim() != ""){
+            glucosaMoltBaixa  = binding.loginGlucosaMoltBaixa.text.toString().toInt()
         }else{
             glucosaMoltBaixa = 54
         }
-        var glucosaBaixa = 0
-        if(binding.loginGlucosaBaixa != null && binding.loginGlucosaBaixa.toString().trim() != ""){
-            glucosaBaixa  = binding.loginGlucosaBaixa.toString().toInt()
+        var glucosaBaixa : Int
+        if(binding.loginGlucosaBaixa.text != null && binding.loginGlucosaBaixa.text.toString().trim() != ""){
+            glucosaBaixa  = binding.loginGlucosaBaixa.text.toString().toInt()
         }else{
            glucosaBaixa = 80
         }
-        var glucosaAlta = 0
-        if(binding.loginGlucosaAlta != null && binding.loginGlucosaAlta.toString().trim() != ""){
-            glucosaAlta  = binding.loginGlucosaAlta.toString().toInt()
+        var glucosaAlta : Int
+        if(binding.loginGlucosaAlta.text != null && binding.loginGlucosaAlta.text.toString().trim() != ""){
+            glucosaAlta  = binding.loginGlucosaAlta.text.toString().toInt()
         }else{
             glucosaAlta = 130
         }
-        var glucosaMoltAlta = 0
-        if(binding.loginGlucosaMoltAlta != null && binding.loginGlucosaMoltAlta.toString().trim() != ""){
-            glucosaMoltAlta  = binding.loginGlucosaMoltAlta.toString().toInt()
+        var glucosaMoltAlta : Int
+        if(binding.loginGlucosaMoltAlta.text != null && binding.loginGlucosaMoltAlta.text.toString().trim() != ""){
+            glucosaMoltAlta  = binding.loginGlucosaMoltAlta.text.toString().toInt()
         }else{
             glucosaMoltAlta = 250
         }
-        var glucosaBaixaDA = 0
-        if(binding.loginGlucosaBaixaDespresApat != null && binding.loginGlucosaBaixaDespresApat.toString().trim() != ""){
-            glucosaBaixaDA  = binding.loginGlucosaBaixaDespresApat.toString().toInt()
+        var glucosaBaixaDA : Int
+        if(binding.loginGlucosaBaixaDespresApat.text != null && binding.loginGlucosaBaixaDespresApat.text.toString().trim() != ""){
+            glucosaBaixaDA  = binding.loginGlucosaBaixaDespresApat.text.toString().toInt()
         }else{
             glucosaBaixaDA = 120
         }
-        var glucosaAltaDA = 0
-        if(binding.loginGlucosaAltaDespresApat != null && binding.loginGlucosaAltaDespresApat.toString().trim() != ""){
-            glucosaAltaDA  = binding.loginGlucosaAltaDespresApat.toString().toInt()
+        var glucosaAltaDA : Int
+        if(binding.loginGlucosaAltaDespresApat.text != null && binding.loginGlucosaAltaDespresApat.text.toString().trim() != ""){
+            glucosaAltaDA  = binding.loginGlucosaAltaDespresApat.text.toString().toInt()
         }else{
             glucosaAltaDA = 120
         }
 
-        return User(nom, cognom, cognom2, dataNaixament, correuElectronic, contrasenya, genere, pesNumeric, alturaNumeric, centre, nomMetge, correuElectronicMetge,
+        return User(nom, cognom, cognom2, dataNaixament, correuElectronic, contrasenya, genere, pesNumeric, alturaNumeric, centre, poblacioCentre, nomMetge, correuElectronicMetge,
                     tipusDiabetis, dataDiagnosi, glucosaMoltBaixa, glucosaBaixa, glucosaAlta, glucosaMoltAlta, glucosaBaixaDA, glucosaAltaDA
         )
 
@@ -216,8 +224,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private fun obrirCalendariPerSeleccionarData(){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(binding.loginDataDiagnosi.windowToken, 0)
+        hideKeyboard(this)
 
         binding.loginDataDiagnosi.setHintTextColor(colorHintDefault)
 
@@ -230,7 +237,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.loginDataDiagnosi.setText("$dayOfMonth/$monthOfYear/$year")
+                binding.loginDataDiagnosi.setText("$dayOfMonth/${monthOfYear+1}/$year")
             },
             year,
             month,
@@ -239,7 +246,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
         dpd.show()
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        inputMethodManager.hideSoftInputFromWindow(binding.loginDataDiagnosi.windowToken, 0)
+        hideKeyboard(this)
     }
 
     override fun comprobarExisteixEmailOK() {}
@@ -254,8 +261,17 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
     }
 
     override fun registreInsertarOK() {
-        intent = Intent(this,MenuPrincipalActivity::class.java)
-        startActivity(intent)
+
+        alert {
+            title = "Registre realitzat"
+            message("S'ha enviat un correu de confirmació del registre al correu electrònic introduit.")
+            cancellable(false)
+            positiveButton("Continuar") {
+                setResult(RESULT_OK)
+                finish()
+            }
+        }.show()
+
     }
 
     override fun registreInsertarNOK() {

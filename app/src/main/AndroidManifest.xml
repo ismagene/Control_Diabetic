@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
-
         <activity
             android:name=".ui.activities.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -25,15 +24,14 @@
         <activity
             android:name=".ui.activities.RegistreActivity"
             android:label="@string/titolRegistre"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.activities.Registre2Activity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.Registre2Activity"
             android:label="@string/titolRegistre"
-            android:windowSoftInputMode="adjustResize">
-       </activity>
-
-        <activity android:name=".ui.activities.MenuPrincipalActivity"
-            android:windowSoftInputMode="adjustResize"/>
-
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".ui.activities.MenuPrincipalActivity"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

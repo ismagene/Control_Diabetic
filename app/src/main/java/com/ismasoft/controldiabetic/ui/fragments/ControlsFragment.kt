@@ -5,7 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
+import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
+import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
+import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,12 +29,25 @@ class ControlsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var viewModel: ControlsViewModel
+    private lateinit var binding: FragmentControlsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        binding = FragmentControlsBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this).get()
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        // Comença el fragment amb data binding
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

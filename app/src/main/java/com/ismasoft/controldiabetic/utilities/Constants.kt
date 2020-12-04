@@ -23,4 +23,7 @@ object Constants {
 
     const val OPCIO_DEFECTE_SPINER : String = "Selecciona"
 
+    /* REQUEST CODES */
+    const val REGISTRE_2_CODE = 100
+
 }

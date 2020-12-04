@@ -1,6 +1,5 @@
 package com.ismasoft.controldiabetic.ui.activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
@@ -56,9 +55,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             /* Funció Login */
             login.setOnClickListener {
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(username.windowToken, 0)
-                // TODO cridar al hideKeyboard
+                hideKeyboard(this@LoginActivity)
 
                 // Bloquejem que es permeti fer clics durant el proces
                 window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -69,8 +66,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             /* Funció de registre */
             registrarse.setOnClickListener {
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(username.windowToken, 0)
+                hideKeyboard(this@LoginActivity)
 
                 /* Accedim a la activitat de registreActivity */
                 intent = Intent(applicationContext, RegistreActivity::class.java)
@@ -138,6 +134,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         /* Accedim a la activitat de registreActivity */
 //        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
 //        startActivity(intent)
+
     }
 
     /** Funció per tractar les validacions del Login **/

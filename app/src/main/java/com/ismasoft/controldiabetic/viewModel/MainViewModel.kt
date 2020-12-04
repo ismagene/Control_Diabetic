@@ -19,7 +19,7 @@ class MainViewModel (application: Application) : AndroidViewModel(application){
             val deferredOne = async {
                 _progressFinish.value = true
                 // Funcions varies inicials de l'aplicació
-                Thread.sleep(2000)
+                Thread.sleep(1000)
             }
             deferredOne.await()
         }
