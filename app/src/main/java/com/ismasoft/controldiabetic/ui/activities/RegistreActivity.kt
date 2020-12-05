@@ -88,11 +88,11 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         binding.loginNaixament.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
-                obrirCalendariPerSeleccionarData()
+                obrirCalendariPerSeleccionarData(binding.loginNaixament.text.toString())
             }
         }
         binding.loginNaixament.setOnClickListener {
-            obrirCalendariPerSeleccionarData()
+            obrirCalendariPerSeleccionarData(binding.loginNaixament.text.toString())
         }
         binding.loginGenereSpiner.setOnTouchListener { view, motionEvent ->
             binding.loginGenere.setTextColor(colorTextDefault)
@@ -120,22 +120,30 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
     }
 
-    private fun obrirCalendariPerSeleccionarData(){
+    private fun obrirCalendariPerSeleccionarData(data: String){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
         hideKeyboard(this)
 
         binding.loginNaixament.setHintTextColor(colorHintDefault)
 
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
+
+        if(data != null && !data.equals("")){
+            var parts = data.split("/")
+            day =  parts[0].toInt()
+            month = parts[1].toInt()-1
+            year = parts[2].toInt()
+        }
+
 
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.loginNaixament.setText("$dayOfMonth/${monthOfYear+1}/$year")
+                binding.loginNaixament.setText("${dayOfMonth.toString().padStart(2,'0')}/${(monthOfYear+1).toString().padStart(2,'0')}/$year")
             },
             year,
             month,

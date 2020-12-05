@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
+        <activity android:name=".ui.activities.AfegirControlActivity"
+            android:label="@string/titolAfegirControl"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
             android:name=".ui.activities.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -28,7 +32,7 @@
         <activity
             android:name=".ui.activities.Registre2Activity"
             android:label="@string/titolRegistre"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activities.MenuPrincipalActivity"
             android:windowSoftInputMode="adjustResize" />

@@ -132,8 +132,8 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             binding.password.setText(contrasenyaGuardada)
         }
         /* Accedim a la activitat de registreActivity */
-//        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
-//        startActivity(intent)
+        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
+        startActivity(intent)
 
     }
 

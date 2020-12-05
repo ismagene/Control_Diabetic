@@ -49,10 +49,10 @@ class RegistreRepository(val application: Application) {
 
     fun insertarUsuariBBDD(user: com.ismasoft.controldiabetic.data.model.User, registreRepositoryInterface: RegistreRepositoryInterface){
 
-        db.collection(DB_ROOT_USUARIS)
-            .add(user)
+        db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
+            .set(user)
             .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
+                Log.d(TAG, "DocumentSnapshot added with ID: ${firebaseAuth.currentUser?.uid.toString()}")
                 registreRepositoryInterface.registreInsertarOK()
             }
             .addOnFailureListener {

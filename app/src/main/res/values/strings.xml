@@ -54,6 +54,7 @@
     <string name="loginDiagnosisDate">Data diagnosi *</string>
     <string name="glucosaData" tools:ignore="StringEscaping">Dades glucosa - Els valors entre parentesis son estàndars, que s\'utilitzaràn en cas de no introduirne cap.</string>
     <string name="mesuraGlucosa">mg/dL</string>
+    <string name="mesuraInsulina">ui</string>
     <string name="glucosaMoltBaixa">Molt baixa (54)</string>
     <string name="glucosaBaixa">Baixa (80)</string>
     <string name="glucosaBaixaDespresApat" tools:ignore="StringEscaping">Baixa desprès d\'un àpat (120)</string>
@@ -63,6 +64,23 @@
 
     <string name="textRegistreFeedback">Registre realitzat.</string>
     <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduit.</string>
+
+    <!-- Strings related to Controls -->
+    <string name="ultimControl">Últim control</string>
+    <string name="literalGlucosa">Glucosa</string>
+    <string name="historic">Històric</string>
+    <string name="ahir">Ahir</string>
+    <string name="setmana">Setmana</string>
+    <string name="mes">Mes</string>
+    <string name="afegirControl">Afegir control</string>
+
+    <string name="titolAfegirControl">Introduir nou Control</string>
+    <string name="guardarControl">Guardar</string>
+    <string name="hora">Hora: </string>
+    <string name="selecciona">Selecciona</string>
+    <string name="dia">Dia</string>
+    <string name="literalInsulina">Insulina</string>
+    <string name="esDespresDapat" tools:ignore="StringEscaping">Es desprès d\'un àpat</string>
 
 
 </resources>

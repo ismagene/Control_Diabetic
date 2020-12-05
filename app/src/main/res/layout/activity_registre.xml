@@ -174,8 +174,6 @@
                     android:hint="@string/loginPassword"
                     android:inputType="textPassword" />
 
-
-
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

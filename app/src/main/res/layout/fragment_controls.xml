@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.ismasoft.controldiabetic.viewModel.ControlsViewModel" />
@@ -15,11 +13,177 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.ControlsFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Controls" />
+            android:padding="12dp">
+
+            <LinearLayout
+                android:id="@+id/layoutTitolsUltimControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/titolUltimControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ultimControl"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ultimControl"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutUltimsControls"
+                android:layout_below="@id/layoutTitolsUltimControl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ultimControlGlucosa"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/style_border_textview"
+                    android:gravity="center"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/ultimControlInsulina"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:text="0 ui"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/style_border_textview"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/botoHistoric"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:text="@string/historic"
+                    android:layout_marginBottom="20dp"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*"
+                    android:orientation="horizontal">
+
+                    <TableRow
+                        android:id="@+id/tableRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/ahir"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/setmana"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/mes"/>
+
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TableRow
+                        android:id="@+id/tableRow2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/historicAhir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0mg/dl"/>
+
+                        <TextView
+                            android:id="@+id/historicSetmana"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0 mg/dl"/>
+
+                        <TextView
+                            android:id="@+id/historicMes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0 mg/dl"/>
+
+                    </TableRow>
+                </TableLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/afegirControl"/>
+        </RelativeLayout>
 
     </FrameLayout>
 </layout>

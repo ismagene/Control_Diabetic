@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
@@ -24,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ControlsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ControlsFragment : Fragment() {
+class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -45,15 +49,19 @@ class ControlsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Comença el fragment amb data binding
+        binding.botoHistoric.text = "hola"
 
+        // Comença el fragment amb data binding
+        // Recuperem tots els controls de l'usuari.
+        viewModel.recuperarLlistaControls(this)
 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_controls, container, false)
+        return inflater.inflate(R.layout.fragment_controls, container, false).rootView
+
     }
 
     companion object {
@@ -75,4 +83,23 @@ class ControlsFragment : Fragment() {
                     }
                 }
     }
+
+    override fun afegirControlOK() {}
+    override fun afegirControlNOK() {}
+    override fun obtenirRangsOK(document: DocumentSnapshot) {}
+    override fun obtenirRangsNOK() {}
+
+
+    override fun llistaControlsOK(llistaControls: List<Control>) {
+        binding.ultimControlGlucosa.text = llistaControls.get(0).valorGlucosa.toString()+" mg/dl"
+
+        // AQUI ES QUAN HO TENIM TOT CARREGAT.
+
+    }
+
+    override fun LlistaControlsNOK() {}
+    override fun modificarControlOK() {}
+    override fun modificarControlNOK() {}
+    override fun eliminarControlOK() {}
+    override fun eliminarControlNOK() {}
 }

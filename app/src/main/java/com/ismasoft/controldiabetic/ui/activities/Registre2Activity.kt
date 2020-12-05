@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -21,6 +20,7 @@ import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.hours
 
 class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
@@ -102,11 +102,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         binding.loginDataDiagnosi.setOnFocusChangeListener { _, hasFocus->
             if(hasFocus){
-                obrirCalendariPerSeleccionarData()
+                obrirCalendariPerSeleccionarData(binding.loginDataDiagnosi.text.toString())
             }
         }
         binding.loginDataDiagnosi.setOnClickListener(){
-            obrirCalendariPerSeleccionarData()
+            obrirCalendariPerSeleccionarData(binding.loginDataDiagnosi.text.toString())
         }
     }
 
@@ -118,7 +118,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         val cognom: String? = bundle?.getString("cognom")
         val cognom2: String? = bundle?.getString("cognom2")
         val date: String? = bundle?.getString("dataNaixement")
-        val dataNaixament = SimpleDateFormat("dd/MM/yyyy").parse(date)
+        val dataNaixament = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
         val genere: String? = bundle?.getString("genere")
         val pes: String? = bundle?.getString("pes")
         val pesNumeric = pes?.toInt()
@@ -133,7 +133,8 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         val correuElectronicMetge = binding.loginEmailMetge.text.toString()
         val tipusDiabetis = binding.loginTipusDiabetisSpiner.selectedItem.toString()
         val date2 = binding.loginDataDiagnosi.text.toString()
-        val dataDiagnosi  = SimpleDateFormat("dd/MM/yyyy").parse(date2)
+        val dataDiagnosi  = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date2 00:00")
+
         var glucosaMoltBaixa : Int
         if(binding.loginGlucosaMoltBaixa.text != null && binding.loginGlucosaMoltBaixa.text.toString().trim() != ""){
             glucosaMoltBaixa  = binding.loginGlucosaMoltBaixa.text.toString().toInt()
@@ -222,22 +223,29 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         return true
     }
 
-    private fun obrirCalendariPerSeleccionarData(){
+    private fun obrirCalendariPerSeleccionarData(data: String){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
         hideKeyboard(this)
 
         binding.loginDataDiagnosi.setHintTextColor(colorHintDefault)
 
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
+
+        if(data != null && !data.equals("")){
+            var parts = data.split("/")
+            day =  parts[0].toInt()
+            month = parts[1].toInt()-1
+            year = parts[2].toInt()
+        }
 
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.loginDataDiagnosi.setText("$dayOfMonth/${monthOfYear+1}/$year")
+                binding.loginDataDiagnosi.setText("${dayOfMonth.toString().padStart(2,'0')}/${(monthOfYear+1).toString().padStart(2,'0')}/$year")
             },
             year,
             month,

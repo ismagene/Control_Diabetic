@@ -25,5 +25,6 @@ object Constants {
 
     /* REQUEST CODES */
     const val REGISTRE_2_CODE = 100
+    const val RETORN_ACTIVITY_OK_CODE = 100
 
 }
