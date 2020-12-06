@@ -10,7 +10,7 @@ interface ControlsRepositoryInterface {
     fun obtenirRangsOK(document: DocumentSnapshot)
     fun obtenirRangsNOK()
 
-    fun llistaControlsOK(document: List<Control>)
+    fun llistaControlsOK(document: HashMap<String,Control>)
     fun LlistaControlsNOK()
 
     fun modificarControlOK()
