@@ -3,12 +3,17 @@ package com.ismasoft.controldiabetic.data.repository
 import android.app.Application
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.DateTime
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
+import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class ControlsRepository(val application: Application) {
 
@@ -53,23 +58,26 @@ class ControlsRepository(val application: Application) {
     }
 
     fun recuperarLlistaControls(controlsRepositoryInterface: ControlsRepositoryInterface) {
-        var llistaControls : MutableList<Control> = ArrayList()
+        var llistaControls : HashMap<String,Control> = HashMap()
 
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
             .get()
             .addOnSuccessListener { result ->
+                Log.d(TAG, "Documents recuperats")
                 for(document in result){
                     var control : Control = Control()
-//                    var data = document.data.get("dataControl")
-//                    control.dataControl?.time ?: data
+                    val data = convertirADateLaDataFirebase(document.data.get("dataControl") as Timestamp)
                     control.valorGlucosa = document.get("valorGlucosa").toString().toInt()
                     control.valorInsulina = document.get("valorInsulina").toString().toInt()
-                    control.dataControl =null
+                    control.dataControl = data
                     control.esDespresDeApat = document.get("esDespresDeApat") as Boolean
 
-                    llistaControls.add(control)
+                    llistaControls.put(document.id.toString(),control)
                 }
                 controlsRepositoryInterface.llistaControlsOK(llistaControls)
+            }
+            .addOnFailureListener{
+                controlsRepositoryInterface.LlistaControlsNOK()
             }
     }
 
