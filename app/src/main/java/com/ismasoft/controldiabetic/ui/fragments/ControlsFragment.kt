@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +16,14 @@ import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
+import com.ismasoft.controldiabetic.ui.activities.Registre2Activity
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+//// TODO: Rename parameter arguments, choose names that match
+//// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+//private const val ARG_PARAM1 = "param1"
+//private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -29,39 +31,48 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ControlsFragment : Fragment(), ControlsRepositoryInterface {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+//    // TODO: Rename and change types of parameters
+//    private var param1: String? = null
+//    private var param2: String? = null
 
     private lateinit var viewModel: ControlsViewModel
-    private lateinit var binding: FragmentControlsBinding
+    private lateinit var bindingFragment: FragmentControlsBinding
+
+    private lateinit var llistaControls: List<Control>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    }
 
-        binding = FragmentControlsBinding.inflate(layoutInflater)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        bindingFragment = FragmentControlsBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
-        binding.botoHistoric.text = "hola"
+        bindingFragment.viewModel = viewModel
+        bindingFragment.lifecycleOwner = this
 
         // Comença el fragment amb data binding
         // Recuperem tots els controls de l'usuari.
         viewModel.recuperarLlistaControls(this)
 
+        bindingFragment.botoHistoric.setOnClickListener(){
+//            intent = Intent(this, Registre2Activity::class.java)
+//            val b : Bundle = Bundle()
+//            b.put("llistaControls", llistaControls)
+//            intent.putExtras(b)
+//            startActivityForResult(intent, constants.REGISTRE_2_CODE)
+        }
+
+        return bindingFragment.root
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_controls, container, false).rootView
+    override fun onResume() {
+        super.onResume()
 
+        // Comença el fragment amb data binding
+        // Recuperem tots els controls de l'usuari.
+        viewModel.recuperarLlistaControls(this)
     }
 
     companion object {
@@ -77,10 +88,10 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
                 ControlsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+//                    arguments = Bundle().apply {
+//                        putString(ARG_PARAM1, param1)
+//                        putString(ARG_PARAM2, param2)
+//                    }
                 }
     }
 
@@ -88,15 +99,9 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     override fun afegirControlNOK() {}
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-
-
     override fun llistaControlsOK(llistaControls: List<Control>) {
-        binding.ultimControlGlucosa.text = llistaControls.get(0).valorGlucosa.toString()+" mg/dl"
-
-        // AQUI ES QUAN HO TENIM TOT CARREGAT.
-
+//        this.llistaControls = llistaControls
     }
-
     override fun LlistaControlsNOK() {}
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}
