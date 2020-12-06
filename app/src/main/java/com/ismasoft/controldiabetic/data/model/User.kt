@@ -10,7 +10,6 @@ data class User(
         var segonCognom: String? = null,
         var dataNaixement: Date? = null,
         var correuElectronic: String? = null,
-        var contrasenya: String? = null,
         var genere: String? = null,
         var pes: Number? = null,
         var altura: Number? = null,

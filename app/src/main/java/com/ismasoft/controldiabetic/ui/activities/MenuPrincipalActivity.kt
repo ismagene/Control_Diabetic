@@ -53,7 +53,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
         mFragmentManager.beginTransaction().add(R.id.frameLayout, perfilPersonalFragment, "perfilPersonal").hide(perfilPersonalFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, controlsFragment, "controls").commit()
 
-
         this.binding.navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.controls -> {
@@ -96,8 +95,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
                 intent = Intent(applicationContext, AfegirControlActivity::class.java)
                 startActivityForResult(intent, RETORN_ACTIVITY_OK_CODE)
             }
-
-
         }
 
     }

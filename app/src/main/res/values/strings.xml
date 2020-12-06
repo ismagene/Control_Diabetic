@@ -10,6 +10,9 @@
     <string name="login_failed">"Login failed"</string>
     <string name="registrarse">Registrar-se</string>
     <string name="guardarUsuari">Mantenir conectat</string>
+    <string name="recordarContrasenya">Has oblidat la contrasenya?</string>
+    <string name="recuperarContrasenya">Recupera-la</string>
+    <string name="titolrecuperarContrasenya">Recuperar contrasenya</string>
 
     <!-- Strings related to registre -->
     <string name="personalData">Dades personals</string>
@@ -71,7 +74,7 @@
     <string name="historic">Històric</string>
     <string name="ahir">Ahir</string>
     <string name="setmana">Setmana</string>
-    <string name="mes">Mes</string>
+    <string name="mes">30 últims dies</string>
     <string name="afegirControl">Afegir control</string>
 
     <string name="titolAfegirControl">Introduir nou Control</string>
@@ -82,5 +85,24 @@
     <string name="literalInsulina">Insulina</string>
     <string name="esDespresDapat" tools:ignore="StringEscaping">Es desprès d\'un àpat</string>
 
+    <!-- Strings related to modificar dades -->
+    <string name="nom">Nom: </string>
+    <string name="cognom">Primer cognom: </string>
+    <string name="cognom2">Segon cognom: </string>
+    <string name="dataNaixement">Data naixement: </string>
+    <string name="genere">Genere: </string>
+    <string name="pes">Pes: </string>
+    <string name="altura">Alçada: </string>
+    <string name="correuElectronic">Correu electrònic: </string>
+    <string name="contrasenya">Contrasenya: </string>
+    <string name="modificarContrasenya">Modificar</string>
+    <string name="modificarDadesPers">Modificar dades personals</string>
+    <string name="titolModificarDadesPer">Modificar dades personals</string>
+
+
+    <string name="titolModificarPassword">Modificar la contrasenya</string>
+
+
+    <string name="titolHistoricControls">Històric de controls</string>
 
 </resources>

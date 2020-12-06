@@ -138,7 +138,6 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
             year = parts[2].toInt()
         }
 
-
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->

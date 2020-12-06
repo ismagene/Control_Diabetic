@@ -10,9 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.RecuperarContrasenyaActivity
 import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.LoginViewModel
 
@@ -48,7 +50,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
         val loginRepositoryInterface : LoginRepositoryInterface = this
 
-        recuperarUsuariDelPreference(binding)
+        recuperarUsuariDelPreference(binding,loginRepositoryInterface)
 
         with(binding){
 
@@ -65,12 +67,19 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
             /* Funció de registre */
             registrarse.setOnClickListener {
+                viewModel?.amagarRecuperarPass()
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 hideKeyboard(this@LoginActivity)
 
                 /* Accedim a la activitat de registreActivity */
                 intent = Intent(applicationContext, RegistreActivity::class.java)
                 startActivity(intent)
+            }
+
+            /* Recordar la contrasenya */
+            recordarContrasenya.setOnClickListener(){
+                intent = Intent(applicationContext, RecuperarContrasenyaActivity::class.java)
+                startActivityForResult(intent, RETORN_ACTIVITY_OK_CODE)
             }
 
             username.setOnClickListener() {
@@ -113,11 +122,20 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             editor.commit()
         }
         else{
+            editor.putString("checkGuardat", null)
+            editor.apply()
+            editor.putString("usuariGuardat", "")
+            editor.commit()
+            editor.putString("contrasenyaGuardada", "")
+            editor.commit()
             editor.clear()
         }
     }
 
-    private fun recuperarUsuariDelPreference(binding: ActivityLoginBinding) {
+    private fun recuperarUsuariDelPreference(
+        binding: ActivityLoginBinding,
+        loginRepositoryInterface: LoginRepositoryInterface
+    ) {
         var checkGuardat = preferences.getString("checkGuardat", null)
         var usuariGuardat = preferences.getString("usuariGuardat", null)
         var contrasenyaGuardada = preferences.getString("contrasenyaGuardada", null)
@@ -131,9 +149,10 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         if(!contrasenyaGuardada.isNullOrEmpty()){
             binding.password.setText(contrasenyaGuardada)
         }
-        /* Accedim a la activitat de registreActivity */
-        intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
-        startActivity(intent)
+        if(binding.guardarUsuari.isChecked){
+            // OJOSISMA descomentar
+            //viewModel?.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString(),loginRepositoryInterface)
+        }
 
     }
 
@@ -167,6 +186,14 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         // Desbloquejem que no es permeti fer clics
         window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         validacionsLogin()
+        editor.putString("checkGuardat", null)
+        editor.apply()
+        editor.putString("usuariGuardat", "")
+        editor.commit()
+        editor.putString("contrasenyaGuardada", "")
+        editor.commit()
+        editor.clear()
+
     }
 
 }

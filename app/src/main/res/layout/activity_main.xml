@@ -30,15 +30,22 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="40dp">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
             <TextView
                 android:id="@+id/titolPantallaCarrega"
-                android:layout_width="167dp"
-                android:layout_height="91dp"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
                 android:fontFamily="sans-serif-black"
+                android:textAlignment="center"
                 android:shadowColor="#490202"
                 android:text="Carregant l'aplicació"
                 android:textColor="#0B0909"
-                android:textSize="36sp" />
+                android:textSize="26sp" />
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -46,11 +53,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:translationZ="1dp"
-                android:visible="true"
+                app:visible="@{viewModel.progressFinish}"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="181dp"
                 tools:layout_editor_absoluteY="465dp" />
 
         </LinearLayout>
+
+
     </RelativeLayout>
 </layout>

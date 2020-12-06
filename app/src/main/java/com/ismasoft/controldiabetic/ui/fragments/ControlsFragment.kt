@@ -2,34 +2,29 @@ package com.ismasoft.controldiabetic.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
-import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
-import com.ismasoft.controldiabetic.ui.activities.Registre2Activity
+import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
+import com.ismasoft.controldiabetic.utilities.Constants.REGISTRE_2_CODE
+import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
-import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
-
-//// TODO: Rename parameter arguments, choose names that match
-//// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [ControlsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class ControlsFragment : Fragment(), ControlsRepositoryInterface {
 //    // TODO: Rename and change types of parameters
 //    private var param1: String? = null
@@ -38,14 +33,20 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     private lateinit var viewModel: ControlsViewModel
     private lateinit var bindingFragment: FragmentControlsBinding
 
-    private lateinit var llistaControls: List<Control>
+    private lateinit var _llistaControls: MutableLiveData<HashMap<String, Control>>
+    val llistaControls2 : LiveData<HashMap<String, Control>> get() = _llistaControls
+
+    private lateinit var llistaControlsGlobal : HashMap<String, Control>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
         bindingFragment = FragmentControlsBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
@@ -57,11 +58,13 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         viewModel.recuperarLlistaControls(this)
 
         bindingFragment.botoHistoric.setOnClickListener(){
-//            intent = Intent(this, Registre2Activity::class.java)
-//            val b : Bundle = Bundle()
-//            b.put("llistaControls", llistaControls)
-//            intent.putExtras(b)
-//            startActivityForResult(intent, constants.REGISTRE_2_CODE)
+
+            val historic = Intent(context, HistoricControlsActivity::class.java)
+//            val extras = Bundle()
+//            extras.putSerializable("HashMap", llistaControlsGlobal)
+//            historic.putExtras(extras)
+            startActivityForResult(historic, RETORN_ACTIVITY_OK_CODE)
+
         }
 
         return bindingFragment.root
@@ -99,10 +102,15 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     override fun afegirControlNOK() {}
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-    override fun llistaControlsOK(llistaControls: List<Control>) {
-//        this.llistaControls = llistaControls
+    override fun llistaControlsOK(llistaControls: HashMap<String, Control>) {
+        // Dades recuperades informades des del VM
+        llistaControlsGlobal = llistaControls
+//        _llistaControls.value = llistaControls
     }
-    override fun LlistaControlsNOK() {}
+    override fun LlistaControlsNOK() {
+        // Enviar Toast al Activity?
+//        Toast.makeText(this@ControlsFragment, "Error al recuperar les dades de controls", Toast.LENGTH_SHORT).show()
+    }
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}
     override fun eliminarControlOK() {}

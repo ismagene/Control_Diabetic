@@ -1,14 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.PerfilPersonalFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ismasoft.controldiabetic.viewModel.PerfilViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="prova perfil personal" />
+        tools:context=".ui.fragments.PerfilPersonalFragment">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="399dp"
+                android:layout_height="649dp"
+                android:layout_above="@id/buttonContinuar"
+                android:layout_marginBottom="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    tools:context=".ui.activities.RegistreActivity">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personalData"
+                        android:layout_marginBottom="20dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/nom" />
+
+                        <TextView
+                            android:id="@+id/valueNom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:text="@{viewModel.valueNom}"
+                            android:layout_weight="2"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/cognom" />
+
+                        <TextView
+                            android:id="@+id/valueCognom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="2"
+                            android:text="@{viewModel.valueCognom}"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/cognom2" />
+
+                        <TextView
+                            android:id="@+id/valueCognom2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="2"
+                            android:text="@{viewModel.valueCognom2}"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/dataNaixement"/>
+
+                        <TextView
+                            android:id="@+id/valueDataNaixament"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="2"
+                            android:text="@{viewModel.dataNaixament}"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/genere" />
+
+                        <TextView
+                            android:id="@+id/valueGenere"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="2"
+                            android:text="@{viewModel.genere}"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/pes" />
+
+                        <TextView
+                            android:id="@+id/valuePes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@{viewModel.pes}"
+                            android:ems="10" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/altura" />
+
+                        <TextView
+                            android:id="@+id/valueAltura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@{viewModel.altura}"
+                            android:ems="10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:ems="10"
+                            android:textSize="16dp"
+                            android:layout_weight="4"
+                            android:text="@string/correuElectronic" />
+
+                        <TextView
+                            android:id="@+id/valueCorreuElectronic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:layout_weight="2.1"
+                            android:text="@{viewModel.correuElectronic}"
+                            android:ems="10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_weight="4"
+                            android:autofillHints=""
+                            android:textSize="16dp"
+                            android:ems="10"
+                            android:text="@string/contrasenya"/>
+
+                        <Button
+                            android:id="@+id/buttonModificarPass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:text="@string/modificarContrasenya"
+                            android:layout_weight="4"
+                            app:backgroundTint="#00BCD4" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <Button
+                android:id="@+id/buttonModificar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/modificarDadesPers"
+                app:backgroundTint="#00BCD4" />
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

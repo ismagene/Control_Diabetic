@@ -23,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <TextView
                     android:id="@+id/titolUltimControl"
@@ -66,7 +67,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/style_border_textview"
                     android:gravity="center"
-                    android:text=""
+                    android:text="@{viewModel.ultimControlGlucosa}"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
@@ -76,7 +77,7 @@
                     android:id="@+id/ultimControlInsulina"
                     android:layout_width="0dp"
                     android:layout_height="46dp"
-                    android:text="0 ui"
+                    android:text="@{viewModel.ultimControlInsulina}"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
                     android:gravity="center"
@@ -93,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="20dp">
 
                 <Button
                     android:id="@+id/botoHistoric"
@@ -152,21 +154,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="0mg/dl"/>
+                            android:text="@{viewModel.mitjanaAhirGlucosa}"/>
 
                         <TextView
                             android:id="@+id/historicSetmana"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="0 mg/dl"/>
+                            android:text="@{viewModel.mitjanaSetmanaGlucosa}"
+                            />
 
                         <TextView
                             android:id="@+id/historicMes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="0 mg/dl"/>
+                            android:text="@{viewModel.mitjanaMesGlucosa}"/>
 
                     </TableRow>
                 </TableLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.databinding.ActivityMainBinding
 import com.ismasoft.controldiabetic.viewModel.MainViewModel
 import kotlinx.coroutines.*
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get()
@@ -28,20 +30,11 @@ class MainActivity : AppCompatActivity() {
         scope.launch {
             val deferred = async {
                 viewModel.onButtonClicked()
-            }
-            deferred.await()
-            // Comprobar que no s'hagi posat en sogon pla l'aplicació
-            if (viewModel.progressFinish.value == true) {
-                intent = Intent(this, LoginActivity::class.java)
+                intent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(intent)
+                finish()
             }
-
         }
-    }
-
-    private fun Intent(coroutineScope: CoroutineScope, java: Class<LoginActivity>): Intent? {
-        intent = Intent(this, java)
-        return intent
     }
 
 

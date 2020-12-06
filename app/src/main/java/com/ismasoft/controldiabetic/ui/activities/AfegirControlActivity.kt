@@ -246,7 +246,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-    override fun llistaControlsOK(document: List<Control>) {}
+    override fun llistaControlsOK(document: HashMap<String,Control>) {}
     override fun LlistaControlsNOK() {}
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}

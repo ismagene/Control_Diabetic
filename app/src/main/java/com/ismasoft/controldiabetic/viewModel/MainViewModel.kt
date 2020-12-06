@@ -9,19 +9,16 @@ import kotlinx.coroutines.launch
 class MainViewModel (application: Application) : AndroidViewModel(application){
 
     /* Variables que recuperem directament des de la vista */
-    private val _progressFinish = MutableLiveData<Boolean>()
+    private val _progressFinish = MutableLiveData<Boolean>(true)
     val progressFinish : LiveData<Boolean> get() = _progressFinish
-
-    val message = MutableLiveData<String>()
 
     suspend fun onButtonClicked (){
         coroutineScope  {
-            val deferredOne = async {
-                _progressFinish.value = true
+            launch {
                 // Funcions varies inicials de l'aplicació
-                Thread.sleep(1000)
+                Thread.sleep(2500)
+                _progressFinish.value = false
             }
-            deferredOne.await()
         }
     }
 

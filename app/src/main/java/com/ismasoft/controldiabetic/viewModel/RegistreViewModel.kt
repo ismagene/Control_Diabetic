@@ -18,8 +18,8 @@ class RegistreViewModel(application: Application) : AndroidViewModel(application
         repository.comprobarExisteixEmail(correuElectronic, registreRepositoryInterface)
     }
 
-    fun onButtonRegistreClicked(usuari: User, registreRepositoryInterface : RegistreRepositoryInterface) {
-        repository.requestRegistreUsuari(usuari.correuElectronic.toString(), usuari.contrasenya.toString(),registreRepositoryInterface)
+    fun onButtonRegistreClicked(usuari: String, contrasenya : String, registreRepositoryInterface : RegistreRepositoryInterface) {
+        repository.requestRegistreUsuari(usuari.toString(), contrasenya.toString(),registreRepositoryInterface)
     }
 
     fun registreUsuariABBDD(usuari: User, registreRepositoryInterface : RegistreRepositoryInterface){

@@ -1,13 +1,16 @@
 package com.ismasoft.controldiabetic.ui.activities
 
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.AsyncTask
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
@@ -20,7 +23,16 @@ import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.hours
+
+import javax.mail.Authenticator
+import javax.mail.Message
+import javax.mail.MessagingException
+import javax.mail.PasswordAuthentication
+import javax.mail.Session
+import javax.mail.Transport
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
+
 
 class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
@@ -68,18 +80,19 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
             if(validacionsRegistre()){
                 usuari = inicialitzarUsuari(binding)
-                viewModel.onButtonRegistreClicked(usuari,this)
+                var bundle = intent.extras
+                viewModel.onButtonRegistreClicked(bundle?.getString("correuElectronic").toString(), bundle?.getString("contrasenya").toString(),this)
             }
 
         }
 
         /* Recuperem els valors de Hint i de Color del text si han estat marcats com error */
-        binding.loginCentre.setOnFocusChangeListener { _,hasFocus ->
+        binding.loginCentre.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
                 binding.loginCentre.setHintTextColor(colorHintDefault)
             }
         }
-        binding.loginNomMetge.setOnFocusChangeListener { _,hasFocus ->
+        binding.loginNomMetge.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
                 binding.loginNomMetge.setHintTextColor(colorHintDefault)
             }
@@ -172,8 +185,27 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             glucosaAltaDA = 120
         }
 
-        return User(nom, cognom, cognom2, dataNaixament, correuElectronic, contrasenya, genere, pesNumeric, alturaNumeric, centre, poblacioCentre, nomMetge, correuElectronicMetge,
-                    tipusDiabetis, dataDiagnosi, glucosaMoltBaixa, glucosaBaixa, glucosaAlta, glucosaMoltAlta, glucosaBaixaDA, glucosaAltaDA
+        return User(
+            nom,
+            cognom,
+            cognom2,
+            dataNaixament,
+            correuElectronic,
+            genere,
+            pesNumeric,
+            alturaNumeric,
+            centre,
+            poblacioCentre,
+            nomMetge,
+            correuElectronicMetge,
+            tipusDiabetis,
+            dataDiagnosi,
+            glucosaMoltBaixa,
+            glucosaBaixa,
+            glucosaAlta,
+            glucosaMoltAlta,
+            glucosaBaixaDA,
+            glucosaAltaDA
         )
 
     }
@@ -195,7 +227,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         if (binding.loginEmailMetge.text == null || binding.loginEmailMetge.text.toString() == "") {
             binding.loginEmailMetge.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El correu electrònic del metge és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "El correu electrònic del metge és un camp obligatori",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }else{
             var mailCorrecte = android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailMetge.text.toString()).matches()
@@ -211,7 +247,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         if (binding.loginTipusDiabetisSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER) {
             binding.loginTipusDiabetis.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El correu electrònic del metge és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "El correu electrònic del metge és un camp obligatori",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
         if(binding.loginDataDiagnosi.text == null || binding.loginDataDiagnosi.text.toString() == ""){
@@ -245,7 +285,14 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.loginDataDiagnosi.setText("${dayOfMonth.toString().padStart(2,'0')}/${(monthOfYear+1).toString().padStart(2,'0')}/$year")
+                binding.loginDataDiagnosi.setText(
+                    "${dayOfMonth.toString().padStart(2, '0')}/${
+                        (monthOfYear + 1).toString().padStart(
+                            2,
+                            '0'
+                        )
+                    }/$year"
+                )
             },
             year,
             month,
@@ -261,7 +308,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
     override fun comprobarExisteixEmailNOK() {}
 
     override fun registreOK() {
-        viewModel.registreUsuariABBDD(usuari,this)
+        viewModel.registreUsuariABBDD(usuari, this)
     }
 
     override fun registreNOK() {
@@ -280,6 +327,26 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             }
         }.show()
 
+//        val mIntent = Intent(Intent.ACTION_SEND)
+//        mIntent.type = "text/plain"
+//        mIntent.putExtra(Intent.EXTRA_EMAIL, usuari.correuElectronic)
+//        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Prova")
+//        mIntent.putExtra(
+//            Intent.EXTRA_TEXT,
+//            "Missatge de confirmació de registre a l'aplicació de Control Diabètic"
+//        )
+//        mIntent.putExtra(Intent.EXTRA_CHOSEN_COMPONENT_INTENT_SENDER, "HOLA.GMAIL.COM")
+//
+//        try{
+//            startActivity(Intent.createChooser(mIntent, "Choose Email Client"))
+//        }
+//        catch (e: Exception){
+//            Toast.makeText(
+//                this,
+//                "Error al enviar el correu de confirmació de registre.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
     }
 
     override fun registreInsertarNOK() {
@@ -291,6 +358,90 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         return true
     }
 
+//
+//    /**
+//     * Send email with Gmail service.
+//     */
+//    private fun sendEmailWithGmail(
+//        recipientEmail: String, recipientPassword: String,
+//        to: String, subject: String, message: String
+//    ) {
+//        val props = Properties()
+//        props["mail.smtp.host"] = "smtp.gmail.com"
+//        props["mail.smtp.socketFactory.port"] = "465"
+//        props["mail.smtp.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
+//        props["mail.smtp.auth"] = "true"
+//        props["mail.smtp.port"] = "465"
+//        val session: Session = Session.getDefaultInstance(props, object : Authenticator() {
+//            protected val passwordAuthentication: PasswordAuthentication? =
+//                PasswordAuthentication(recipientEmail, recipientPassword)
+//        })
+//        val task = SenderAsyncTask(session, recipientEmail, to, subject, message)
+//        task.execute()
+//    }
+//
+//    /**
+//     * AsyncTask to send email
+//     */
+//    private class SenderAsyncTask(
+//        session: Session,
+//        from: String,
+//        to: String,
+//        subject: String,
+//        message: String
+//    ) :
+//        AsyncTask<String?, String?, String?>() {
+//        private val from: String
+//        private val to: String
+//        private val subject: String
+//        private val message: String
+//        private var progressDialog: ProgressDialog? = null
+//        private val session: Session
+//        override fun onPreExecute() {
+//            super.onPreExecute()
+//            progressDialog =
+//                ProgressDialog.show(this@MainActivity, "", getString(R.string.sending_mail), true)
+//            progressDialog.setCancelable(false)
+//        }
+//
+//        protected override fun doInBackground(vararg params: String): String? {
+//            try {
+//                val mimeMessage: Message = MimeMessage(session)
+//                mimeMessage.setFrom(InternetAddress(from))
+//                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to))
+//                mimeMessage.setSubject(subject)
+//                mimeMessage.setContent(message, "text/html; charset=utf-8")
+//                Transport.send(mimeMessage)
+//            } catch (e: MessagingException) {
+//                e.printStackTrace()
+//                return e.getMessage()
+//            } catch (e: java.lang.Exception) {
+//                e.printStackTrace()
+//                return e.message
+//            }
+//            return null
+//        }
+//
+//        protected override fun onProgressUpdate(vararg values: String) {
+//            super.onProgressUpdate(*values)
+//            progressDialog!!.setMessage(values[0])
+//        }
+//
+//        override fun onPostExecute(result: String?) {
+//            progressDialog!!.dismiss()
+//            Toast.makeText(this, result, Toast.LENGTH_LONG).show()
+//        }
+//
+//        init {
+//            this.session = session
+//            this.from = from
+//            this.to = to
+//            this.subject = subject
+//            this.message = message
+//        }
 
 }
+
+
+
 

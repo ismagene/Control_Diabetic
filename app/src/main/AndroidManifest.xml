@@ -9,10 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
-        <activity android:name=".ui.activities.AfegirControlActivity"
+        <activity android:name=".RecuperarContrasenyaActivity"
+            android:label="@string/titolrecuperarContrasenya"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.activities.ModificarPasswordActivity"
+            android:label="@string/titolModificarPassword"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.ModificarDadesMedActivity" />
+        <activity
+            android:name=".ui.activities.ModificarDadesPersActivity"
             android:label="@string/titolAfegirControl"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.EnviarHistoricActivity" />
+        <activity
+            android:name=".ui.activities.HistoricControlsActivity"
+            android:label="@string/titolHistoricControls"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.ModificarAlarmaActivity" />
+        <activity android:name=".ui.activities.ModificarControlActivity" />
+        <activity android:name=".ui.activities.AfegirVisitaActivity" />
+        <activity android:name=".ui.activities.AfegirAlarmaActivity" />
+        <activity
+            android:name=".ui.activities.AfegirControlActivity"
+            android:label="@string/titolAfegirControl"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

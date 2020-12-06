@@ -16,8 +16,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application), 
     val progressVisibility : LiveData<Boolean> get() = _progressVisibility
     private val _message = MutableLiveData<String>()
     val message : LiveData<String> get() = _message
-    private val _logged = MutableLiveData<Boolean>()
-    val logged : LiveData<Boolean> get() = _logged
+    private val _recuperarPass = MutableLiveData<Boolean>(false)
+    val recuperarPass : LiveData<Boolean> get() = _recuperarPass
 
     private val constants = Constants
 
@@ -68,6 +68,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application), 
         _progressVisibility.value = false
         _message.value = "Error al fer login"
         loginActivityInstance.credencialsNOK()
+        _recuperarPass.value = true
+    }
+
+    fun amagarRecuperarPass() {
+        _recuperarPass.value = false
     }
 
 }

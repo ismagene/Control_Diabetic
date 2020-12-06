@@ -86,4 +86,6 @@ dependencies {
     // Anko
     implementation 'org.jetbrains.anko:anko-common:0.9'
 
+    implementation 'com.sun.mail:android-mail:1.6.3'
+
 }
