@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDiabètic">
-        <activity android:name=".RecuperarContrasenyaActivity"
+        <activity android:name=".ui.activities.RecuperarContrasenyaActivity"
             android:label="@string/titolrecuperarContrasenya"
             android:windowSoftInputMode="adjustResize"/>
         <activity

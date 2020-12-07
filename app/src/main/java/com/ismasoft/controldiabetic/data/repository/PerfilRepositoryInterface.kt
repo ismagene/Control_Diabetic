@@ -10,5 +10,10 @@ interface PerfilRepositoryInterface {
     fun modificarDadesPersOK()
     fun modificarDadesPersNOK()
 
+    fun validarContrasenyaOK()
+    fun validarContrasenyaNOK()
+
+    fun modificarContrasenyaOK()
+    fun modificarContrasenyaNOK()
 
 }

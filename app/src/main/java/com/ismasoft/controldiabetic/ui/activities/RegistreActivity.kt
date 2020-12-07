@@ -32,7 +32,6 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
     private lateinit var colorHintDefault : ColorStateList
     private lateinit var colorTextDefault : ColorStateList
 
-    @RequiresApi(Build.VERSION_CODES.O)
     /** Funció que es crea al accedir a l'activitat / vista Registre primera pantalla **/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,48 +179,52 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
      *   @param pass **/
     private fun validacionsRegistre(): Boolean {
 
-        if(binding.loginNom.text == null || binding.loginNom.text.toString() == ""){
+        if (binding.loginNom.text == null || binding.loginNom.text.toString() == "") {
             binding.loginNom.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El nom és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginCognom.text == null || binding.loginCognom.text.toString() == ""){
+        if (binding.loginCognom.text == null || binding.loginCognom.text.toString() == "") {
             binding.loginCognom.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El cognom és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginCognom2.text == null || binding.loginCognom2.text.toString() == ""){
+        if (binding.loginCognom2.text == null || binding.loginCognom2.text.toString() == "") {
             binding.loginCognom2.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El segon cognom és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginNaixament.text == null || binding.loginNaixament.text.toString() == ""){
+        if (binding.loginNaixament.text == null || binding.loginNaixament.text.toString() == "") {
             binding.loginNaixament.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT)
+                .show()
             return false
         }
-        if(binding.loginGenereSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER){
+        if (binding.loginGenereSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER) {
             binding.loginGenere.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El genere és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginPes.text == null || binding.loginPes.text.toString() == ""){
+        if (binding.loginPes.text == null || binding.loginPes.text.toString() == "") {
             binding.loginPes.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El Pes és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginAltura.text == null || binding.loginAltura.text.toString() == ""){
+        if (binding.loginAltura.text == null || binding.loginAltura.text.toString() == "") {
             binding.loginAltura.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "L'altura és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.loginCorreuElectronic.text == null || binding.loginCorreuElectronic.text.toString() == ""){
+        if (binding.loginCorreuElectronic.text == null || binding.loginCorreuElectronic.text.toString() == "") {
             binding.loginCorreuElectronic.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El correu electrònic és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El correu electrònic és un camp obligatori", Toast.LENGTH_SHORT)
+                .show()
             return false
-        }else{
-            var mailCorrecte = android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginCorreuElectronic.text.toString()).matches()
-            if(!mailCorrecte){
+        } else {
+            var mailCorrecte =
+                android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginCorreuElectronic.text.toString())
+                    .matches()
+            if (!mailCorrecte) {
                 binding.loginCorreuElectronic.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
                 Toast.makeText(
                     this,
@@ -231,20 +234,17 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
                 return false
             }
         }
-        if(binding.loginPassword.text == null || binding.loginPassword.text.toString() == "" || binding.loginPassword.text.length < 6){
-            if(binding.loginPassword.text.length < 6){
-                binding.loginPassword.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(
-                    this,
-                    "La contrasenya ha de ser mínim de 6 caracters",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }else{
-                binding.loginPassword.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(this, "La contrasenya és un camp obligatori", Toast.LENGTH_SHORT).show()
-            }
+        if (binding.loginPassword.text == null || binding.loginPassword.text.toString() == ""){
+            binding.loginPassword.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "La contrasenya és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
+        if(binding.loginPassword.text.length < 6){
+            binding.loginPassword.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caracters",Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         return true
     }
 

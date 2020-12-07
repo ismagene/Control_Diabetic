@@ -47,24 +47,34 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _correuElectronic.value = document?.get("correuElectronic").toString()
     }
 
-
-
-    override fun recuperarDadesPersonalsNOK() {
-        TODO("Not yet implemented")
+    fun validarContrasenya(contrasenyaAntiga:String, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        perfilActivityInstance = perfilRepositoryInterface
+        repository.validarContrasenya(contrasenyaAntiga,this)
     }
 
-
-    override fun modificarDadesPersOK() {
-        TODO("Not yet implemented")
+    fun modificarContrasenya(contrasenya: String, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        perfilActivityInstance = perfilRepositoryInterface
+        repository.modificarContrasenya(contrasenya,this)
     }
 
-    override fun modificarDadesPersNOK() {
-        TODO("Not yet implemented")
+    fun tancarSessio(){
+        repository.tancarSessio()
     }
 
-
-//    lateinit var controlActivityInstance : ControlsRepositoryInterface
-
-
+    override fun recuperarDadesPersonalsNOK() {}
+    override fun modificarDadesPersOK() {}
+    override fun modificarDadesPersNOK() {}
+    override fun validarContrasenyaOK() {
+        perfilActivityInstance.validarContrasenyaOK()
+    }
+    override fun validarContrasenyaNOK() {
+        perfilActivityInstance.validarContrasenyaNOK()
+    }
+    override fun modificarContrasenyaOK() {
+        perfilActivityInstance.modificarContrasenyaOK()
+    }
+    override fun modificarContrasenyaNOK() {
+        perfilActivityInstance.modificarContrasenyaNOK()
+    }
 
 }

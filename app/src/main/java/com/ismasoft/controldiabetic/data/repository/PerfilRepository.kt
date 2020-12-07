@@ -1,8 +1,11 @@
 package com.ismasoft.controldiabetic.data.repository
 
 import android.app.Application
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Control
@@ -45,6 +48,41 @@ class PerfilRepository(val application: Application) {
                     perfilRepositoryInterface.recuperarDadesPersonalsNOK()
                 }
             }
+
     }
 
+    fun validarContrasenya(contrasenya: String, perfilRepositoryInterface: PerfilRepositoryInterface) {
+
+        val user= FirebaseAuth.getInstance().currentUser
+        var credential = EmailAuthProvider.getCredential(user?.email.toString(),contrasenya)
+
+        user?.reauthenticate(credential)
+            ?.addOnCompleteListener{
+                if(it.isSuccessful){
+                    Log.d(ContentValues.TAG, "contrasenya correcte")
+                    perfilRepositoryInterface.validarContrasenyaOK()
+                }else {
+                    Log.d(ContentValues.TAG, "contrasenya incorrecte")
+                    perfilRepositoryInterface.validarContrasenyaNOK()
+                }
+            }
+    }
+
+    fun modificarContrasenya(contrasenya : String, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        val user= FirebaseAuth.getInstance().currentUser
+        user?.updatePassword(contrasenya)
+            ?.addOnCompleteListener(){
+                if(it.isSuccessful){
+                    Log.d(ContentValues.TAG, "contrasenya correcte")
+                    perfilRepositoryInterface.modificarContrasenyaOK()
+                }else {
+                    Log.d(ContentValues.TAG, "contrasenya incorrecte")
+                    perfilRepositoryInterface.modificarContrasenyaNOK()
+                }
+            }
+    }
+
+    fun tancarSessio(){
+        firebaseAuth.signOut()
+    }
 }

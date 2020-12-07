@@ -16,7 +16,16 @@ class HistoricControlsActivity : AppCompatActivity() {
 
         var objetoIntent : Intent = intent
 
+        // Per tornar endarrera
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         //var llistaControls : HashMap<String, Control> = objetoIntent.extras?.get("prova") as HashMap<String, Control>
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

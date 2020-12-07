@@ -15,7 +15,9 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
 import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
+import com.ismasoft.controldiabetic.ui.activities.LoginActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
+import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 
@@ -65,8 +67,15 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
         }
 
         bindingFragment.buttonModificarPass.setOnClickListener(){
-            val modificarPass = Intent(context, ModificarDadesPersActivity::class.java)
+            val modificarPass = Intent(context, ModificarPasswordActivity::class.java)
             startActivityForResult(modificarPass, Constants.RETORN_ACTIVITY_OK_CODE)
+        }
+
+        bindingFragment.tancarSessio.setOnClickListener(){
+            viewModel.tancarSessio()
+            val login = Intent(context, LoginActivity::class.java)
+            startActivity(login)
+            // OJO TANCAR DESDE DEL FRAGMENT
         }
 
         return bindingFragment.root
@@ -99,4 +108,8 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
     override fun recuperarDadesPersonalsNOK() {}
     override fun modificarDadesPersOK() {}
     override fun modificarDadesPersNOK() {}
+    override fun validarContrasenyaOK() {}
+    override fun validarContrasenyaNOK() {}
+    override fun modificarContrasenyaOK() {}
+    override fun modificarContrasenyaNOK() {}
 }

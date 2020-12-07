@@ -4,13 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
+        <variable
+            name="viewModel"
+            type="com.ismasoft.controldiabetic.viewModel.RegistreViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RecuperarContrasenyaActivity">
+        android:padding="12dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            tools:context=".ui.activities.ModificarPasswordActivity">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/textRecuperarContrasenya"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/correuElectronic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/loginEmail"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/buttonRecuperar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+                android:text="@string/titolrecuperarContrasenya"
+                app:backgroundTint="#00BCD4" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </layout>

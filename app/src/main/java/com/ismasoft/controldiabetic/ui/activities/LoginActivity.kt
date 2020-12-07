@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.RecuperarContrasenyaActivity
 import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
 import com.ismasoft.controldiabetic.utilities.Constants

@@ -13,6 +13,7 @@
     <string name="recordarContrasenya">Has oblidat la contrasenya?</string>
     <string name="recuperarContrasenya">Recupera-la</string>
     <string name="titolrecuperarContrasenya">Recuperar contrasenya</string>
+    <string name="textRecuperarContrasenya">Introdueix el correu electrònic a recuperar</string>
 
     <!-- Strings related to registre -->
     <string name="personalData">Dades personals</string>
@@ -98,9 +99,14 @@
     <string name="modificarContrasenya">Modificar</string>
     <string name="modificarDadesPers">Modificar dades personals</string>
     <string name="titolModificarDadesPer">Modificar dades personals</string>
+    <string name="tancarSessio">Tancar Sessió</string>
 
 
     <string name="titolModificarPassword">Modificar la contrasenya</string>
+    <string name="confirmarModificarContrasenya">Confirmar modificar contrasenya</string>
+    <string name="contrasenyaAntiga">Contrasenya actual *</string>
+    <string name="contrasenyaNova">Contrasenya nova *</string>
+    <string name="contrasenyaNovaConfirmar">Confirmar contrasenya nova *</string>
 
 
     <string name="titolHistoricControls">Històric de controls</string>

@@ -62,4 +62,21 @@ class RegistreRepository(val application: Application) {
 
     }
 
+    fun restaurarContrasenya(email: String, registreRepositoryInterface: RegistreRepositoryInterface) {
+
+        firebaseAuth.sendPasswordResetEmail(email.toString())
+            .addOnCompleteListener(){
+                if(it.isSuccessful){
+                    Log.w(TAG, "reset de la contrasenya OK")
+                    registreRepositoryInterface.registreOK()
+                }
+                else{
+                    Log.w(TAG, "Error al fer reset de la contrasenya")
+                    registreRepositoryInterface.registreNOK()
+                }
+            }
+
+
+    }
+
 }

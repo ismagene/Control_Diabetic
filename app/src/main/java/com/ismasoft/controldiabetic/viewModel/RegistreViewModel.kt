@@ -26,4 +26,8 @@ class RegistreViewModel(application: Application) : AndroidViewModel(application
         repository.insertarUsuariBBDD(usuari,registreRepositoryInterface)
     }
 
+    fun restaurarContrasenya(contrasenya: String, registreRepositoryInterface : RegistreRepositoryInterface){
+        repository.restaurarContrasenya(contrasenya,registreRepositoryInterface)
+    }
+
 }
