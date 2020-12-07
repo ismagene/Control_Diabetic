@@ -1,11 +1,13 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -32,12 +34,12 @@ import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
  * create an instance of this fragment.
  */
 class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
-//    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
 
     private lateinit var viewModel: PerfilViewModel
     private lateinit var bindingFragment: FragmentPerfilPersonalBinding
+
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,9 +75,18 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
 
         bindingFragment.tancarSessio.setOnClickListener(){
             viewModel.tancarSessio()
-            val login = Intent(context, LoginActivity::class.java)
-            startActivity(login)
-            // OJO TANCAR DESDE DEL FRAGMENT
+            activity?.finish()
+
+            /* Preferences per guardar dades en un xml local */
+            preferences = context?.applicationContext!!.getSharedPreferences("ControlDiabetic",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            editor = preferences.edit()
+
+            editor.putString("checkGuardat", null)
+            editor.apply()
+            editor.clear()
+
         }
 
         return bindingFragment.root

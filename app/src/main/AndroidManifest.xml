@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ismasoft.controldiabetic">
+<!--    <uses-permission android:name="android.permission.INTERNET"/>-->
 
     <application
         android:allowBackup="true"
@@ -28,8 +29,12 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.activities.ModificarAlarmaActivity" />
         <activity android:name=".ui.activities.ModificarControlActivity" />
-        <activity android:name=".ui.activities.AfegirVisitaActivity" />
-        <activity android:name=".ui.activities.AfegirAlarmaActivity" />
+        <activity android:name=".ui.activities.AfegirVisitaActivity"
+            android:label="@string/titolAfegirVisita"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.activities.AfegirAlarmaActivity"
+            android:label="@string/titolAfegirAlarma"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.activities.AfegirControlActivity"
             android:label="@string/titolAfegirControl"

@@ -1,13 +1,17 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
@@ -16,8 +20,8 @@ import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
-import java.util.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
@@ -30,6 +34,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     private var primerOnCreate : Boolean = true
     private lateinit var llistaControls : List<Control>
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,19 +68,25 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
         }
 
+        binding.cancelarGuardarControl.setOnClickListener(){
+            /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+            hideKeyboard(this)
+            finish()
+        }
+
         binding.horaControl.setOnClickListener(){
             hideKeyboard(this)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
+            hideKeyboard(this@AfegirControlActivity)
+
             if(!primerOnCreate) {
                 if (hasFocus) {
                     obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
-                    hideKeyboard(this)
                 }
             }else{
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                hideKeyboard(this)
                 primerOnCreate=false
             }
 
@@ -93,7 +104,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         binding.glucosa.setOnClickListener(){
             binding.glucosatext.setTextColor(colorTextDefault)
         }
-        binding.glucosa.setOnFocusChangeListener(){_,hasFocus->
+        binding.glucosa.setOnFocusChangeListener(){ _, hasFocus->
             if(hasFocus){
                 binding.glucosatext.setTextColor(colorTextDefault)
             }
@@ -115,21 +126,35 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         }
         val despresApat = binding.esDespresApat.isChecked
 
-        return Control(dataHoraControl,glucosa,insulina,despresApat)
+        return Control(dataHoraControl, glucosa, insulina, despresApat)
     }
 
     private fun dataIHoraPerDefecte() {
         val cal = Calendar.getInstance()
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
-        var horaString = hora.toString().padStart(2,'0')
-        binding.horaControl.setText("${hora.toString().padStart(2,'0')}:${minuts.toString().padStart(2,'0')}")
+        var horaString = hora.toString().padStart(2, '0')
+        binding.horaControl.setText(
+            "${hora.toString().padStart(2, '0')}:${
+                minuts.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
 
         var c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
         var month = c.get(Calendar.MONTH)+1
         var day = c.get(Calendar.DAY_OF_MONTH)
-        binding.diaControl.setText("${day.toString().padStart(2,'0')}/${month.toString().padStart(2,'0')}/$year")
+        binding.diaControl.setText(
+            "${day.toString().padStart(2, '0')}/${
+                month.toString().padStart(
+                    2,
+                    '0'
+                )
+            }/$year"
+        )
     }
 
     private fun validarEntrada(): Boolean {
@@ -142,7 +167,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         return true
     }
 
-    private fun obrirCalendariPerSeleccionarHora(temps : String) {
+    private fun obrirCalendariPerSeleccionarHora(temps: String) {
         val cal = Calendar.getInstance()
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
@@ -152,15 +177,26 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             hora =  parts[0].toInt()
             minuts = parts[1].toInt()
         }
-        val timeSetListener = TimePickerDialog(this@AfegirControlActivity,TimePickerDialog.OnTimeSetListener() { timePicker, hour, minute ->
-            binding.horaControl.setText("${hour.toString().padStart(2,'0')}:${minute.toString().padStart(2,'0')}")
-        },
-        hora,
-        minuts,true)
+        val timeSetListener = TimePickerDialog(
+            this@AfegirControlActivity,
+            TimePickerDialog.OnTimeSetListener() { timePicker, hour, minute ->
+                binding.horaControl.setText(
+                    "${hour.toString().padStart(2, '0')}:${
+                        minute.toString().padStart(
+                            2,
+                            '0'
+                        )
+                    }"
+                )
+            },
+            hora,
+            minuts,
+            true
+        )
         timeSetListener.show()
     }
 
-    private fun obrirCalendariPerSeleccionarData(data : String){
+    private fun obrirCalendariPerSeleccionarData(data: String){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
         hideKeyboard(this)
 
@@ -182,7 +218,14 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             this,
             DatePickerDialog.OnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                binding.diaControl.setText("${dayOfMonth.toString().padStart(2,'0')}/${(monthOfYear+1).toString().padStart(2,'0')}/$year")
+                binding.diaControl.setText(
+                    "${dayOfMonth.toString().padStart(2, '0')}/${
+                        (monthOfYear + 1).toString().padStart(
+                            2,
+                            '0'
+                        )
+                    }/$year"
+                )
             },
             year,
             month,
@@ -246,7 +289,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-    override fun llistaControlsOK(document: HashMap<String,Control>) {}
+    override fun llistaControlsOK(document: HashMap<String, Control>) {}
     override fun LlistaControlsNOK() {}
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}

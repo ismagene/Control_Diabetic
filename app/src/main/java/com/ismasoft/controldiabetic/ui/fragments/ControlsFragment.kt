@@ -55,7 +55,7 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
 
         // Comença el fragment amb data binding
         // Recuperem tots els controls de l'usuari.
-        viewModel.recuperarLlistaControls(this)
+//        viewModel.recuperarLlistaControls(this)
 
         bindingFragment.botoHistoric.setOnClickListener(){
 
@@ -70,6 +70,7 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         return bindingFragment.root
     }
 
+    // Es carregaràn els controls cada vegada que obrim la pestanya per si hi han hagut canvis
     override fun onResume() {
         super.onResume()
 

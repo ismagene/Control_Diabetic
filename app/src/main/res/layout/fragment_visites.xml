@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.VisitesFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Visites" />
+        tools:context=".ui.fragments.VisitesFragment">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="399dp"
+                android:layout_height="649dp"
+                android:layout_marginBottom="7dp">
+
+                <LinearLayout
+                    android:id="@+id/layoutTitolsUltimControl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/titolVisites"
+                        android:layout_marginBottom="20dp"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:textStyle="bold" />
+
+                    // Afegir taula amb les alarmes
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/afegirVisita" />
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

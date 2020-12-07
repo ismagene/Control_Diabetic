@@ -38,14 +38,16 @@
 
             <TextView
                 android:id="@+id/titolPantallaCarrega"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="65dp"
-                android:fontFamily="sans-serif-black"
+                android:layout_marginTop="130px"
+                android:fontFamily="sans-serif-thin"
                 android:shadowColor="#490202"
-                android:text="Carregant l'aplicació"
+                android:text="Carregant l'aplicació..."
                 android:textAlignment="center"
-                android:textColor="#0B0909"
-                android:textSize="26sp" />
+                android:textColor="#0194A6"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/loading"

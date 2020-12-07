@@ -95,6 +95,18 @@ class MenuPrincipalActivity : AppCompatActivity() {
                 intent = Intent(applicationContext, AfegirControlActivity::class.java)
                 startActivityForResult(intent, RETORN_ACTIVITY_OK_CODE)
             }
+
+            // Afegir alarma
+            if(activeFragment.equals(alarmesFragment)){
+                intent = Intent(applicationContext, AfegirAlarmaActivity::class.java)
+                startActivityForResult(intent, RETORN_ACTIVITY_OK_CODE)
+            }
+
+            // Afegir visita
+            if(activeFragment.equals(visitesFragment)){
+                intent = Intent(applicationContext, AfegirVisitaActivity::class.java)
+                startActivityForResult(intent, RETORN_ACTIVITY_OK_CODE)
+            }
         }
 
     }

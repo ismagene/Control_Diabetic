@@ -6,6 +6,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.repository.*
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
+import java.text.SimpleDateFormat
 
 class PerfilViewModel(application: Application) : AndroidViewModel(application) , PerfilRepositoryInterface{
 
@@ -40,7 +41,10 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _valueNom.value = document?.get("nom").toString()
         _valueCognom.value = document?.get("primerCognom").toString()
         _valueCognom2.value = document?.get("segonCognom").toString()
-        _dataNaixament.value = convertirADateLaDataFirebase(document?.data?.get("dataNaixement") as Timestamp).toString()
+        var dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataNaixement") as Timestamp)
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(dataFirebase)
+        _dataNaixament.value = dataString
         _genere.value = document?.get("genere").toString()
         _pes.value = document?.get("pes").toString() + " Kg"
         _altura.value = document?.get("altura").toString() + " Cm"

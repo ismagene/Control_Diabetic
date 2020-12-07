@@ -69,6 +69,9 @@
     <string name="textRegistreFeedback">Registre realitzat.</string>
     <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduit.</string>
 
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+
     <!-- Strings related to Controls -->
     <string name="ultimControl">Últim control</string>
     <string name="literalGlucosa">Glucosa</string>
@@ -79,10 +82,9 @@
     <string name="afegirControl">Afegir control</string>
 
     <string name="titolAfegirControl">Introduir nou Control</string>
-    <string name="guardarControl">Guardar</string>
-    <string name="hora">Hora: </string>
+        <string name="hora">Hora: </string>
     <string name="selecciona">Selecciona</string>
-    <string name="dia">Dia</string>
+    <string name="dia">Dia: </string>
     <string name="literalInsulina">Insulina</string>
     <string name="esDespresDapat" tools:ignore="StringEscaping">Es desprès d\'un àpat</string>
 
@@ -110,5 +112,18 @@
 
 
     <string name="titolHistoricControls">Històric de controls</string>
+
+    <!-- Strings related to alarmes -->
+    <string name="afegirAlarma">Afegir alarma</string>
+    <string name="titolAlarmes">Alarmes</string>
+    <string name="titolAfegirAlarma">Introduir nova Alarma</string>
+
+
+    <!-- Strings related to Visites -->
+    <string name="afegirVisita">Afegir visita</string>
+    <string name="titolVisites">Visites</string>
+    <string name="titolAfegirVisita">Introduir nova Visita</string>
+    <string name="motiuVisita">Motiu: </string>
+    <string name="motiuPerDefecte">El motiu per defecte es: \"Control\" </string>
 
 </resources>

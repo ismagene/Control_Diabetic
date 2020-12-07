@@ -154,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@{viewModel.mitjanaAhirGlucosa}"/>
+                            android:text="@{viewModel.mitjanaAhirGlucosa}" />
 
                         <TextView
                             android:id="@+id/historicSetmana"

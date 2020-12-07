@@ -25,7 +25,6 @@
                 android:layout_above="@id/buttonModificar"
                 android:layout_marginBottom="7dp">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -60,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/personalData"
                             android:layout_marginBottom="20dp"
-                            android:textSize="16dp"
+                            android:textSize="20dp"
                             android:layout_weight="1"
                             android:textStyle="bold" />
 
@@ -79,7 +78,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/nom" />
+                            android:text="@string/nom"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueNom"
@@ -108,7 +108,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/cognom" />
+                            android:text="@string/cognom"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueCognom"
@@ -137,7 +138,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/cognom2" />
+                            android:text="@string/cognom2"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueCognom2"
@@ -166,7 +168,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/dataNaixement"/>
+                            android:text="@string/dataNaixement"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueDataNaixament"
@@ -195,7 +198,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/genere" />
+                            android:text="@string/genere"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueGenere"
@@ -224,7 +228,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/pes" />
+                            android:text="@string/pes"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valuePes"
@@ -247,7 +252,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/altura" />
+                            android:text="@string/altura"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueAltura"
@@ -277,7 +283,8 @@
                             android:ems="10"
                             android:textSize="16dp"
                             android:layout_weight="4"
-                            android:text="@string/correuElectronic" />
+                            android:text="@string/correuElectronic"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/valueCorreuElectronic"
@@ -306,7 +313,8 @@
                             android:autofillHints=""
                             android:textSize="16dp"
                             android:ems="10"
-                            android:text="@string/contrasenya"/>
+                            android:text="@string/contrasenya"
+                            android:textStyle="bold"/>
 
                         <Button
                             android:id="@+id/buttonModificarPass"

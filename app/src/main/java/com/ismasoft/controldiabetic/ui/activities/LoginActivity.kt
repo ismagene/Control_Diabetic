@@ -131,6 +131,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         }
     }
 
+    /** Es recupera la informació del sharePreference i si no ens hem desgloguejat entrarem automàticament **/
     private fun recuperarUsuariDelPreference(
         binding: ActivityLoginBinding,
         loginRepositoryInterface: LoginRepositoryInterface
@@ -149,8 +150,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             binding.password.setText(contrasenyaGuardada)
         }
         if(binding.guardarUsuari.isChecked){
-            // OJOSISMA descomentar
-            //viewModel?.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString(),loginRepositoryInterface)
+            viewModel?.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString(),loginRepositoryInterface)
         }
 
     }
