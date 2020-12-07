@@ -73,13 +73,15 @@
     <string name="cancelar">Cancelar</string>
 
     <!-- Strings related to Controls -->
-    <string name="ultimControl">Últim control</string>
+    <string name="ultimControlGlucosa">Últim control\nde glucosa</string>
+    <string name="ultimControlInsulina">Últim control\nd\'insulina</string>
     <string name="literalGlucosa">Glucosa</string>
     <string name="historic">Històric</string>
     <string name="ahir">Ahir</string>
     <string name="setmana">Setmana</string>
     <string name="mes">30 últims dies</string>
     <string name="afegirControl">Afegir control</string>
+    <string name="titolMitjanes">Mitjanes de glucosa</string>
 
     <string name="titolAfegirControl">Introduir nou Control</string>
         <string name="hora">Hora: </string>

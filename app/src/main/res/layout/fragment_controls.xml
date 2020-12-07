@@ -30,7 +30,7 @@
                     android:id="@+id/titolUltimControl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ultimControl"
+                    android:text="@string/ultimControlGlucosa"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
@@ -41,7 +41,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ultimControl"
+                    android:text="@string/ultimControlInsulina"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
@@ -96,7 +96,6 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingTop="20dp">
-
                 <Button
                     android:id="@+id/botoHistoric"
                     android:layout_width="200dp"
@@ -104,11 +103,27 @@
                     android:text="@string/historic"
                     android:layout_marginBottom="20dp"/>
 
+                <TextView
+                    android:id="@+id/textMitjana"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:textAlignment="center"
+                    android:text="@string/titolMitjanes"
+                    layout_below="@+id/botoHistoric"
+                    />
+
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="*"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    layout_below="@+id/textMitjana">
 
                     <TableRow
                         android:id="@+id/tableRow"

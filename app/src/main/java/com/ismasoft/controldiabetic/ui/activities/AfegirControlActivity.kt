@@ -247,9 +247,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         if(viewModel.rangTotalOk.value == true){
             if(viewModel.rangParcialOk.value == true){
                 // TOT OK
-                alert {
-                    title = "Control guardat dins del rang"
-                    message(viewModel.rangMissatge.value.toString())
+                alert(viewModel.rangMissatge.value.toString(),"Control guardat dins del rang") {
                     cancellable(false)
                     positiveButton("Continuar") {
                         setResult(RESULT_OK)
@@ -258,9 +256,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
                 }.show()
             }else{
                 // SOBREPASA EL LIMIT PARCIAL
-                alert {
-                    title = "Control guardat dins del rang maxim pero sobrepasa el rang"
-                    message(viewModel.rangMissatge.value.toString())
+                alert(viewModel.rangMissatge.value.toString(),"Control guardat dins del rang maxim pero sobrepasa el rang") {
                     cancellable(false)
                     positiveButton("Continuar") {
                         setResult(RESULT_OK)
@@ -271,9 +267,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         }
         else{
             // SOBREPASA ELS LIMITS TOTALS
-            alert {
-                title = "Control guardat fora de rang"
-                message(viewModel.rangMissatge.value.toString())
+            alert(viewModel.rangMissatge.value.toString(),"Control guardat fora de rang") {
                 cancellable(false)
                 positiveButton("Continuar") {
                     setResult(RESULT_OK)

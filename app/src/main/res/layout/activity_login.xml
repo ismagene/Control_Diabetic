@@ -105,36 +105,36 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_centerHorizontal="true"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginTop="90dp"
-                    app:visible="@{viewModel.recuperarPass}"
-                    android:text="@string/recordarContrasenya" />
-
-                <Button
-                    android:id="@+id/recordarContrasenya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="@string/recuperarContrasenya"
-                    android:textColor="#FFFFFF"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:layout_marginTop="108dp"
-                    app:backgroundTint="#00BCD4"
-                    app:visible="@{viewModel.recuperarPass}"
-                    app:iconTint="#FFFFFF" />
-
             </RelativeLayout>
 
-
-
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textOblidarContrasenya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:visible="@{viewModel.recuperarPass}"
+            android:layout_below="@id/fields_container"
+            android:text="@string/recordarContrasenya" />
+
+        <Button
+            android:id="@+id/recordarContrasenya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="@string/recuperarContrasenya"
+            android:textColor="#FFFFFF"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@id/textOblidarContrasenya"
+            app:backgroundTint="#00BCD4"
+            app:visible="@{viewModel.recuperarPass}"
+            app:iconTint="#FFFFFF" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -147,8 +147,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{ viewModel.message }"
-            android:layout_below="@id/fields_container"
-            android:layout_marginTop="50dp"
+            android:layout_below="@id/recordarContrasenya"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"/>
 
 

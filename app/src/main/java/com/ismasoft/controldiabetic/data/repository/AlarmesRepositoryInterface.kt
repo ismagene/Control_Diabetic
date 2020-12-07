@@ -5,17 +5,13 @@ import com.ismasoft.controldiabetic.data.model.Control
 
 interface AlarmesRepositoryInterface {
 
-    fun afegirControlOK()
-    fun afegirControlNOK()
-    fun obtenirRangsOK(document: DocumentSnapshot)
-    fun obtenirRangsNOK()
-
-    fun llistaControlsOK(document: List<Control>)
-    fun LlistaControlsNOK()
-
-    fun modificarControlOK()
-    fun modificarControlNOK()
-    fun eliminarControlOK()
-    fun eliminarControlNOK()
+    fun afegirAlarmaOK()
+    fun afegirAlarmaNOK()
+    fun jaExisteixAlarma()
+    fun noExisteixAlarma()
+    fun modificarAlarmaOK()
+    fun modificarAlarmaNOK()
+    fun eliminarAlarmaOK()
+    fun eliminarAlarmaNOK()
 
 }
