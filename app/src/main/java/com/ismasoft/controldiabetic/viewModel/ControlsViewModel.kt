@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.utilities.getDataSenseHora
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -80,17 +81,6 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         calendar.set(Calendar.HOUR_OF_DAY,0)
         calendar.set(Calendar.MINUTE,0)
         calendar.set(Calendar.SECOND,0)
-        return calendar
-    }
-    fun getDataSenseHora(data: Date): Calendar {
-        val calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(data)
-        var parts = dataString.split("/")
-        var day =  parts[0].toInt()
-        var month = parts[1].toInt()-1
-        var year = parts[2].toInt()
-        calendar.set(year, month, day, 0, 0, 0)
         return calendar
     }
 
@@ -253,14 +243,14 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
     private fun validacioDeRangDeGlucosa(document: DocumentSnapshot) {
         _rangTotalOK.value = true
         _rangParcialOk.value = true
-        _rangMissatge.value = "El control de glucosa esta dins els parametres establerts"
+        _rangMissatge.value = "El control de glucosa està dins els paràmetres establerts"
         // Si el control es despres de l'apat
         if(controlTractat.esDespresDeApat == true){
             val valorMaxGlucosaDespresApat = document.data?.get("glucosaAltaDespresApat")
             val valorMinGlucosaDespresApat = document.data?.get("glucosaBaixaDespresApat")
             if(valorMaxGlucosaDespresApat.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
                 _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa sobrepasa el límit maxim establert"
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit màxim establert"
             }
             else if(valorMinGlucosaDespresApat.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){
                 _rangTotalOK.value = false
@@ -276,14 +266,14 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
 
             if(valorMaxGlucosa.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
                 _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa sobrepasa el límit maxim establert"
+                _rangMissatge.value = "El control de glucosa sobrepasa el límit màxim establert"
             }
             else if(valorMinGlucosa.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){
                 _rangTotalOK.value = false
                 _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
             }
             else if(valorAltaGlucosa.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
-                _rangMissatge.value = "El control de glucosa sobrepasa el límit de glucosa Alta"
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit de glucosa Alta"
                 _rangParcialOk.value = false
             }
             else if(valorBaixaGlucosa.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Alarma
+import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirAlarmaBinding
@@ -69,6 +70,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
         binding.horaControl.setOnClickListener(){
             hideKeyboard(this)
+            binding.horaControl.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
@@ -76,6 +78,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
             if(!primerOnCreate) {
                 if (hasFocus) {
+                    binding.horaControl.setTextColor(colorTextDefault)
                     obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
                 }
             }else{
@@ -171,6 +174,13 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     override fun modificarAlarmaNOK() {}
     override fun eliminarAlarmaOK() {}
     override fun eliminarAlarmaNOK() {}
+    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun llistaAlarmesNOK() {
+        TODO("Not yet implemented")
+    }
 
 
 }

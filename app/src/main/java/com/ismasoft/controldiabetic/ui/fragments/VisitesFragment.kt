@@ -5,38 +5,79 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.model.Visita
+import com.ismasoft.controldiabetic.data.model.VisitaAmbId
+import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
+import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
  * Use the [VisitesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class VisitesFragment : Fragment() {
+class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
 
     private lateinit var viewModel: VisitesViewModel
     private lateinit var bindingFragment: FragmentVisitesBinding
 
+    val llistaVisites = ArrayList<VisitaAmbId>()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: VisitesListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         bindingFragment = FragmentVisitesBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
-//        bindingFragment.viewModel = viewModel
+        bindingFragment.viewModel = viewModel
         bindingFragment.lifecycleOwner = this
 
+        recyclerView = bindingFragment.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
+        adapter.setClickListener(this)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         return bindingFragment.root
+
+
+
+//        bindingFragment = FragmentVisitesBinding.inflate(layoutInflater, container, false)
+//        viewModel = ViewModelProvider(this).get()
+//
+////        bindingFragment.viewModel = viewModel
+//        bindingFragment.lifecycleOwner = this
+//
+////        val view = inflater.inflate(R.layout.fragment_visites, container, false)
+//
+////        recyclerView = view.findViewById(R.id.recyclerView)
+//        recyclerView = bindingFragment.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(context)
+//        adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
+//        adapter.setClickListener(this)
+//        recyclerView.adapter = adapter
+//        adapter.notifyDataSetChanged()
+//
+//        return view
+//        return bindingFragment.root
     }
 
     companion object {
@@ -53,5 +94,9 @@ class VisitesFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             VisitesFragment().apply {
             }
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
 }

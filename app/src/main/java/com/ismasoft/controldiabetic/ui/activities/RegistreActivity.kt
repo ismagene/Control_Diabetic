@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -16,11 +15,13 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
-import com.ismasoft.controldiabetic.utilities.Constants.REGISTRE_2_CODE
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
+import com.ismasoft.controldiabetic.utilities.getDataSenseHora
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.hours
 
 
 class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
@@ -196,8 +197,16 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         if (binding.loginNaixament.text == null || binding.loginNaixament.text.toString() == "") {
             binding.loginNaixament.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        // Validem que la data no sigui superior o igual a la del dia
+        val dataIntroduida = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("${binding.loginNaixament.text.toString()} 23:59")
+        val dataActual = Date()
+        if(dataIntroduida.after(dataActual))
+        {
+            binding.loginNaixament.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "La data de naixement no pot ser igual o superior a l'actual'", Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginGenereSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER) {

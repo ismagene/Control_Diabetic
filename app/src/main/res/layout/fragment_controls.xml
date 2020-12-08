@@ -69,7 +69,6 @@
                     android:gravity="center"
                     android:text="@{viewModel.ultimControlGlucosa}"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
 
@@ -77,13 +76,12 @@
                     android:id="@+id/ultimControlInsulina"
                     android:layout_width="0dp"
                     android:layout_height="46dp"
-                    android:text="@{viewModel.ultimControlInsulina}"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:background="@drawable/style_border_textview"
                     android:layout_weight="1"
+                    android:background="@drawable/style_border_textview"
+                    android:gravity="center"
+                    android:text="@{viewModel.ultimControlInsulina}"
                     android:textAlignment="center"
                     android:textStyle="bold"/>
 

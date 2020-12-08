@@ -1,13 +1,19 @@
 package com.ismasoft.controldiabetic.viewModel
 
 import android.app.Application
+import android.content.ContentValues
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Alarma
+import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -31,6 +37,11 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
 
     }
 
+    fun recuperarLlistaAlarmes(alarmesRepositoryInterface : AlarmesRepositoryInterface){
+        alarmalActivityInstance = alarmesRepositoryInterface
+        repository.recuperarLlistaAlarmes(this)
+    }
+
     override fun afegirAlarmaOK() {
         alarmalActivityInstance.afegirAlarmaOK()
     }
@@ -45,5 +56,10 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
     override fun modificarAlarmaNOK() {}
     override fun eliminarAlarmaOK() {}
     override fun eliminarAlarmaNOK() {}
-
+    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {
+        alarmalActivityInstance.llistaAlarmesOK(llistaAlarmes)
+    }
+    override fun llistaAlarmesNOK() {
+        alarmalActivityInstance.llistaAlarmesNOK()
+    }
 }

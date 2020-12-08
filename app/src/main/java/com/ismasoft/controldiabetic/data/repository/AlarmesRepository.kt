@@ -1,18 +1,16 @@
 package com.ismasoft.controldiabetic.data.repository
 
 import android.app.Application
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.type.DateTime
 import com.ismasoft.controldiabetic.data.model.Alarma
-import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
+import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_ALARMES
-import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmesRepository(val application: Application) {
@@ -49,6 +47,26 @@ class AlarmesRepository(val application: Application) {
                 if(!alarmaTrobada) {
                     alarmaRepositoryInterface.noExisteixAlarma()
                 }
+            }
+    }
+
+    fun recuperarLlistaAlarmes(alarmesRepositoryInterface : AlarmesRepositoryInterface){
+        var llistaAlarmes : ArrayList<AlarmaAmbId> = ArrayList()
+
+        db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_ALARMES)
+            .get()
+            .addOnSuccessListener { result ->
+                Log.d(ContentValues.TAG, "Documents recuperats")
+                for(document in result){
+                    var alarma = AlarmaAmbId()
+                    alarma.idAlarma = document.id.toString()
+                    alarma.horaAlarma = document.get("horaAlarma").toString()
+                    llistaAlarmes.add(alarma)
+                }
+                alarmesRepositoryInterface.llistaAlarmesOK(llistaAlarmes)
+            }
+            .addOnFailureListener{
+                alarmesRepositoryInterface.llistaAlarmesNOK()
             }
     }
 

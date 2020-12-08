@@ -116,6 +116,10 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
             Toast.makeText(this, "La confirmació de la contrasenya no és igual a la contrasenya", Toast.LENGTH_SHORT).show()
             return false
         }
+        if(binding.contrasenyaAntiga.text.toString() == binding.contrasenyaNova.text.toString()){
+            Toast.makeText(this, "La contrasenya nova és igual que l'actual", Toast.LENGTH_SHORT).show()
+            return false
+        }
 
         return true
     }
@@ -135,11 +139,8 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
     }
 
     override fun modificarContrasenyaOK() {
-
         // ALERTA I ACABAR OK
-        alert {
-            title = "Contrasenya modificada"
-            message("S'ha modificat correctament la contrasenya.")
+        alert("S'ha modificat correctament la contrasenya.","Contrasenya modificada") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)

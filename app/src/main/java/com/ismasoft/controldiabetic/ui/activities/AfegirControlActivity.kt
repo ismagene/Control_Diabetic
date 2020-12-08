@@ -1,18 +1,19 @@
 package com.ismasoft.controldiabetic.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.firestore.DocumentSnapshot
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
@@ -22,6 +23,7 @@ import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
@@ -76,6 +78,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
         binding.horaControl.setOnClickListener(){
             hideKeyboard(this)
+            binding.diaControl.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
@@ -83,6 +86,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
             if(!primerOnCreate) {
                 if (hasFocus) {
+                    binding.diaControl.setTextColor(colorTextDefault)
                     obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
                 }
             }else{
@@ -93,11 +97,13 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         }
         binding.diaControl.setOnClickListener(){
             hideKeyboard(this)
+            binding.diaControl.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
                 hideKeyboard(this)
+                binding.diaControl.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
             }
         }
@@ -161,6 +167,21 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         if(binding.glucosa.text == null || binding.glucosa.text.toString() == ""){
             binding.glucosatext.setTextColor(COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "Falta introduir el valor de glucosa", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // Validem que la data no sigui superior o igual a la del dia
+        val dataIntroduida = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("${binding.diaControl.text.toString()} ${binding.horaControl.text.toString()}")
+        val dataActual = Date()
+        if(dataIntroduida.after(dataActual))
+        {
+            binding.diaControl.setTextColor(COLOR_ERROR_FALTA_CAMP)
+            binding.horaControl.setTextColor(COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(
+                this,
+                "La data i hora del control no  pot ser superior a l'actual",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
 
@@ -243,37 +264,46 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     }
 
     override fun afegirControlOK() {
-
+        val factory = LayoutInflater.from(this)
         if(viewModel.rangTotalOk.value == true){
             if(viewModel.rangParcialOk.value == true){
                 // TOT OK
-                alert(viewModel.rangMissatge.value.toString(),"Control guardat dins del rang") {
-                    cancellable(false)
-                    positiveButton("Continuar") {
-                        setResult(RESULT_OK)
-                        finish()
-                    }
-                }.show()
+                var view : View = factory.inflate(R.layout.feedback_control_ok, null);
+                val alertDialog = AlertDialog.Builder(this)
+                        .setTitle("Control guardat")
+                        .setView(view)
+                        .setMessage("\n"+viewModel.rangMissatge.value.toString())
+                        .setPositiveButton("Continuar") { dialogInterface, i ->
+                            setResult(RESULT_OK)
+                            finish()
+                        }
+                alertDialog.show()
             }else{
                 // SOBREPASA EL LIMIT PARCIAL
-                alert(viewModel.rangMissatge.value.toString(),"Control guardat dins del rang maxim pero sobrepasa el rang") {
-                    cancellable(false)
-                    positiveButton("Continuar") {
+                var view : View = factory.inflate(R.layout.feedback_control_semiok, null);
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("Control guardat")
+                    .setView(view)
+                    .setMessage(viewModel.rangMissatge.value.toString())
+                    .setPositiveButton("Continuar") { dialogInterface, i ->
                         setResult(RESULT_OK)
                         finish()
                     }
-                }.show()
+                alertDialog.show()
             }
         }
         else{
             // SOBREPASA ELS LIMITS TOTALS
-            alert(viewModel.rangMissatge.value.toString(),"Control guardat fora de rang") {
-                cancellable(false)
-                positiveButton("Continuar") {
+            var view : View = factory.inflate(R.layout.feedback_control_nok, null);
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("Control guardat")
+                .setView(view)
+                .setMessage(viewModel.rangMissatge.value.toString())
+                .setPositiveButton("Continuar") { dialogInterface, i ->
                     setResult(RESULT_OK)
                     finish()
                 }
-            }.show()
+            alertDialog.show()
         }
     }
 

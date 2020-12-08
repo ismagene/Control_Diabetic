@@ -75,9 +75,7 @@ class RecuperarContrasenyaActivity : AppCompatActivity(), RegistreRepositoryInte
 
     override fun registreOK() {
 
-        alert {
-            title = "Restauració de la contrasenya realitzada"
-            message("S'ha enviat un correu per recuperar la contrasenya.")
+        alert("S'ha enviat un correu per recuperar la contrasenya.","Restauració de la contrasenya realitzada") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)

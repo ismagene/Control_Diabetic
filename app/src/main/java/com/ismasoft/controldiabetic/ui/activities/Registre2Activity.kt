@@ -260,6 +260,16 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             return false
         }
 
+        // Validem que la data no sigui superior o igual a la del dia
+        val dataIntroduida = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("${binding.loginDataDiagnosi.text.toString()} 00:00")
+        val dataActual = Date()
+        if(dataIntroduida.after(dataActual))
+        {
+            binding.loginDataDiagnosi.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "La data de diagnosi no pot ser superior a l'actual'", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         return true
     }
 
@@ -317,9 +327,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     override fun registreInsertarOK() {
 
-        alert {
-            title = "Registre realitzat"
-            message("S'ha enviat un correu de confirmació del registre al correu electrònic introduit.")
+        alert("S'ha enviat un correu de confirmació del registre al correu electrònic introduit.","Registre realitzat") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)
@@ -327,26 +335,8 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             }
         }.show()
 
-//        val mIntent = Intent(Intent.ACTION_SEND)
-//        mIntent.type = "text/plain"
-//        mIntent.putExtra(Intent.EXTRA_EMAIL, usuari.correuElectronic)
-//        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Prova")
-//        mIntent.putExtra(
-//            Intent.EXTRA_TEXT,
-//            "Missatge de confirmació de registre a l'aplicació de Control Diabètic"
-//        )
-//        mIntent.putExtra(Intent.EXTRA_CHOSEN_COMPONENT_INTENT_SENDER, "HOLA.GMAIL.COM")
-//
-//        try{
-//            startActivity(Intent.createChooser(mIntent, "Choose Email Client"))
-//        }
-//        catch (e: Exception){
-//            Toast.makeText(
-//                this,
-//                "Error al enviar el correu de confirmació de registre.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
+        // OJOISMA ENVIAR MAIL
+
     }
 
     override fun registreInsertarNOK() {
@@ -357,88 +347,6 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         onBackPressed()
         return true
     }
-
-//
-//    /**
-//     * Send email with Gmail service.
-//     */
-//    private fun sendEmailWithGmail(
-//        recipientEmail: String, recipientPassword: String,
-//        to: String, subject: String, message: String
-//    ) {
-//        val props = Properties()
-//        props["mail.smtp.host"] = "smtp.gmail.com"
-//        props["mail.smtp.socketFactory.port"] = "465"
-//        props["mail.smtp.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
-//        props["mail.smtp.auth"] = "true"
-//        props["mail.smtp.port"] = "465"
-//        val session: Session = Session.getDefaultInstance(props, object : Authenticator() {
-//            protected val passwordAuthentication: PasswordAuthentication? =
-//                PasswordAuthentication(recipientEmail, recipientPassword)
-//        })
-//        val task = SenderAsyncTask(session, recipientEmail, to, subject, message)
-//        task.execute()
-//    }
-//
-//    /**
-//     * AsyncTask to send email
-//     */
-//    private class SenderAsyncTask(
-//        session: Session,
-//        from: String,
-//        to: String,
-//        subject: String,
-//        message: String
-//    ) :
-//        AsyncTask<String?, String?, String?>() {
-//        private val from: String
-//        private val to: String
-//        private val subject: String
-//        private val message: String
-//        private var progressDialog: ProgressDialog? = null
-//        private val session: Session
-//        override fun onPreExecute() {
-//            super.onPreExecute()
-//            progressDialog =
-//                ProgressDialog.show(this@MainActivity, "", getString(R.string.sending_mail), true)
-//            progressDialog.setCancelable(false)
-//        }
-//
-//        protected override fun doInBackground(vararg params: String): String? {
-//            try {
-//                val mimeMessage: Message = MimeMessage(session)
-//                mimeMessage.setFrom(InternetAddress(from))
-//                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to))
-//                mimeMessage.setSubject(subject)
-//                mimeMessage.setContent(message, "text/html; charset=utf-8")
-//                Transport.send(mimeMessage)
-//            } catch (e: MessagingException) {
-//                e.printStackTrace()
-//                return e.getMessage()
-//            } catch (e: java.lang.Exception) {
-//                e.printStackTrace()
-//                return e.message
-//            }
-//            return null
-//        }
-//
-//        protected override fun onProgressUpdate(vararg values: String) {
-//            super.onProgressUpdate(*values)
-//            progressDialog!!.setMessage(values[0])
-//        }
-//
-//        override fun onPostExecute(result: String?) {
-//            progressDialog!!.dismiss()
-//            Toast.makeText(this, result, Toast.LENGTH_LONG).show()
-//        }
-//
-//        init {
-//            this.session = session
-//            this.from = from
-//            this.to = to
-//            this.subject = subject
-//            this.message = message
-//        }
 
 }
 

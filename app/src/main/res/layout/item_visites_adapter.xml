@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="10dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textData"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/dia"/>
+
+    <TextView
+        android:id="@+id/dataVisita"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="end"/>
+
+    <TextView
+        android:id="@+id/textmotiu"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/motiuVisita"/>
+
+    <TextView
+        android:id="@+id/motiuVisita"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_modificar" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_esborrar" />
+
+</LinearLayout>

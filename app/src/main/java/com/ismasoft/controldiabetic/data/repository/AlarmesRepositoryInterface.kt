@@ -1,7 +1,6 @@
 package com.ismasoft.controldiabetic.data.repository
 
-import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 
 interface AlarmesRepositoryInterface {
 
@@ -13,5 +12,7 @@ interface AlarmesRepositoryInterface {
     fun modificarAlarmaNOK()
     fun eliminarAlarmaOK()
     fun eliminarAlarmaNOK()
+    fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>)
+    fun llistaAlarmesNOK()
 
 }
