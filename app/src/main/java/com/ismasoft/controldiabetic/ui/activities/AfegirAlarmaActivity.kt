@@ -7,20 +7,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirAlarmaBinding
-import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
-import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
@@ -42,7 +38,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         binding.lifecycleOwner = this
 
         // Guardem els colors del hint i del text per defecte
-        colorTextDefault = binding.horaControl.textColors
+        colorTextDefault = binding.horaAlarma.textColors
 
         // dia i hora per defecte.
         dataIHoraPerDefecte()
@@ -68,18 +64,18 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
             finish()
         }
 
-        binding.horaControl.setOnClickListener(){
+        binding.horaAlarma.setOnClickListener(){
             hideKeyboard(this)
-            binding.horaControl.setTextColor(colorTextDefault)
-            obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
+            binding.textHoraAlarma.setTextColor(colorTextDefault)
+            obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
         }
-        binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
+        binding.horaAlarma.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this@AfegirAlarmaActivity)
 
             if(!primerOnCreate) {
                 if (hasFocus) {
-                    binding.horaControl.setTextColor(colorTextDefault)
-                    obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
+                    binding.textHoraAlarma.setTextColor(colorTextDefault)
+                    obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
                 }
             }else{
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
@@ -91,7 +87,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     }
 
     private fun inicialitzarAlarma(binding: ActivityAfegirAlarmaBinding): Alarma {
-        val hora = binding.horaControl.text.toString()
+        val hora = binding.horaAlarma.text.toString()
         return Alarma(hora)
     }
 
@@ -100,7 +96,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
         var horaString = hora.toString().padStart(2, '0')
-        binding.horaControl.setText(
+        binding.horaAlarma.setText(
             "${hora.toString().padStart(2, '0')}:${
                 minuts.toString().padStart(
                     2,
@@ -111,9 +107,9 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     }
 
     private fun validarEntrada(): Boolean {
-        if(binding.horaControl.text == null || binding.horaControl.text.toString() == ""){
-            binding.horaControl.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "Falta introduir el valor de glucosa", Toast.LENGTH_SHORT).show()
+        if(binding.horaAlarma.text == null || binding.horaAlarma.text.toString() == ""){
+            binding.textHoraAlarma.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "L'hora és obligatoria per guardar l'alarma", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -133,7 +129,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         val timeSetListener = TimePickerDialog(
             this@AfegirAlarmaActivity,
             TimePickerDialog.OnTimeSetListener() { timePicker, hour, minute ->
-                binding.horaControl.setText(
+                binding.horaAlarma.setText(
                     "${hour.toString().padStart(2, '0')}:${
                         minute.toString().padStart(
                             2,
@@ -158,7 +154,10 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
             }
         }.show()
     }
-    override fun afegirAlarmaNOK() {}
+    override fun afegirAlarmaNOK() {
+        Toast.makeText(this, "Error al guardar l'alarma", Toast.LENGTH_SHORT).show()
+        finish()
+    }
     override fun jaExisteixAlarma() {
         alert("L'alarma introduida ja existeix","Error al guardar l'alarma") {
             cancellable(false)
@@ -177,9 +176,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     override fun noExisteixAlarma() {}
     override fun modificarAlarmaOK() {}
     override fun modificarAlarmaNOK() {}
-    override fun eliminarAlarmaOK() {}
-    override fun eliminarAlarmaNOK() {}
-    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {}
+    override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {}
     override fun llistaAlarmesNOK() {}
 
 }

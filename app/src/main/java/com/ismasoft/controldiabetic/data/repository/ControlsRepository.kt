@@ -66,9 +66,9 @@ class ControlsRepository(val application: Application) {
                 Log.d(TAG, "Documents recuperats")
                 for(document in result){
                     var control : Control = Control()
-                    val data = convertirADateLaDataFirebase(document.data.get("dataControl") as Timestamp)
                     control.valorGlucosa = document.get("valorGlucosa").toString().toInt()
                     control.valorInsulina = document.get("valorInsulina").toString().toInt()
+                    val data = convertirADateLaDataFirebase(document.data.get("dataControl") as Timestamp)
                     control.dataControl = data
                     control.esDespresDeApat = document.get("esDespresDeApat") as Boolean
 

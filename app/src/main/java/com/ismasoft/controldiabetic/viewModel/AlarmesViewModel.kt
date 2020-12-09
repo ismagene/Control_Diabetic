@@ -1,65 +1,94 @@
 package com.ismasoft.controldiabetic.viewModel
 
 import android.app.Application
-import android.content.ContentValues
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.repository.*
-import com.ismasoft.controldiabetic.utilities.Constants
-import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
+import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapterInterface
 import kotlin.collections.ArrayList
-import kotlin.time.ExperimentalTime
-import kotlin.time.days
 
-class AlarmesViewModel(application: Application) : AndroidViewModel(application), AlarmesRepositoryInterface {
+class AlarmesViewModel(application: Application) : AndroidViewModel(application), AlarmesRepositoryInterface,
+    AlarmesListAdapterInterface {
 
     // Definim el repository per accedir a la BBDD
     private var repository = AlarmesRepository(application)
-    lateinit var alarmalActivityInstance : AlarmesRepositoryInterface
+    lateinit var alarmaActivityInstance : AlarmesRepositoryInterface
+    lateinit var alarmaListAdapterInstance : AlarmesListAdapterInterface
 
-    private lateinit var alarmaTractada : Alarma
+    private val _ambAlarmes = MutableLiveData<Boolean>(false)
+    val ambAlarmes : LiveData<Boolean> get() = _ambAlarmes
+    private val _senseAlarmes = MutableLiveData<Boolean>(false)
+    val senseAlarmes : LiveData<Boolean> get() = _senseAlarmes
+
+    private var alarmaAfegir = Alarma()
+    private var alarmaModificar = AlarmaAmbId()
 
     fun onButtonGuardarAlarma(alarma: Alarma, alarmesRepositoryInterface : AlarmesRepositoryInterface){
-        alarmalActivityInstance = alarmesRepositoryInterface
-        alarmaTractada = alarma
+        alarmaActivityInstance = alarmesRepositoryInterface
+        alarmaAfegir = alarma
         repository.comprobarExisteixAlarma(alarma.horaAlarma.toString(), this)
+    }
 
+    fun onButtonModificarAlarma(alarma: AlarmaAmbId, alarmesRepositoryInterface : AlarmesRepositoryInterface){
+        alarmaActivityInstance = alarmesRepositoryInterface
+        alarmaModificar = alarma
+        repository.comprobarExisteixAlarma(alarma.horaAlarma.toString(), this)
     }
 
     fun recuperarLlistaAlarmes(alarmesRepositoryInterface : AlarmesRepositoryInterface){
-        alarmalActivityInstance = alarmesRepositoryInterface
+        alarmaActivityInstance = alarmesRepositoryInterface
         repository.recuperarLlistaAlarmes(this)
     }
 
-    override fun afegirAlarmaOK() {
-        alarmalActivityInstance.afegirAlarmaOK()
+    fun eliminarAlarma(idAlarma: String, position: Int, alarmesListAdapterInterface : AlarmesListAdapterInterface){
+        alarmaListAdapterInstance = alarmesListAdapterInterface
+        repository.eliminarAlarma(idAlarma, position, this)
     }
-    override fun afegirAlarmaNOK() {}
+
+    override fun afegirAlarmaOK() {
+        alarmaActivityInstance.afegirAlarmaOK()
+    }
+    override fun afegirAlarmaNOK() {
+        alarmaActivityInstance.afegirAlarmaNOK()
+    }
+
     override fun jaExisteixAlarma() {
-        alarmalActivityInstance.jaExisteixAlarma()
+        alarmaActivityInstance.jaExisteixAlarma()
     }
     override fun noExisteixAlarma() {
-        repository.insertarAlarmaBBDD(alarmaTractada,this)
+        if(alarmaAfegir.horaAlarma != null){
+            repository.insertarAlarmaBBDD(alarmaAfegir,this)
+        }else if(alarmaModificar.idAlarma != null){
+            repository.modificarAlarma(alarmaModificar,this)
+        }
+
     }
-    override fun modificarAlarmaOK() {}
-    override fun modificarAlarmaNOK() {}
-    override fun eliminarAlarmaOK() {}
-    override fun eliminarAlarmaNOK() {}
-    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {
-        alarmalActivityInstance.llistaAlarmesOK(llistaAlarmes)
+    override fun modificarAlarmaOK() {
+        alarmaActivityInstance.modificarAlarmaOK()
+    }
+    override fun modificarAlarmaNOK() {
+        alarmaActivityInstance.modificarAlarmaNOK()
+    }
+    override fun eliminarAlarmaOK(position: Int) {
+        alarmaListAdapterInstance.eliminarAlarmaOK(position)
+    }
+    override fun eliminarAlarmaNOK() {
+        alarmaListAdapterInstance.eliminarAlarmaNOK()
+    }
+    override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {
+        if(llistaAlarmes.size>0){
+            _ambAlarmes.value = true
+            _senseAlarmes.value = false
+        }else{
+            _ambAlarmes.value = false
+            _senseAlarmes.value = true
+        }
+        alarmaActivityInstance.llistaAlarmesOK(llistaAlarmes)
     }
     override fun llistaAlarmesNOK() {
-        alarmalActivityInstance.llistaAlarmesNOK()
+
+        alarmaActivityInstance.llistaAlarmesNOK()
     }
+
 }

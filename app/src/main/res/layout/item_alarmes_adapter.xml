@@ -27,7 +27,8 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:background="@drawable/style_border_textview"
-        android:src="@drawable/ic_modificar" />
+        android:src="@drawable/ic_modificar"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
     <ImageButton
         android:id="@+id/botoEliminarAlarma"
@@ -36,6 +37,7 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:background="@drawable/style_fons_boto"
-        android:src="@drawable/ic_esborrar" />
+        android:src="@drawable/ic_esborrar"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
 </LinearLayout>

@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.databinding.ActivityMainBinding
+import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.MainViewModel
 import kotlinx.coroutines.*
+import javax.mail.Flags
+import javax.mail.Flags.Flag
 
 class MainActivity : AppCompatActivity() {
 

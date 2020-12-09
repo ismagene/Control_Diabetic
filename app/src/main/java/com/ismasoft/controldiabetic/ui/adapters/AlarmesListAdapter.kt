@@ -1,22 +1,28 @@
 package com.ismasoft.controldiabetic.ui.adapters
 
-import com.ismasoft.controldiabetic.data.model.Alarma
+import android.app.Application
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import java.text.SimpleDateFormat
+import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
+import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
+import org.jetbrains.anko.alert
 
-class AlarmesListAdapter (var context: Context, val mData: List<AlarmaAmbId>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlarmesListAdapter (var context: Context, val mData: ArrayList<AlarmaAmbId>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() , AlarmesListAdapterInterface {
 
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
+    private lateinit var viewModel : AlarmesViewModel
 
     override fun getItemCount(): Int {
         return mData.size
@@ -28,18 +34,18 @@ class AlarmesListAdapter (var context: Context, val mData: List<AlarmaAmbId>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = mInflater.inflate(R.layout.item_alarmes_adapter, parent, false)
-        return ProductViewHolder(view)
+        return AlarmaViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setProduct(holder, position)
+        setAlarma(holder, position)
     }
 
-    inner class ProductViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class AlarmaViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var hora: TextView = itemView.findViewById(R.id.horaAlarma)
-//        internal var modificarAlarma: TextView = itemView.findViewById(R.id.botoModificarAlarma)
-//        internal var eliminarAlarma: TextView = itemView.findViewById(R.id.botoEliminarAlarma)
+        internal var modificarAlarma: ImageButton = itemView.findViewById(R.id.botoModificarAlarma)
+        internal var eliminarAlarma: ImageButton = itemView.findViewById(R.id.botoEliminarAlarma)
 
         init {
             itemView.setOnClickListener(this)
@@ -47,16 +53,35 @@ class AlarmesListAdapter (var context: Context, val mData: List<AlarmaAmbId>) :
 
         override fun onClick(view: View) {
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
-//            if(modificarAlarma!=null) modificarAlarma!!.onItemClick()
         }
-
 
     }
 
-    private fun setProduct(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = holder as ProductViewHolder
+    private fun setAlarma(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = holder as AlarmaViewHolder
         val alarma = mData[position]
         item.hora.text = alarma.horaAlarma
+
+        item.modificarAlarma.setOnClickListener(){
+            val modificarAlarma = Intent(context, ModificarAlarmaActivity::class.java)
+            val extras = Bundle()
+            extras.putSerializable("alarmaModificar",alarma)
+            modificarAlarma.putExtras(extras)
+            context.startActivity(modificarAlarma)
+        }
+        item.eliminarAlarma.setOnClickListener(){
+            context.alert ("Segur que voleu eliminar la alarma ${item.hora.text} ?","Eliminar alarma") {
+                cancellable(false)
+                positiveButton("Confirmar") {
+                    viewModel = AlarmesViewModel(application = Application())
+                    viewModel.eliminarAlarma(mData[position].idAlarma.toString(), position, this@AlarmesListAdapter)
+                }
+                negativeButton("Cancelar"){
+                    // Nothing to do
+                }
+            }.show()
+        }
+
     }
 
     internal fun setClickListener(itemClickListener: ItemClickListener) {
@@ -65,6 +90,17 @@ class AlarmesListAdapter (var context: Context, val mData: List<AlarmaAmbId>) :
 
     interface ItemClickListener {
         fun onItemClick(view: View, position: Int)
+    }
+
+    override fun eliminarAlarmaOK(position: Int) {
+        // Retorn de la crida OK d'esborrar l'alarma
+        mData.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position,mData.size)
+    }
+
+    override fun eliminarAlarmaNOK() {
+        Toast.makeText(context, "Error al eliminar l'alarma", Toast.LENGTH_SHORT).show()
     }
 
 }

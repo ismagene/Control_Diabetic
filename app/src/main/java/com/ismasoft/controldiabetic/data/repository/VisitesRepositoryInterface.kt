@@ -2,20 +2,23 @@ package com.ismasoft.controldiabetic.data.repository
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.Visita
+import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 
 interface VisitesRepositoryInterface {
 
-    fun afegirControlOK()
-    fun afegirControlNOK()
-    fun obtenirRangsOK(document: DocumentSnapshot)
-    fun obtenirRangsNOK()
+    fun afegirVisitaOK()
+    fun afegirVisitaNOK()
 
-    fun llistaControlsOK(document: List<Control>)
-    fun LlistaControlsNOK()
+    fun existeixVisitaVigent()
+    fun noExisteixVisitaVigent()
 
-    fun modificarControlOK()
-    fun modificarControlNOK()
-    fun eliminarControlOK()
-    fun eliminarControlNOK()
+    fun llistaVisitesOK(document: ArrayList<VisitaAmbId>)
+    fun llistaVisitesNOK()
+
+    fun modificarVisitaOK()
+    fun modificarVisitaNOK()
+    fun eliminarVisitaOK()
+    fun eliminarVisitaNOK()
 
 }

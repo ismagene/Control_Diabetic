@@ -4,10 +4,12 @@ import android.app.Application
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.androidhuman.rxfirebase2.auth.RxFirebaseUser.delete
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
+import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_ALARMES
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
@@ -70,5 +72,35 @@ class AlarmesRepository(val application: Application) {
             }
     }
 
+    fun eliminarAlarma(idAlarma: String, position : Int, alarmesListAdapterInterface : AlarmesListAdapterInterface){
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_ALARMES).document(idAlarma)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                alarmesListAdapterInterface.eliminarAlarmaOK(position)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                alarmesListAdapterInterface.eliminarAlarmaNOK()
+            }
+    }
+
+    fun modificarAlarma(alarma: AlarmaAmbId, alarmaRepositoryInterface: AlarmesRepositoryInterface){
+        val user= FirebaseAuth.getInstance().currentUser
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_ALARMES).document(alarma.idAlarma.toString())
+            .update(mapOf(
+                "horaAlarma" to alarma.horaAlarma
+            ))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Modificació de l'alarma OK")
+                alarmaRepositoryInterface.modificarAlarmaOK()
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "Error modificació de l'alarma", e)
+                alarmaRepositoryInterface.modificarAlarmaNOK()
+            }
+
+
+    }
 
 }

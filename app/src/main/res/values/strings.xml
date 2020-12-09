@@ -71,6 +71,7 @@
     <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduit.</string>
 
     <string name="guardar">Guardar</string>
+    <string name="modificar">Modificar</string>
     <string name="cancelar">Cancelar</string>
 
     <!-- Strings related to Controls -->
@@ -103,8 +104,11 @@
     <string name="contrasenya">Contrasenya: </string>
     <string name="modificarContrasenya">Modificar</string>
     <string name="modificarDadesPers">Modificar dades personals</string>
+    <string name="modificarAlarma">Modificar alarma</string>
+    <string name="modificarControl">Modificar control</string>
+    <string name="enviarHistoric">Enviar històric de controls</string>
     <string name="confirmarModificar">Modificar</string>
-    <string name="modificarDadesMed">Modificar dades personals</string>
+    <string name="modificarDadesMed">Modificar dades mèdiques</string>
     <string name="titolModificarDadesPer">Modificar dades personals</string>
     <string name="titolModificarDadesMed">Modificar dades mèdiques</string>
     <string name="tancarSessio">Tancar Sessió</string>
@@ -133,6 +137,7 @@
     <!-- Strings related to alarmes -->
     <string name="afegirAlarma">Afegir alarma</string>
     <string name="titolAlarmes">Alarmes</string>
+    <string name="titolSenseAlarmes">No hi ha cap alarma introduida</string>
     <string name="titolAfegirAlarma">Introduir nova Alarma</string>
 
 

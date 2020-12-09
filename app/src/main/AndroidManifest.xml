@@ -20,18 +20,23 @@
         <activity android:name=".ui.activities.ModificarDadesMedActivity"
             android:label="@string/titolModificarDadesMed"
             android:windowSoftInputMode="adjustResize"/>
-
         <activity
             android:name=".ui.activities.ModificarDadesPersActivity"
             android:label="@string/modificarDadesPers"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.EnviarHistoricActivity" />
+        <activity android:name=".ui.activities.EnviarHistoricActivity"
+            android:label="@string/enviarHistoric"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.activities.HistoricControlsActivity"
             android:label="@string/titolHistoricControls"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.ModificarAlarmaActivity" />
-        <activity android:name=".ui.activities.ModificarControlActivity" />
+        <activity android:name=".ui.activities.ModificarAlarmaActivity"
+            android:label="@string/modificarAlarma"
+            android:windowSoftInputMode="adjustResize"   />
+        <activity android:name=".ui.activities.ModificarControlActivity"
+            android:label="@string/modificarControl"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.activities.AfegirVisitaActivity"
             android:label="@string/titolAfegirVisita"
             android:windowSoftInputMode="adjustResize"/>

@@ -8,14 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
@@ -90,10 +86,8 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     override fun noExisteixAlarma() {}
     override fun modificarAlarmaOK() {}
     override fun modificarAlarmaNOK() {}
-    override fun eliminarAlarmaOK() {}
-    override fun eliminarAlarmaNOK() {}
 
-    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {
+    override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {
 
         recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes) }!!
         adapter.notifyDataSetChanged()
