@@ -57,14 +57,15 @@
     </string-array>
     <string name="loginDiagnosisDate">Data diagnosi *</string>
     <string name="glucosaData" tools:ignore="StringEscaping">Dades glucosa - Els valors entre parentesis son estàndars, que s\'utilitzaràn en cas de no introduirne cap.</string>
+    <string name="glucosaDataInfo" tools:ignore="StringEscaping">Dades glucosa</string>
     <string name="mesuraGlucosa">mg/dL</string>
     <string name="mesuraInsulina">ui</string>
     <string name="glucosaMoltBaixa">Molt baixa (54)</string>
     <string name="glucosaBaixa">Baixa (80)</string>
-    <string name="glucosaBaixaDespresApat" tools:ignore="StringEscaping">Baixa desprès d\'un àpat (120)</string>
+    <string name="glucosaBaixaDespresApat" tools:ignore="StringEscaping">Baixa després d\'un àpat (120)</string>
     <string name="glucosaMoltAlta">Molt alta (250)</string>
     <string name="glucosaAlta">Alta (130)</string>
-    <string name="glucosaAltaDespresApat" tools:ignore="StringEscaping">Alta desprès d\'un àpat (180)</string>
+    <string name="glucosaAltaDespresApat" tools:ignore="StringEscaping">Alta després d\'un àpat (180)</string>
 
     <string name="textRegistreFeedback">Registre realitzat.</string>
     <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduit.</string>
@@ -84,11 +85,11 @@
     <string name="titolMitjanes">Mitjanes de glucosa</string>
 
     <string name="titolAfegirControl">Introduir nou Control</string>
-        <string name="hora">Hora: </string>
+    <string name="hora">Hora: </string>
     <string name="selecciona">Selecciona</string>
     <string name="dia">Dia: </string>
     <string name="literalInsulina">Insulina</string>
-    <string name="esDespresDapat" tools:ignore="StringEscaping">Es desprès d\'un àpat</string>
+    <string name="esDespresDapat" tools:ignore="StringEscaping">Es després d\'un àpat</string>
 
     <!-- Strings related to modificar dades -->
     <string name="nom">Nom: </string>
@@ -102,15 +103,28 @@
     <string name="contrasenya">Contrasenya: </string>
     <string name="modificarContrasenya">Modificar</string>
     <string name="modificarDadesPers">Modificar dades personals</string>
+    <string name="modificarDadesMed">Modificar dades personals</string>
     <string name="titolModificarDadesPer">Modificar dades personals</string>
+    <string name="titolModificarDadesMed">Modificar dades mèdiques</string>
     <string name="tancarSessio">Tancar Sessió</string>
-
 
     <string name="titolModificarPassword">Modificar la contrasenya</string>
     <string name="confirmarModificarContrasenya">Confirmar modificar contrasenya</string>
     <string name="contrasenyaAntiga">Contrasenya actual *</string>
     <string name="contrasenyaNova">Contrasenya nova *</string>
     <string name="contrasenyaNovaConfirmar">Confirmar contrasenya nova *</string>
+
+    <string name="nomDelCentre">Nom del centre: </string>
+    <string name="nomPoblacio">Població del centre: </string>
+    <string name="nomDelMetge">Nom del metge: </string>
+    <string name="correuElectronicMetge">Correu electrònic metge:</string>
+    <string name="dataDiagnosi">Data diagnosi:</string>
+    <string name="titolGlucosaBaixa">Baixa: </string>
+    <string name="titolGlucosaAlta">Alta: </string>
+    <string name="titolGlucosaMoltBaixa">Molt Baixa: </string>
+    <string name="titolGlucosaMoltAlta">Molt Alta: </string>
+    <string name="titolGlucosaDABaixa">Baixa després d\'àpat: </string>
+    <string name="titolGlucosaDAAlta">Alta després d\'àpat: </string>
 
 
     <string name="titolHistoricControls">Històric de controls</string>
@@ -127,6 +141,8 @@
     <string name="titolAfegirVisita">Introduir nova Visita</string>
     <string name="motiuVisita">Motiu: </string>
     <string name="motiuPerDefecte">El motiu per defecte es: \"Control\" </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    
+
 </resources>

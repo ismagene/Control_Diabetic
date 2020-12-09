@@ -127,9 +127,12 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
 
     override fun recuperarDadesPersonalsOK(document: DocumentSnapshot?) {}
     override fun recuperarDadesPersonalsNOK() {}
+    override fun recuperarDadesMediquesOK(document: DocumentSnapshot?) {}
+    override fun recuperarDadesMediquesNOK() {}
     override fun modificarDadesPersOK() {}
     override fun modificarDadesPersNOK() {}
-
+    override fun modificarDadesMedOK() {}
+    override fun modificarDadesMedNOK() {}
     override fun validarContrasenyaOK() {
         viewModel.modificarContrasenya(binding.contrasenyaNova.text.toString(),this)
     }

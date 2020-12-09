@@ -7,8 +7,14 @@ interface PerfilRepositoryInterface {
     fun recuperarDadesPersonalsOK(document: DocumentSnapshot?)
     fun recuperarDadesPersonalsNOK()
 
+    fun recuperarDadesMediquesOK(document: DocumentSnapshot?)
+    fun recuperarDadesMediquesNOK()
+
     fun modificarDadesPersOK()
     fun modificarDadesPersNOK()
+
+    fun modificarDadesMedOK()
+    fun modificarDadesMedNOK()
 
     fun validarContrasenyaOK()
     fun validarContrasenyaNOK()

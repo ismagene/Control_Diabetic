@@ -51,6 +51,23 @@ class PerfilRepository(val application: Application) {
 
     }
 
+    fun recuperarDadesMediques(perfilRepositoryInterface: PerfilRepositoryInterface) {
+
+        db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
+            .get()
+            .addOnCompleteListener() { task  ->
+                if(task .isSuccessful){
+                    Log.d(TAG, "DocumentSnapshot recuperat with ID: ${task.result?.id}")
+                    perfilRepositoryInterface.recuperarDadesMediquesOK(task.result)
+                }
+                else{
+                    Log.w(TAG, "Error recuperant l'usuari")
+                    perfilRepositoryInterface.recuperarDadesMediquesNOK()
+                }
+            }
+
+    }
+
     fun validarContrasenya(contrasenya: String, perfilRepositoryInterface: PerfilRepositoryInterface) {
 
         val user= FirebaseAuth.getInstance().currentUser

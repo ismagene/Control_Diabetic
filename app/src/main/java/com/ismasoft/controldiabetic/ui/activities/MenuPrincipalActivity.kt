@@ -43,14 +43,14 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         var alarmesFragment = AlarmesFragment()
         var controlsFragment = ControlsFragment()
-        var perfilPersonalFragment = PerfilPersonalFragment()
+        var perfilGlobal = PerfilFragment()
         var visitesFragment = VisitesFragment()
-        var perfilMedicFragment = PerfilMedicFragment()
+
         activeFragment = controlsFragment
 
         mFragmentManager.beginTransaction().add(R.id.frameLayout, alarmesFragment, "alarmes").hide(alarmesFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, visitesFragment, "visites").hide(visitesFragment).commit()
-        mFragmentManager.beginTransaction().add(R.id.frameLayout, perfilPersonalFragment, "perfilPersonal").hide(perfilPersonalFragment).commit()
+        mFragmentManager.beginTransaction().add(R.id.frameLayout, perfilGlobal, "perfilPersonal").hide(perfilGlobal).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, controlsFragment, "controls").commit()
 
         this.binding.navigation.setOnNavigationItemSelectedListener {
@@ -76,8 +76,8 @@ class MenuPrincipalActivity : AppCompatActivity() {
                 }
                 R.id.perfil -> {
                     mFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(perfilPersonalFragment).commit()
-                    activeFragment = perfilPersonalFragment
+                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(perfilGlobal).commit()
+                    activeFragment = perfilGlobal
                     binding.fav.hide()
                 }
             }

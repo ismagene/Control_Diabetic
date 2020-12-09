@@ -32,9 +32,39 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
     private val _correuElectronic = MutableLiveData<String>()
     val correuElectronic : LiveData<String> get() = _correuElectronic
 
+    private val _valueNomDelCentre = MutableLiveData<String>()
+    val valueNomDelCentre : LiveData<String> get() = _valueNomDelCentre
+    private val _poblacioDelCentre = MutableLiveData<String>()
+    val poblacioDelCentre : LiveData<String> get() = _poblacioDelCentre
+    private val _nomDelMetge = MutableLiveData<String>()
+    val nomDelMetge : LiveData<String> get() = _nomDelMetge
+    private val _correuElectronicMetge = MutableLiveData<String>()
+    val correuElectronicMetge : LiveData<String> get() = _correuElectronicMetge
+    private val _tipusDiabetis = MutableLiveData<String>()
+    val tipusDiabetis : LiveData<String> get() = _tipusDiabetis
+    private val _dataDiagnosi = MutableLiveData<String>()
+    val dataDiagnosi : LiveData<String> get() = _dataDiagnosi
+    private val _glucosaBaixa = MutableLiveData<String>()
+    val glucosaBaixa : LiveData<String> get() = _glucosaBaixa
+    private val _glucosaAlta = MutableLiveData<String>()
+    val glucosaAlta : LiveData<String> get() = _glucosaAlta
+    private val _glucosaMoltBaixa = MutableLiveData<String>()
+    val glucosaMoltBaixa : LiveData<String> get() = _glucosaMoltBaixa
+    private val _glucosaMoltAlta = MutableLiveData<String>()
+    val glucosaMoltAlta : LiveData<String> get() = _glucosaMoltAlta
+    private val _glucosaBaixaDA = MutableLiveData<String>()
+    val glucosaBaixaDA : LiveData<String> get() = _glucosaBaixaDA
+    private val _glucosaAltaDA = MutableLiveData<String>()
+    val glucosaAltaDA : LiveData<String> get() = _glucosaAltaDA
+
     fun recuperarDadesUsuari(perfilRepositoryInterface: PerfilRepositoryInterface) {
         perfilActivityInstance = perfilRepositoryInterface
         repository.recuperarDadesUsuari(this)
+    }
+
+    fun recuperarDadesMediques(perfilRepositoryInterface: PerfilRepositoryInterface) {
+        perfilActivityInstance = perfilRepositoryInterface
+        repository.recuperarDadesMediques(this)
     }
 
     override fun recuperarDadesPersonalsOK(document: DocumentSnapshot?) {
@@ -51,6 +81,24 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _correuElectronic.value = document?.get("correuElectronic").toString()
     }
 
+    override fun recuperarDadesMediquesOK(document: DocumentSnapshot?) {
+        _valueNomDelCentre.value = document?.get("centre").toString()
+        _poblacioDelCentre.value = document?.get("poblacioCentre").toString()
+        _nomDelMetge.value = document?.get("nomMetge").toString()
+        _correuElectronicMetge.value = document?.get("correuElectronicMetge").toString()
+        _tipusDiabetis.value = document?.get("tipusDiabetis").toString()
+        var dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataDiagnosi") as Timestamp)
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(dataFirebase)
+        _dataDiagnosi.value = dataString
+        _glucosaBaixa.value = document?.get("glucosaBaixa").toString() + " mg/dL"
+        _glucosaAlta.value = document?.get("glucosaAlta").toString() + " mg/dL"
+        _glucosaMoltBaixa.value = document?.get("glucosaMoltBaixa").toString() + " mg/dL"
+        _glucosaMoltAlta.value = document?.get("glucosaMoltAlta").toString() + " mg/dL"
+        _glucosaBaixaDA.value = document?.get("glucosaBaixaDespresApat").toString() + " mg/dL"
+        _glucosaAltaDA.value = document?.get("glucosaAltaDespresApat").toString() + " mg/dL"
+    }
+
     fun validarContrasenya(contrasenyaAntiga:String, perfilRepositoryInterface: PerfilRepositoryInterface) {
         perfilActivityInstance = perfilRepositoryInterface
         repository.validarContrasenya(contrasenyaAntiga,this)
@@ -65,9 +113,17 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         repository.tancarSessio()
     }
 
-    override fun recuperarDadesPersonalsNOK() {}
+    override fun recuperarDadesPersonalsNOK() {
+        perfilActivityInstance.recuperarDadesPersonalsNOK()
+    }
+    override fun recuperarDadesMediquesNOK() {
+        perfilActivityInstance.recuperarDadesMediquesNOK()
+    }
     override fun modificarDadesPersOK() {}
     override fun modificarDadesPersNOK() {}
+    override fun modificarDadesMedOK() {}
+    override fun modificarDadesMedNOK() {}
+
     override fun validarContrasenyaOK() {
         perfilActivityInstance.validarContrasenyaOK()
     }

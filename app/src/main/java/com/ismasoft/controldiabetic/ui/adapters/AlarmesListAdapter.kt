@@ -38,8 +38,8 @@ class AlarmesListAdapter (var context: Context, val mData: List<AlarmaAmbId>) :
     inner class ProductViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var hora: TextView = itemView.findViewById(R.id.horaAlarma)
-        internal var modificarAlarma: TextView = itemView.findViewById(R.id.botoModificarAlarma)
-        internal var eliminarAlarma: TextView = itemView.findViewById(R.id.botoEliminarAlarma)
+//        internal var modificarAlarma: TextView = itemView.findViewById(R.id.botoModificarAlarma)
+//        internal var eliminarAlarma: TextView = itemView.findViewById(R.id.botoEliminarAlarma)
 
         init {
             itemView.setOnClickListener(this)

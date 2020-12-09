@@ -169,18 +169,17 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         }.show()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     override fun noExisteixAlarma() {}
     override fun modificarAlarmaOK() {}
     override fun modificarAlarmaNOK() {}
     override fun eliminarAlarmaOK() {}
     override fun eliminarAlarmaNOK() {}
-    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun llistaAlarmesNOK() {
-        TODO("Not yet implemented")
-    }
-
+    override fun llistaAlarmesOK(llistaAlarmes: List<AlarmaAmbId>) {}
+    override fun llistaAlarmesNOK() {}
 
 }
