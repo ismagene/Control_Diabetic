@@ -9,6 +9,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 
@@ -16,23 +17,6 @@ class PerfilRepository(val application: Application) {
 
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-
-    fun modificarDadesBBDD(
-        control: Control,
-        controlsRepositoryInterface: ControlsRepositoryInterface
-    ){
-
-        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
-            .add(control)
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
-                controlsRepositoryInterface.afegirControlOK()
-            }
-            .addOnFailureListener {
-                Log.w(TAG, "Error adding document", it)
-                controlsRepositoryInterface.afegirControlNOK()
-            }
-    }
 
     fun recuperarDadesUsuari(perfilRepositoryInterface: PerfilRepositoryInterface) {
 
@@ -101,5 +85,56 @@ class PerfilRepository(val application: Application) {
 
     fun tancarSessio(){
         firebaseAuth.signOut()
+    }
+
+    fun modificarDadesPers(usuariModificat: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        val user= FirebaseAuth.getInstance().currentUser
+        db.collection(DB_ROOT_USUARIS).document(user?.uid.toString())
+            .update(mapOf(
+            "nom" to usuariModificat.nom,
+            "primerCognom" to usuariModificat.primerCognom,
+            "segonCognom" to usuariModificat.segonCognom,
+            "dataDiagnosi" to usuariModificat.dataNaixement,
+            "genere" to usuariModificat.genere,
+            "pes" to usuariModificat.pes,
+            "altura" to usuariModificat.altura
+            ))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Modificació de l'usuari OK")
+                perfilRepositoryInterface.modificarDadesPersOK()
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "Error modificació de l'usuari", e)
+                perfilRepositoryInterface.modificarDadesPersNOK()
+            }
+
+    }
+
+    fun modificarDadesMed(usuariModificat: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        val user= FirebaseAuth.getInstance().currentUser
+        db.collection(DB_ROOT_USUARIS).document(user?.uid.toString())
+            .update(mapOf(
+                "centre" to usuariModificat.centre,
+                "poblacioCentre" to usuariModificat.poblacioCentre,
+                "nomMetge" to usuariModificat.nomMetge,
+                "correuElectronicMetge" to usuariModificat.correuElectronicMetge,
+                "tipusDiabetis" to usuariModificat.tipusDiabetis,
+                "dataDiagnosi" to usuariModificat.dataDiagnosi,
+                "glucosaBaixa" to usuariModificat.glucosaBaixa,
+                "glucosaAlta" to usuariModificat.glucosaAlta,
+                "glucosaMoltBaixa" to usuariModificat.glucosaMoltBaixa,
+                "glucosaMoltAlta" to usuariModificat.glucosaMoltAlta,
+                "glucosaBaixaDespresApat" to usuariModificat.glucosaBaixaDespresApat,
+                "glucosaAltaDespresApat" to usuariModificat.glucosaAltaDespresApat
+            ))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Modificació de l'usuari OK")
+                perfilRepositoryInterface.modificarDadesMedOK()
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "Error modificació de l'usuari", e)
+                perfilRepositoryInterface.modificarDadesMedNOK()
+            }
+
     }
 }

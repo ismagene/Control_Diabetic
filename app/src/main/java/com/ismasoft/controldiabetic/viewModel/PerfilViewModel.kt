@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
+import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.*
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
 import java.text.SimpleDateFormat
@@ -62,9 +63,49 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         repository.recuperarDadesUsuari(this)
     }
 
+    fun mostrarDadesPersonals(user : User){
+        _valueNom.value = user.nom
+        _valueCognom.value = user.primerCognom
+        _valueCognom2.value = user.segonCognom
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(user.dataNaixement)
+        _dataNaixament.value = dataString
+        _genere.value = user.genere
+        _pes.value = user.pes.toString()
+        _altura.value = user.altura.toString()
+        _correuElectronic.value = user.correuElectronic
+    }
+
+    fun mostrarDadesMediques(user : User){
+        _valueNomDelCentre.value  = user.centre
+        _poblacioDelCentre.value = user.poblacioCentre
+        _nomDelMetge.value = user.nomMetge
+        _correuElectronicMetge.value = user.correuElectronicMetge
+        _tipusDiabetis.value = user.tipusDiabetis
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(user.dataDiagnosi)
+        _dataDiagnosi.value = dataString
+        _glucosaBaixa.value = user.glucosaBaixa.toString()
+        _glucosaAlta.value = user.glucosaAlta.toString()
+        _glucosaMoltBaixa.value = user.glucosaMoltBaixa.toString()
+        _glucosaMoltAlta.value = user.glucosaMoltAlta.toString()
+        _glucosaBaixaDA.value = user.glucosaBaixaDespresApat.toString()
+        _glucosaAltaDA.value = user.glucosaAltaDespresApat.toString()
+    }
+
     fun recuperarDadesMediques(perfilRepositoryInterface: PerfilRepositoryInterface) {
         perfilActivityInstance = perfilRepositoryInterface
         repository.recuperarDadesMediques(this)
+    }
+
+    fun modificarDadesPers(user: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        perfilActivityInstance = perfilRepositoryInterface
+        repository.modificarDadesPers(user, this)
+    }
+
+    fun modificarDadesMed(user: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
+        perfilActivityInstance = perfilRepositoryInterface
+        repository.modificarDadesMed(user, this)
     }
 
     override fun recuperarDadesPersonalsOK(document: DocumentSnapshot?) {
@@ -119,10 +160,18 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
     override fun recuperarDadesMediquesNOK() {
         perfilActivityInstance.recuperarDadesMediquesNOK()
     }
-    override fun modificarDadesPersOK() {}
-    override fun modificarDadesPersNOK() {}
-    override fun modificarDadesMedOK() {}
-    override fun modificarDadesMedNOK() {}
+    override fun modificarDadesPersOK() {
+        perfilActivityInstance.modificarDadesPersOK()
+    }
+    override fun modificarDadesPersNOK() {
+        perfilActivityInstance.modificarDadesPersNOK()
+    }
+    override fun modificarDadesMedOK() {
+        perfilActivityInstance.modificarDadesMedOK()
+    }
+    override fun modificarDadesMedNOK() {
+        perfilActivityInstance.modificarDadesMedNOK()
+    }
 
     override fun validarContrasenyaOK() {
         perfilActivityInstance.validarContrasenyaOK()

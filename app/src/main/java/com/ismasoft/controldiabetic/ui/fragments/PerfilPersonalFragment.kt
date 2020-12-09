@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
 import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
@@ -23,6 +24,7 @@ import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -53,7 +55,12 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
         bindingFragment.lifecycleOwner = this
 
         bindingFragment.buttonModificar.setOnClickListener(){
+            var usuari = recuperarDadesUsuari()
+
             val modificar = Intent(context, ModificarDadesPersActivity::class.java)
+            val extras = Bundle()
+            extras.putSerializable("usuariPerfil",usuari)
+            modificar.putExtras(extras)
             startActivityForResult(modificar, Constants.RETORN_ACTIVITY_OK_CODE)
         }
 
@@ -79,6 +86,47 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
         }
 
         return bindingFragment.root
+    }
+
+    private fun recuperarDadesUsuari(): User {
+
+        val nom : String? = viewModel.valueNom.value.toString()
+        val cognom: String? = viewModel.valueCognom.value.toString()
+        val cognom2: String? = viewModel.valueCognom2.value.toString()
+        val date: String? = viewModel.dataNaixament.value.toString()
+        val dataNaixament = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
+        val genere: String? = viewModel.genere.value.toString()
+        val pesString: String? = viewModel.pes.value.toString()
+        var parts = pesString!!.split(" ")
+        var pes =  parts[0].toInt()
+        val alturaString: String? = viewModel.altura.value.toString()
+        parts = alturaString!!.split(" ")
+        var altura =  parts[0].toInt()
+        val correuElectronic: String? = viewModel.correuElectronic.value.toString()
+
+        return User(
+            nom,
+            cognom,
+            cognom2,
+            dataNaixament,
+            correuElectronic,
+            genere,
+            pes,
+            altura,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
     }
 
     override fun onResume() {
@@ -120,3 +168,5 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
     override fun modificarContrasenyaOK() {}
     override fun modificarContrasenyaNOK() {}
 }
+
+

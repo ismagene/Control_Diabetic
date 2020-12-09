@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.data.model
 
+import java.io.Serializable
 import java.sql.Timestamp
 import java.util.*
 
@@ -26,8 +27,9 @@ data class User(
         var glucosaMoltAlta: Number? = null,
         var glucosaBaixaDespresApat: Number? = null,
         var glucosaAltaDespresApat: Number? = null
-) {
+) : Serializable{
 
 
 
 }
+

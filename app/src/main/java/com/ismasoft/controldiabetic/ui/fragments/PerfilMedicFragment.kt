@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilMedicBinding
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
@@ -18,6 +19,7 @@ import com.ismasoft.controldiabetic.ui.activities.ModificarDadesMedActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -47,11 +49,68 @@ class PerfilMedicFragment : Fragment(), PerfilRepositoryInterface {
         viewModel.recuperarDadesUsuari(this)
 
         bindingFragment.buttonModificarDMediques.setOnClickListener(){
+            var usuari = recuperarDadesUsuari()
             val modificar = Intent(context, ModificarDadesMedActivity::class.java)
+            val extras = Bundle()
+            extras.putSerializable("usuariPerfilMed",usuari)
+            modificar.putExtras(extras)
             startActivityForResult(modificar, Constants.RETORN_ACTIVITY_OK_CODE)
         }
 
         return bindingFragment.root
+    }
+
+    private fun recuperarDadesUsuari(): User {
+
+        val centre : String? = viewModel.valueNomDelCentre.value.toString()
+        val poblacioCentre: String? = viewModel.poblacioDelCentre.value.toString()
+        val nomDelMetge: String? = viewModel.nomDelMetge.value.toString()
+        val correuElectronicMetge: String? = viewModel.correuElectronicMetge.value.toString()
+        val tipuDiabetis: String? = viewModel.tipusDiabetis.value.toString()
+        val date: String? = viewModel.dataDiagnosi.value.toString()
+        val dataDiagnosi = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
+        val glucosaBaixaString: String? = viewModel.glucosaBaixa.value.toString()
+        var parts = glucosaBaixaString!!.split(" ")
+        var glucosaBaixa = parts[0].toInt()
+        val glucosaAltaString: String? = viewModel.glucosaAlta.value.toString()
+        parts = glucosaAltaString!!.split(" ")
+        var glucosaAlta = parts[0].toInt()
+        val glucosaMoltBaixaString: String? = viewModel.glucosaMoltBaixa.value.toString()
+        parts = glucosaMoltBaixaString!!.split(" ")
+        var glucosaMoltBaixa = parts[0].toInt()
+        val glucosaMoltAltaString: String? = viewModel.glucosaMoltAlta.value.toString()
+        parts = glucosaMoltAltaString!!.split(" ")
+        var glucosaMoltAlta = parts[0].toInt()
+        val glucosaBaixaDAString: String? = viewModel.glucosaBaixaDA.value.toString()
+        parts = glucosaBaixaDAString!!.split(" ")
+        var glucosaBaixaDA = parts[0].toInt()
+        val glucosaAltaDAString: String? = viewModel.glucosaAltaDA.value.toString()
+        parts = glucosaAltaDAString!!.split(" ")
+        var glucosaAltaDA = parts[0].toInt()
+
+        return User(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            centre,
+            poblacioCentre,
+            nomDelMetge,
+            correuElectronicMetge,
+            tipuDiabetis,
+            dataDiagnosi,
+            glucosaMoltBaixa,
+            glucosaBaixa,
+            glucosaAlta,
+            glucosaMoltAlta,
+            glucosaBaixaDA,
+            glucosaAltaDA
+        )
+
     }
 
     override fun onResume() {

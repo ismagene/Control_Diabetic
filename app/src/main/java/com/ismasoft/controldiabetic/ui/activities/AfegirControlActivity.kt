@@ -83,7 +83,6 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this@AfegirControlActivity)
-
             if(!primerOnCreate) {
                 if (hasFocus) {
                     binding.diaControl.setTextColor(colorTextDefault)

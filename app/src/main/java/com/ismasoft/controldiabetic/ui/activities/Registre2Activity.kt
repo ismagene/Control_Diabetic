@@ -123,7 +123,6 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun inicialitzarUsuari(binding: ActivityRegistre2Binding): User {
 
         var bundle = intent.extras
@@ -138,7 +137,6 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         val altura: String? = bundle?.getString("altura")
         val alturaNumeric = altura?.toInt()
         val correuElectronic: String? = bundle?.getString("correuElectronic")
-        val contrasenya: String? = bundle?.getString("contrasenya")
 
         val centre = binding.loginCentre.text.toString()
         val poblacioCentre = binding.loginPoblacioCentre.text.toString()
@@ -182,7 +180,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         if(binding.loginGlucosaAltaDespresApat.text != null && binding.loginGlucosaAltaDespresApat.text.toString().trim() != ""){
             glucosaAltaDA  = binding.loginGlucosaAltaDespresApat.text.toString().toInt()
         }else{
-            glucosaAltaDA = 120
+            glucosaAltaDA = 180
         }
 
         return User(
@@ -220,6 +218,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             Toast.makeText(this, "El nom del centre és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
+        if (binding.loginPoblacioCentre.text == null || binding.loginPoblacioCentre.text.toString() == "") {
+            binding.loginPoblacioCentre.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "La població del centre és un camp obligatori", Toast.LENGTH_SHORT).show()
+            return false
+        }
         if (binding.loginNomMetge.text == null || binding.loginNomMetge.text.toString() == "") {
             binding.loginNomMetge.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El nom del metge és un camp obligatori", Toast.LENGTH_SHORT).show()
@@ -249,7 +252,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             binding.loginTipusDiabetis.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(
                 this,
-                "El correu electrònic del metge és un camp obligatori",
+                "El tipus de diabetis és un camp obligatori",
                 Toast.LENGTH_SHORT
             ).show()
             return false

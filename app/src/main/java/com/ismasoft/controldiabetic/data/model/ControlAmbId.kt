@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.data.model
 
+import java.io.Serializable
 import java.util.*
 
 data class ControlAmbId(
@@ -8,6 +9,6 @@ data class ControlAmbId(
     var valorGlucosa: Number? = null,
     var valorInsulina: Number? = null,
     var esDespresDeApat: Boolean? = null
-){
+) : Serializable{
 
 }

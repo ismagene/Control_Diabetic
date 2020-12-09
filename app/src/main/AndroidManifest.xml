@@ -17,10 +17,13 @@
             android:name=".ui.activities.ModificarPasswordActivity"
             android:label="@string/titolModificarPassword"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.ModificarDadesMedActivity" />
+        <activity android:name=".ui.activities.ModificarDadesMedActivity"
+            android:label="@string/titolModificarDadesMed"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".ui.activities.ModificarDadesPersActivity"
-            android:label="@string/titolAfegirControl"
+            android:label="@string/modificarDadesPers"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.activities.EnviarHistoricActivity" />
         <activity

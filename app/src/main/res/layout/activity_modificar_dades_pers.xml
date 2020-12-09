@@ -1,9 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.ModificarDadesPersActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ismasoft.controldiabetic.viewModel.PerfilViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="399dp"
+            android:layout_height="649dp"
+            android:layout_above="@id/buttonModificarDadesPers"
+            android:layout_marginBottom="7dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueNom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/nom"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueNom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.valueNom}"
+                        android:layout_weight="2"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueCognom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/cognom"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueCognom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="2"
+                        android:text="@{viewModel.valueCognom}"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueCognom2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/cognom2"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueCognom2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="2"
+                        android:text="@{viewModel.valueCognom2}"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueDataNaixament"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/dataNaixement"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueDataNaixament"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="2"
+                        android:text="@{viewModel.dataNaixament}"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textspinerGenere"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/genere"
+                        android:textStyle="bold"/>
+
+                    <Spinner
+                        android:id="@+id/valueGenere"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="4"
+                        android:autofillHints=""
+                        android:ems="10"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValuePes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="3"
+                        android:text="@string/pes"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valuePes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="3"
+                        android:text="@{viewModel.pes}"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewPes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/mesuraPes" />
+
+                    <TextView
+                        android:id="@+id/textValueAltura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="3"
+                        android:text="@string/altura"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueAltura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="3"
+                        android:text="@{viewModel.altura}"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewAltura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/mesuraAltura" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:text="@string/correuElectronic"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/valueCorreuElectronic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:layout_weight="2.1"
+                        android:text="@{viewModel.correuElectronic}"
+                        android:ems="10" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:id="@+id/linearLayoutguardarDadesMed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10dp">
+
+            <Button
+                android:id="@+id/buttonModificarDadesPers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/confirmarModificar"
+                android:layout_weight="2"
+                app:backgroundTint="#00BCD4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+            <Button
+                android:id="@+id/cancelarGuardarDadesPers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/cancelar"
+                app:backgroundTint="@color/colorPrimary" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

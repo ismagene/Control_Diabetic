@@ -115,9 +115,9 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         if(binding.guardarUsuari.isChecked){
             editor.putString("checkGuardat", "True")
             editor.apply()
-            editor.putString("usuariGuardat", binding.username.text.toString())
+            editor.putString("usuariGuardat", binding.username?.text.toString())
             editor.commit()
-            editor.putString("contrasenyaGuardada", binding.password.text.toString())
+            editor.putString("contrasenyaGuardada", binding.password?.text.toString())
             editor.commit()
         }
         else{
@@ -144,13 +144,13 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
             binding.guardarUsuari.isChecked = true
         }
         if(!usuariGuardat.isNullOrEmpty()){
-            binding.username.setText(usuariGuardat)
+            binding.username?.setText(usuariGuardat)
         }
         if(!contrasenyaGuardada.isNullOrEmpty()){
             binding.password.setText(contrasenyaGuardada)
         }
         if(binding.guardarUsuari.isChecked){
-            viewModel?.onButtonLoginClicked(binding.username.text.toString(),binding.password.text.toString(),loginRepositoryInterface)
+            viewModel?.onButtonLoginClicked(binding.username?.text.toString(),binding.password?.text.toString(),loginRepositoryInterface)
         }
 
     }

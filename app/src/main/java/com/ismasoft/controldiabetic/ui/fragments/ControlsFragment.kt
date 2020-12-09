@@ -61,9 +61,9 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         bindingFragment.botoHistoric.setOnClickListener(){
 
             val historic = Intent(context, HistoricControlsActivity::class.java)
-//            val extras = Bundle()
-//            extras.putSerializable("HashMap", llistaControlsGlobal)
-//            historic.putExtras(extras)
+            val extras = Bundle()
+            extras.putSerializable("HashMap", llistaControlsGlobal)
+            historic.putExtras(extras)
             startActivityForResult(historic, RETORN_ACTIVITY_OK_CODE)
 
         }

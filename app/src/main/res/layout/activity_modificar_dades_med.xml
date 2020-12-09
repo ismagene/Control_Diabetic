@@ -1,9 +1,474 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.ModificarDadesMedActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ismasoft.controldiabetic.viewModel.PerfilViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="399dp"
+            android:layout_height="649dp"
+            android:layout_above="@id/linearLayoutguardarDadesMed"
+            android:layout_marginBottom="7dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueNomDelCentre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/nomDelCentre"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueNomDelCentre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.valueNomDelCentre}"
+                        android:layout_weight="4"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValuepoblacioDelCentre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/nomPoblacio"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valuepoblacioDelCentre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.poblacioDelCentre}"
+                        android:layout_weight="4"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueNomDelMetge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/nomDelMetge"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valueNomDelMetge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.nomDelMetge}"
+                        android:layout_weight="4"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValuecorreuElectronicMetge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/correuElectronicMetge"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valuecorreuElectronicMetge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.correuElectronicMetge}"
+                        android:layout_weight="4"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValueTipusDiabetis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/titolTipusDiabetis"
+                        android:textStyle="bold"/>
+
+                    <Spinner
+                        android:id="@+id/valueTipusDiabetis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="4"
+                        android:autofillHints=""
+                        android:ems="10"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textValuedataDiagnosi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/dataDiagnosi"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/valuedataDiagnosi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.dataDiagnosi}"
+                        android:layout_weight="4"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/glucosaDataInfo"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/textGlucosaBaixa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:text="@string/titolGlucosaBaixa"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaBaixa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaBaixa}"
+                        android:layout_weight="1"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="@string/mesuraGlucosa" />
+
+                    <TextView
+                        android:id="@+id/textGlucosaAlta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:text="@string/titolGlucosaAlta"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaAlta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaAlta}"
+                        android:layout_weight="1"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="@string/mesuraGlucosa" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/textGlucosaMoltBaixa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:text="@string/titolGlucosaMoltBaixa"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaMoltBaixa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaMoltBaixa}"
+                        android:layout_weight="1"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="@string/mesuraGlucosa" />
+
+                    <TextView
+                        android:id="@+id/textGlucosaMoltAlta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:text="@string/titolGlucosaMoltAlta"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaMoltAlta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaMoltAlta}"
+                        android:layout_weight="1"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="@string/mesuraGlucosa" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textGlucosaBaixaDA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/titolGlucosaDABaixa"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaBaixaDA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaBaixaDA}"
+                        android:layout_weight="6"
+                        android:ems="10" />
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/mesuraGlucosa" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textGlucosaAltaDA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:textSize="16dp"
+                        android:layout_weight="6"
+                        android:text="@string/titolGlucosaDAAlta"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/glucosaAltaDA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:autofillHints=""
+                        android:textSize="16dp"
+                        android:text="@{viewModel.glucosaAltaDA}"
+                        android:layout_weight="6"
+                        android:ems="10" />
+
+                    <TextView
+                        android:id="@+id/textViewMesuraglucosa6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/mesuraGlucosa" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:id="@+id/linearLayoutguardarDadesMed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10dp">
+
+            <Button
+                android:id="@+id/buttonModificarDadesMed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/confirmarModificar"
+                android:layout_weight="2"
+                app:backgroundTint="#00BCD4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+            <Button
+                android:id="@+id/cancelarGuardarDadesMed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/cancelar"
+                app:backgroundTint="@color/colorPrimary" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
