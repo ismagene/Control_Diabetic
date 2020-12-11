@@ -97,7 +97,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
     private fun inicialitzarAlarma(binding: ActivityModificarAlarmaBinding, alarmaModificar: AlarmaAmbId
     ): AlarmaAmbId {
         val hora = binding.horaAlarma.text.toString()
-        return AlarmaAmbId(alarmaModificar.idAlarma.toString(),hora)
+        return AlarmaAmbId(alarmaModificar.idAlarma.toString(),null, hora)
     }
 
     private fun validarEntrada(alarmaModificar: AlarmaAmbId): Boolean {
@@ -162,7 +162,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
         finish()
     }
 
-    override fun afegirAlarmaOK() {}
+    override fun afegirAlarmaOK(idAlarmaManager: Int?) {}
     override fun afegirAlarmaNOK() {}
     override fun jaExisteixAlarma() {
         alert("La nova alarma ja existeix","Error al modificar l'alarma") {
@@ -175,4 +175,6 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
     override fun noExisteixAlarma() {}
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {}
     override fun llistaAlarmesNOK() {}
+    override fun recuperarIdAlarmaNovaOK(idAlarma: Int) { }
+    override fun recuperarIdAlarmaNovaNOK() {}
 }

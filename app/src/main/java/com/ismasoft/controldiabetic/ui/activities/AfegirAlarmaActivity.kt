@@ -1,10 +1,11 @@
 package com.ismasoft.controldiabetic.ui.activities
 
 import android.app.TimePickerDialog
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.data.model.Alarma
@@ -13,10 +14,10 @@ import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirAlarmaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
+import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import org.jetbrains.anko.alert
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
@@ -88,7 +89,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
     private fun inicialitzarAlarma(binding: ActivityAfegirAlarmaBinding): Alarma {
         val hora = binding.horaAlarma.text.toString()
-        return Alarma(hora)
+        return Alarma(0,hora)
     }
 
     private fun dataIHoraPerDefecte() {
@@ -145,8 +146,38 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         timeSetListener.show()
     }
 
-    override fun afegirAlarmaOK() {
-        alert("S'ha guardat correctament l'alarma.","Alarma guardada") {
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+
+    override fun afegirAlarmaOK(idAlarmaManager: Int?) {
+
+        /* Preferences per guardar dades en un xml local */
+        preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
+        editor = preferences.edit()
+
+        var parts = binding.horaAlarma.text.split(":")
+        var hora =  parts[0].toInt()
+        var minuts = parts[1].toInt()
+
+        editor.putString("hour", hora.toString())
+        editor.putString("minute", minuts.toString())
+
+        // Set the alarm to start at approximately 2:00 p.m.
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, hora)
+            set(Calendar.SECOND, minuts)
+            set(Calendar.MILLISECOND,0)
+        }
+
+        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
+        editor.putInt("alarmID", idAlarmaManager!!)
+        editor.putLong("alarmTime", calendar.timeInMillis)
+        editor.commit()
+
+        setAlarm(idAlarmaManager, calendar.timeInMillis, this)
+
+        alert("S'ha guardat correctament l'alarma.", "Alarma guardada") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)
@@ -159,7 +190,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         finish()
     }
     override fun jaExisteixAlarma() {
-        alert("L'alarma introduida ja existeix","Error al guardar l'alarma") {
+        alert("L'alarma introduida ja existeix", "Error al guardar l'alarma") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)
@@ -178,5 +209,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     override fun modificarAlarmaNOK() {}
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {}
     override fun llistaAlarmesNOK() {}
+    override fun recuperarIdAlarmaNovaOK(idAlarma: Int) {}
+    override fun recuperarIdAlarmaNovaNOK() {}
 
 }

@@ -5,6 +5,7 @@ import java.util.*
 
 data class AlarmaAmbId(
     var idAlarma: String? = null,
+    var idAlarmaManager: Int? = null,
     var horaAlarma: String? = null
 ) : Serializable{
 

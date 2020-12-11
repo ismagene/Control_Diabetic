@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -35,13 +36,106 @@
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/titolTextProximaVisita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titolProximaVisita"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:visible="@{viewModel.ambProximaVisita}"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:visible="@{viewModel.ambProximaVisita}"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/textData"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dia"/>
+
+                    <TextView
+                        android:id="@+id/dataVisita"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="left"/>
+
+                    <TextView
+                        android:id="@+id/textmotiu"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/motiuVisita"/>
+
+                    <TextView
+                        android:id="@+id/motiuVisita"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="left"/>
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_border_textview"
+                        android:src="@drawable/ic_modificar"
+                        android:foreground="?android:attr/selectableItemBackground"/>
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_fons_boto"
+                        android:src="@drawable/ic_esborrar"
+                        android:foreground="?android:attr/selectableItemBackground"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/titolTextVisitesProxima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titolVisitesPasades"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16dp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    app:visible="@{viewModel.ambVisites}"/>
+
                 // Afegir taula amb les alarmes
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/recyclerViewVisites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="true"/>
+                    android:focusable="true"
+                    app:visible="@{viewModel.ambVisites}"/>
+
+                <TextView
+                    android:id="@+id/titolTextCapAlarma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titolSenseVisites"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:visible="@{viewModel.senseVisites}"/>
 
             </LinearLayout>
 

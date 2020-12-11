@@ -2,12 +2,10 @@ package com.ismasoft.controldiabetic.viewModel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.data.model.Alarma
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,25 +15,69 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
     private var repository = VisitesRepository(application)
     lateinit var visitalActivityInstance : VisitesRepositoryInterface
 
-    private lateinit var visitaTractada : Alarma
+    private var _ambVisites = MutableLiveData<Boolean>(false)
+    val ambVisites : LiveData<Boolean> get() = _ambVisites
+    private var _ambProximaVisita = MutableLiveData<Boolean>(false)
+    var ambProximaVisita : MutableLiveData<Boolean> = _ambProximaVisita
+    private var _senseVisites = MutableLiveData<Boolean>(false)
+    val senseVisites : LiveData<Boolean> get() = _senseVisites
+
+    private val _visitaVigent : MutableLiveData<VisitaAmbId> = MutableLiveData<VisitaAmbId>()
+    val visitaVigent : LiveData<VisitaAmbId> = _visitaVigent
+
+    private lateinit var visitaAfegir : Visita
 
     fun onButtonGuardarVisita(visita : Visita, visitesRepositoryInterface : VisitesRepositoryInterface){
         visitalActivityInstance = visitesRepositoryInterface
-        repository.guardarVisita(visita , this)
+        visitaAfegir = visita
+        repository.recuperarUltimaVisita(this)
+
     }
 
-    override fun afegirVisitaOK() {}
-    override fun afegirVisitaNOK() {}
+    fun recuperarLlistaVisites(visitesRepositoryInterface : VisitesRepositoryInterface){
+        visitalActivityInstance = visitesRepositoryInterface
+        repository.recuperarLlistaVisites(this)
+    }
+
+
+    override fun afegirVisitaOK() {
+        visitalActivityInstance.afegirVisitaOK()
+    }
+    override fun afegirVisitaNOK() {
+        visitalActivityInstance.afegirVisitaNOK()
+    }
     override fun existeixVisitaVigent() {
         visitalActivityInstance.existeixVisitaVigent()
     }
 
-    override fun noExisteixVisitaVigent() {
-        visitalActivityInstance.noExisteixVisitaVigent()
+    override fun errorAlConsultarVisitaVigent() {
+        visitalActivityInstance.errorAlConsultarVisitaVigent()
     }
 
-    override fun llistaVisitesOK(document: ArrayList<VisitaAmbId>) {
-        visitalActivityInstance.llistaVisitesOK(document)
+    override fun noExisteixVisitaVigent() {
+        repository.guardarVisita(visitaAfegir, this)
+    }
+
+    override fun llistaVisitesOK(llistaVisites: ArrayList<VisitaAmbId>) {
+        if(llistaVisites.size>0){
+            _ambVisites.value = true
+            _senseVisites.value = false
+        }else{
+            _ambVisites.value = false
+            _senseVisites.value = true
+        }
+
+        for(visita in llistaVisites)
+        {
+            if(visita.dataVisita!!.after(Date())){
+                llistaVisites.remove(visita)
+                _visitaVigent.value = visita
+                _ambProximaVisita.value = true
+                break;
+            }
+        }
+
+        visitalActivityInstance.llistaVisitesOK(llistaVisites)
     }
     override fun llistaVisitesNOK() {
         visitalActivityInstance.llistaVisitesNOK()

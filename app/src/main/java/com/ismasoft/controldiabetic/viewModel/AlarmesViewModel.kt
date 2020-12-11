@@ -46,8 +46,8 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
         repository.eliminarAlarma(idAlarma, position, this)
     }
 
-    override fun afegirAlarmaOK() {
-        alarmaActivityInstance.afegirAlarmaOK()
+    override fun afegirAlarmaOK(idAlarmaManager: Int?) {
+        alarmaActivityInstance.afegirAlarmaOK(idAlarmaManager)
     }
     override fun afegirAlarmaNOK() {
         alarmaActivityInstance.afegirAlarmaNOK()
@@ -58,7 +58,7 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
     }
     override fun noExisteixAlarma() {
         if(alarmaAfegir.horaAlarma != null){
-            repository.insertarAlarmaBBDD(alarmaAfegir,this)
+            repository.recuperarIdAlarmaNova(this)
         }else if(alarmaModificar.idAlarma != null){
             repository.modificarAlarma(alarmaModificar,this)
         }
@@ -72,6 +72,10 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
     }
     override fun eliminarAlarmaOK(position: Int) {
         alarmaListAdapterInstance.eliminarAlarmaOK(position)
+        if(position==1){
+            _ambAlarmes.value = true
+            _senseAlarmes.value = false
+        }
     }
     override fun eliminarAlarmaNOK() {
         alarmaListAdapterInstance.eliminarAlarmaNOK()
@@ -87,8 +91,20 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
         alarmaActivityInstance.llistaAlarmesOK(llistaAlarmes)
     }
     override fun llistaAlarmesNOK() {
-
         alarmaActivityInstance.llistaAlarmesNOK()
+    }
+
+    override fun recuperarIdAlarmaNovaOK(idAlarma : Int) {
+        alarmaAfegir.idAlarmaManager = idAlarma
+        repository.insertarAlarmaBBDD(alarmaAfegir,this)
+    }
+
+    override fun recuperarIdAlarmaNovaNOK() {
+        alarmaActivityInstance.recuperarIdAlarmaNovaNOK()
+    }
+
+    fun noQuedenAlarmes() {
+
     }
 
 }

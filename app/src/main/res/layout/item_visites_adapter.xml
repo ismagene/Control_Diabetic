@@ -20,7 +20,8 @@
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:gravity="end"/>
+        android:gravity="left"
+        />
 
     <TextView
         android:id="@+id/textmotiu"
@@ -35,7 +36,8 @@
         android:layout_width="0dp"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="2"/>
+        android:layout_weight="2"
+        android:gravity="left"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -43,7 +45,8 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:src="@drawable/ic_modificar" />
+        android:src="@drawable/ic_modificar"
+        android:visibility="invisible"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -51,6 +54,8 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:src="@drawable/ic_esborrar" />
+        android:src="@drawable/ic_esborrar"
+        android:visibility="invisible"
+        />
 
 </LinearLayout>

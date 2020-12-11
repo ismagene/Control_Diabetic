@@ -4,7 +4,7 @@ import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 
 interface AlarmesRepositoryInterface {
 
-    fun afegirAlarmaOK()
+    fun afegirAlarmaOK(idAlarmaManager: Int?)
     fun afegirAlarmaNOK()
     fun jaExisteixAlarma()
     fun noExisteixAlarma()
@@ -12,5 +12,8 @@ interface AlarmesRepositoryInterface {
     fun modificarAlarmaNOK()
     fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>)
     fun llistaAlarmesNOK()
+
+    fun recuperarIdAlarmaNovaOK(idAlarma : Int)
+    fun recuperarIdAlarmaNovaNOK()
 
 }

@@ -80,7 +80,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
         Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
 
-    override fun afegirAlarmaOK() {}
+    override fun afegirAlarmaOK(idAlarmaManager: Int?) {}
     override fun afegirAlarmaNOK() {}
     override fun jaExisteixAlarma() {}
     override fun noExisteixAlarma() {}
@@ -88,11 +88,11 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     override fun modificarAlarmaNOK() {}
 
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {
-
         recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes) }!!
         adapter.notifyDataSetChanged()
-
     }
 
     override fun llistaAlarmesNOK() {}
+    override fun recuperarIdAlarmaNovaOK(idAlarma: Int) { }
+    override fun recuperarIdAlarmaNovaNOK() {}
 }

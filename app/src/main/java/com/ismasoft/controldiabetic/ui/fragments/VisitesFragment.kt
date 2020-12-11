@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
+import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
+import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,7 +28,7 @@ import kotlin.collections.ArrayList
  * Use the [VisitesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
+class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, VisitesRepositoryInterface {
 
     private lateinit var viewModel: VisitesViewModel
     private lateinit var bindingFragment: FragmentVisitesBinding
@@ -34,9 +37,10 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: VisitesListAdapter
 
+    private lateinit var visitaVigent : VisitaAmbId
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -49,7 +53,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
         bindingFragment.viewModel = viewModel
         bindingFragment.lifecycleOwner = this
 
-        recyclerView = bindingFragment.recyclerView
+        recyclerView = bindingFragment.recyclerViewVisites
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
         adapter.setClickListener(this)
@@ -58,26 +62,12 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
 
         return bindingFragment.root
 
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.recuperarLlistaVisites(this)
 
-//        bindingFragment = FragmentVisitesBinding.inflate(layoutInflater, container, false)
-//        viewModel = ViewModelProvider(this).get()
-//
-////        bindingFragment.viewModel = viewModel
-//        bindingFragment.lifecycleOwner = this
-//
-////        val view = inflater.inflate(R.layout.fragment_visites, container, false)
-//
-////        recyclerView = view.findViewById(R.id.recyclerView)
-//        recyclerView = bindingFragment.recyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//        adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
-//        adapter.setClickListener(this)
-//        recyclerView.adapter = adapter
-//        adapter.notifyDataSetChanged()
-//
-//        return view
-//        return bindingFragment.root
     }
 
     companion object {
@@ -99,4 +89,43 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
+
+    override fun afegirVisitaOK() {
+        TODO("Not yet implemented")
+    }
+
+    override fun afegirVisitaNOK() {
+        TODO("Not yet implemented")
+    }
+
+    override fun existeixVisitaVigent() {
+        TODO("Not yet implemented")
+    }
+
+    override fun errorAlConsultarVisitaVigent() {
+        TODO("Not yet implemented")
+    }
+
+    override fun noExisteixVisitaVigent() {
+        TODO("Not yet implemented")
+    }
+
+    override fun llistaVisitesOK(llistaVisites: ArrayList<VisitaAmbId>) {
+
+        if(viewModel.ambProximaVisita.value == true){
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            var dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
+            bindingFragment.dataVisita.text = dataString.toString()
+            bindingFragment.motiuVisita.text = viewModel.visitaVigent.value?.motiu.toString()
+        }
+
+        recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun llistaVisitesNOK() {}
+    override fun modificarVisitaOK() {}
+    override fun modificarVisitaNOK() {}
+    override fun eliminarVisitaOK() {}
+    override fun eliminarVisitaNOK() {}
 }

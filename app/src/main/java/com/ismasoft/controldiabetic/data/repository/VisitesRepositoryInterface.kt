@@ -11,6 +11,7 @@ interface VisitesRepositoryInterface {
     fun afegirVisitaNOK()
 
     fun existeixVisitaVigent()
+    fun errorAlConsultarVisitaVigent()
     fun noExisteixVisitaVigent()
 
     fun llistaVisitesOK(document: ArrayList<VisitaAmbId>)

@@ -144,11 +144,18 @@
     <!-- Strings related to Visites -->
     <string name="afegirVisita">Afegir visita</string>
     <string name="titolVisites">Visites</string>
+    <string name="titolProximaVisita">Pròxima visita</string>
+    <string name="titolVisitesPasades">Visites passades</string>
     <string name="titolAfegirVisita">Introduir nova Visita</string>
     <string name="motiuVisita">Motiu: </string>
     <string name="motiuPerDefecte">El motiu per defecte es: \"Control\" </string>
+    <string name="titolSenseVisites">No hi ha cap visita introduida</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Notificacions d'alarma -->
+    <string name="new_notification">Alarma programada - clica per Afegir nou control</string>
 
 
 </resources>

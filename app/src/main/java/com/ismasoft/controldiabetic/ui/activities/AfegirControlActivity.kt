@@ -78,14 +78,14 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
         binding.horaControl.setOnClickListener(){
             hideKeyboard(this)
-            binding.diaControl.setTextColor(colorTextDefault)
+            binding.horaControl.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this@AfegirControlActivity)
             if(!primerOnCreate) {
                 if (hasFocus) {
-                    binding.diaControl.setTextColor(colorTextDefault)
+                    binding.horaControl.setTextColor(colorTextDefault)
                     obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
                 }
             }else{
@@ -107,11 +107,11 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             }
         }
         binding.glucosa.setOnClickListener(){
-            binding.glucosatext.setTextColor(colorTextDefault)
+            binding.textglucosa.setTextColor(colorTextDefault)
         }
         binding.glucosa.setOnFocusChangeListener(){ _, hasFocus->
             if(hasFocus){
-                binding.glucosatext.setTextColor(colorTextDefault)
+                binding.textglucosa.setTextColor(colorTextDefault)
             }
         }
 
@@ -164,7 +164,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     private fun validarEntrada(): Boolean {
         if(binding.glucosa.text == null || binding.glucosa.text.toString() == ""){
-            binding.glucosatext.setTextColor(COLOR_ERROR_FALTA_CAMP)
+            binding.textglucosa.setTextColor(COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "Falta introduir el valor de glucosa", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -191,6 +191,8 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         val cal = Calendar.getInstance()
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
+
+        binding.horaControl.setHintTextColor(colorHintDefault)
 
         if(temps != null && !temps.equals("")){
             var parts = temps.split(":")

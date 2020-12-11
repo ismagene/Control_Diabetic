@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.androidhuman.rxfirebase2.auth.RxFirebaseUser.delete
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Alarma
@@ -25,7 +24,7 @@ class AlarmesRepository(val application: Application) {
             .add(alarma)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
-                alarmaRepositoryInterface.afegirAlarmaOK()
+                alarmaRepositoryInterface.afegirAlarmaOK(alarma.idAlarmaManager)
             }
             .addOnFailureListener {
                 Log.w(TAG, "Error adding document", it)
@@ -101,6 +100,37 @@ class AlarmesRepository(val application: Application) {
             }
 
 
+    }
+
+    fun recuperarIdAlarmaNova(alarmaRepositoryInterface: AlarmesRepositoryInterface){
+        db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_ALARMES)
+            .get()
+            .addOnSuccessListener { result ->
+                Log.d(ContentValues.TAG, "Documents recuperats")
+                var idAlarma : Int = 0
+                var total : Int = result.size()
+
+                for(idIterator in 1..total){
+                    var idTrobat = false
+                    for(document in result) {
+                        if (idIterator == document["idAlarmaManager"].toString().toInt()) {
+                            idTrobat = true
+                            break;
+                        }
+                    }
+                    if(!idTrobat) {
+                        idAlarma = idIterator
+                        break
+                    }
+                }
+                if(idAlarma == 0){
+                    idAlarma = total + 1
+                }
+                alarmaRepositoryInterface.recuperarIdAlarmaNovaOK(idAlarma)
+            }
+            .addOnFailureListener{
+                alarmaRepositoryInterface.recuperarIdAlarmaNovaNOK()
+            }
     }
 
 }

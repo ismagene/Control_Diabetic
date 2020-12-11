@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
+import com.ismasoft.controldiabetic.utilities.deleteAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import org.jetbrains.anko.alert
 
@@ -94,9 +95,14 @@ class AlarmesListAdapter (var context: Context, val mData: ArrayList<AlarmaAmbId
 
     override fun eliminarAlarmaOK(position: Int) {
         // Retorn de la crida OK d'esborrar l'alarma
+        deleteAlarm(0,context)
         mData.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position,mData.size)
+        if(mData.size == 0){
+            viewModel.noQuedenAlarmes()
+            // NO actualitza pantalla
+        }
     }
 
     override fun eliminarAlarmaNOK() {

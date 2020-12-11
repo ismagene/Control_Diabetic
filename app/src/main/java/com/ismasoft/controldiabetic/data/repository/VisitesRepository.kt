@@ -24,7 +24,7 @@ class VisitesRepository(val application: Application) {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-    fun recuperarLlistaAlarmes(visitesRepositoryInterface : VisitesRepositoryInterface){
+    fun recuperarLlistaVisites(visitesRepositoryInterface : VisitesRepositoryInterface){
         var llistaVisites : ArrayList<VisitaAmbId> = ArrayList()
 
         db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
@@ -46,8 +46,43 @@ class VisitesRepository(val application: Application) {
             }
     }
 
-    fun guardarVisita(visita: Visita, visitesRepositoryInterface : VisitesRepositoryInterface){
+    fun recuperarUltimaVisita(visitesRepositoryInterface : VisitesRepositoryInterface){
+        var llistaVisites : ArrayList<VisitaAmbId> = ArrayList()
 
+        db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
+            .get()
+            .addOnSuccessListener { result ->
+                Log.d(ContentValues.TAG, "Documents recuperats")
+                var existeixVisitaProgramada : Boolean = false
+                for(document in result){
+                    val data = convertirADateLaDataFirebase(document.data.get("dataVisita") as Timestamp)
+                    if(data.after(Date())){
+                        existeixVisitaProgramada = true
+                    }
+
+                }
+                if(existeixVisitaProgramada) {
+                    visitesRepositoryInterface.existeixVisitaVigent()
+                }else{
+                    visitesRepositoryInterface.noExisteixVisitaVigent()
+                }
+            }
+            .addOnFailureListener{
+                visitesRepositoryInterface.errorAlConsultarVisitaVigent()
+            }
+    }
+
+    fun guardarVisita(visita: Visita, visitesRepositoryInterface : VisitesRepositoryInterface){
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
+            .add(visita)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
+                visitesRepositoryInterface.afegirVisitaOK()
+            }
+            .addOnFailureListener {
+                Log.w(TAG, "Error adding document", it)
+                visitesRepositoryInterface.afegirVisitaNOK()
+            }
     }
 
 

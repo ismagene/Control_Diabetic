@@ -1,6 +1,10 @@
 package com.ismasoft.controldiabetic.utilities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +15,14 @@ import java.util.*
 import kotlin.time.days
 import kotlin.time.hours
 
+/** Funció per amagar el teclat virtual */
 fun hideKeyboard(context: Context) {
     val imm = context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow((context as AppCompatActivity).findViewById<ViewGroup>(android.R.id.content).windowToken, 0)
 
 }
 
+/** Funció que converteix la data Timestamp de firebase a Date */
 fun convertirADateLaDataFirebase(dataFirebase : Timestamp): Date {
     return Date(dataFirebase.seconds * 1000 + dataFirebase.nanoseconds / 1000000)
 }
@@ -46,3 +52,27 @@ fun getDataCalendar(data: Date): Calendar {
     calendar.set(year, month, day, hour, minute, 0)
     return calendar
 }
+
+/** Funció que seteja les alarmes i les programa repetitives cada dia a la mateixa hora */
+fun setAlarm(posicioAlarma: Int, timestamp:Long, ctx:Context) {
+    val alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+    val alarmIntent = Intent(ctx, AlarmReceiver::class.java)
+    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
+    val pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent, 0)
+    alarmManager.setRepeating(
+        AlarmManager.RTC_WAKEUP,
+        timestamp,
+        AlarmManager.INTERVAL_DAY,
+        pendingIntent
+    )
+}
+
+/** Funció que cancela les alarmes que eliminiem */
+fun deleteAlarm(posicioAlarma:Int, ctx:Context) {
+    val alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+    val alarmIntent = Intent(ctx, AlarmReceiver::class.java)
+    val pendingIntent: PendingIntent
+    pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent,0)
+    alarmManager.cancel(pendingIntent)
+}
+
