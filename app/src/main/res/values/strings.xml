@@ -73,17 +73,21 @@
     <string name="guardar">Guardar</string>
     <string name="modificar">Modificar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="filtrar">Filtrar</string>
 
     <!-- Strings related to Controls -->
     <string name="ultimControlGlucosa">Últim control\nde glucosa</string>
     <string name="ultimControlInsulina">Últim control\nd\'insulina</string>
     <string name="literalGlucosa">Glucosa</string>
+    <string name="literalGlucosaPunts">Glucosa:</string>
     <string name="historic">Històric</string>
     <string name="ahir">Ahir</string>
     <string name="setmana">Setmana</string>
     <string name="mes">30 últims dies</string>
     <string name="afegirControl">Afegir control</string>
     <string name="titolMitjanes">Mitjanes de glucosa</string>
+    <string name="titolSenseControls">No hi ha cap control introduït</string>
+    <string name="titolControls">Controls</string>
 
     <string name="titolAfegirControl">Introduir nou Control</string>
     <string name="hora">Hora: </string>
@@ -91,6 +95,7 @@
     <string name="dia">Dia: </string>
     <string name="literalInsulina">Insulina</string>
     <string name="esDespresDapat" tools:ignore="StringEscaping">Es després d\'un àpat</string>
+    <string name="dataFiltre">Data: </string>
 
     <!-- Strings related to modificar dades -->
     <string name="nom">Nom: </string>
@@ -107,6 +112,7 @@
     <string name="modificarAlarma">Modificar alarma</string>
     <string name="modificarControl">Modificar control</string>
     <string name="enviarHistoric">Enviar històric de controls</string>
+    <string name="botoEnviarHistoric">Enviar històric</string>
     <string name="confirmarModificar">Modificar</string>
     <string name="modificarDadesMed">Modificar dades mèdiques</string>
     <string name="titolModificarDadesPer">Modificar dades personals</string>
@@ -145,11 +151,14 @@
     <string name="afegirVisita">Afegir visita</string>
     <string name="titolVisites">Visites</string>
     <string name="titolProximaVisita">Pròxima visita</string>
+    <string name="titolSenseProximaVisita">Sense visita programada</string>
     <string name="titolVisitesPasades">Visites passades</string>
     <string name="titolAfegirVisita">Introduir nova Visita</string>
     <string name="motiuVisita">Motiu: </string>
     <string name="motiuPerDefecte">El motiu per defecte es: \"Control\" </string>
     <string name="titolSenseVisites">No hi ha cap visita introduida</string>
+    <string name="titolModificarVisita">Modificar Visita</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

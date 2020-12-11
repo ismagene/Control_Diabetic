@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import com.ismasoft.controldiabetic.ui.fragments.VisitesFragment
 import java.text.SimpleDateFormat
 
 
@@ -18,14 +16,6 @@ class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>
 
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
-
-    /*enum class RowType {
-        PRODUCT_ITEM
-    }
-
-    fun getViewTypeCount(): Int {
-        return RowType.values().size
-    }*/
 
     override fun getItemCount(): Int {
         return mData.size
@@ -37,14 +27,14 @@ class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = mInflater.inflate(R.layout.item_visites_adapter, parent, false)
-        return ProductViewHolder(view)
+        return VisitesViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setProduct(holder, position)
+        setVisita(holder, position)
     }
 
-    inner class ProductViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class VisitesViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var motiuVisita: TextView = itemView.findViewById(R.id.motiuVisita)
         internal var dataVisita: TextView = itemView.findViewById(R.id.dataVisita)
@@ -59,8 +49,8 @@ class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>
 
     }
 
-    private fun setProduct(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = holder as ProductViewHolder
+    private fun setVisita(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = holder as VisitesViewHolder
 
         val visita = mData[position]
         val sdf = SimpleDateFormat("dd/MM/yyyy")

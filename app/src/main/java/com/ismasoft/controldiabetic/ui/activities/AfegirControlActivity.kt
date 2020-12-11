@@ -15,6 +15,7 @@ import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
@@ -314,7 +315,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-    override fun llistaControlsOK(document: HashMap<String, Control>) {}
+    override fun llistaControlsOK(document: ArrayList<ControlAmbId>) {}
     override fun LlistaControlsNOK() {}
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}

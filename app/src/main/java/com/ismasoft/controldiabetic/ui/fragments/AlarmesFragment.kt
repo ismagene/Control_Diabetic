@@ -27,7 +27,6 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     private lateinit var viewModel: AlarmesViewModel
     private lateinit var bindingFragment: FragmentAlarmesBinding
 
-    val llistaVisites = HashMap<String, Alarma>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AlarmesListAdapter
 

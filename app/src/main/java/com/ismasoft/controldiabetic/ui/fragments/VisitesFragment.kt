@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,7 +22,9 @@ import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarVisitaActivity
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
+import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
+import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -72,6 +75,15 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
         }
 
         bindingFragment.botoEliminarVisita.setOnClickListener(){
+            requireContext().alert ("Segur que voleu eliminar la visita?","Eliminar visita") {
+                cancellable(false)
+                positiveButton("Confirmar") {
+                    viewModel.eliminarVisita(visitaVigent.idVisita.toString(),this@VisitesFragment)
+                }
+                negativeButton("Cancelar"){
+                    // Nothing to do
+                }
+            }.show()
 
         }
 
@@ -104,33 +116,23 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun onItemClick(view: View, position: Int) {
         Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
-
-    override fun afegirVisitaOK() {
-        TODO("Not yet implemented")
-    }
-
-    override fun afegirVisitaNOK() {
-        TODO("Not yet implemented")
-    }
-
-    override fun existeixVisitaVigent() {
-        TODO("Not yet implemented")
-    }
-
-    override fun errorAlConsultarVisitaVigent() {
-        TODO("Not yet implemented")
-    }
-
-    override fun noExisteixVisitaVigent() {
-        TODO("Not yet implemented")
-    }
+    override fun afegirVisitaOK() {}
+    override fun afegirVisitaNOK() {}
+    override fun existeixVisitaVigent() {}
+    override fun errorAlConsultarVisitaVigent() {}
+    override fun noExisteixVisitaVigent() {}
 
     override fun llistaVisitesOK(llistaVisites: ArrayList<VisitaAmbId>) {
 
         if(viewModel.ambProximaVisita.value == true){
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
             var dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
-            bindingFragment.dataVisita.text = dataString.toString()
+            var parts = dataString.split(" ")
+            var dia =  parts[0]
+            var hora = parts[1]
+
+            bindingFragment.dataVisita.text = dia
+            bindingFragment.horaVisita.text = hora
             bindingFragment.motiuVisita.text = viewModel.visitaVigent.value?.motiu.toString()
 
             visitaVigent.idVisita = viewModel.visitaVigent.value?.idVisita.toString()
@@ -145,6 +147,13 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun llistaVisitesNOK() {}
     override fun modificarVisitaOK() {}
     override fun modificarVisitaNOK() {}
-    override fun eliminarVisitaOK() {}
-    override fun eliminarVisitaNOK() {}
+
+    override fun eliminarVisitaOK() {
+        onResume()
+        onResume()
+//        viewModel.recuperarLlistaVisites(this)
+    }
+    override fun eliminarVisitaNOK() {
+        Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
+    }
 }

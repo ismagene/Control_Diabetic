@@ -85,5 +85,35 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    fun modificarVisita(visitaModificar: VisitaAmbId, visitesRepositoryInterface : VisitesRepositoryInterface){
+        val user= FirebaseAuth.getInstance().currentUser
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES).document(visitaModificar.idVisita.toString())
+            .update(mapOf(
+                "dataVisita" to visitaModificar.dataVisita,
+                "motiu" to visitaModificar.motiu
+            ))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Modificació de la vista OK")
+                visitesRepositoryInterface.modificarVisitaOK()
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "Error modificació de la visita", e)
+                visitesRepositoryInterface.modificarVisitaNOK()
+            }
+    }
+
+    fun eliminarVisita(idVisita: String, visitesRepositoryInterface : VisitesRepositoryInterface){
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES).document(idVisita)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                visitesRepositoryInterface.eliminarVisitaOK()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                visitesRepositoryInterface.eliminarVisitaNOK()
+            }
+    }
+
 
 }

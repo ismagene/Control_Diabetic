@@ -34,11 +34,21 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
 
     }
 
+    fun onButtoModificarVisita(visita : VisitaAmbId, visitesRepositoryInterface : VisitesRepositoryInterface){
+        visitalActivityInstance = visitesRepositoryInterface
+        repository.modificarVisita(visita,this)
+
+    }
+
     fun recuperarLlistaVisites(visitesRepositoryInterface : VisitesRepositoryInterface){
         visitalActivityInstance = visitesRepositoryInterface
         repository.recuperarLlistaVisites(this)
     }
 
+    fun eliminarVisita(idVisita: String, visitesRepositoryInterface : VisitesRepositoryInterface){
+        visitalActivityInstance = visitesRepositoryInterface
+        repository.eliminarVisita(idVisita,this)
+    }
 
     override fun afegirVisitaOK() {
         visitalActivityInstance.afegirVisitaOK()
@@ -82,9 +92,17 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
     override fun llistaVisitesNOK() {
         visitalActivityInstance.llistaVisitesNOK()
     }
-    override fun modificarVisitaOK() {}
-    override fun modificarVisitaNOK() {}
-    override fun eliminarVisitaOK() {}
-    override fun eliminarVisitaNOK() {}
+    override fun modificarVisitaOK() {
+        visitalActivityInstance.modificarVisitaOK()
+    }
+    override fun modificarVisitaNOK() {
+        visitalActivityInstance.modificarVisitaNOK()
+    }
+    override fun eliminarVisitaOK() {
+        visitalActivityInstance.eliminarVisitaOK()
+    }
+    override fun eliminarVisitaNOK() {
+        visitalActivityInstance.eliminarVisitaNOK()
+    }
 
 }

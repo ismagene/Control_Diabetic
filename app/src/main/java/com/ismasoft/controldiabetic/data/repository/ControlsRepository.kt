@@ -8,11 +8,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.type.DateTime
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class ControlsRepository(val application: Application) {
@@ -58,21 +60,22 @@ class ControlsRepository(val application: Application) {
     }
 
     fun recuperarLlistaControls(controlsRepositoryInterface: ControlsRepositoryInterface) {
-        var llistaControls : HashMap<String,Control> = HashMap()
+        var llistaControls : ArrayList<ControlAmbId> = ArrayList()
 
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
             .get()
             .addOnSuccessListener { result ->
                 Log.d(TAG, "Documents recuperats")
                 for(document in result){
-                    var control : Control = Control()
+                    var control : ControlAmbId = ControlAmbId()
                     control.valorGlucosa = document.get("valorGlucosa").toString().toInt()
                     control.valorInsulina = document.get("valorInsulina").toString().toInt()
                     val data = convertirADateLaDataFirebase(document.data.get("dataControl") as Timestamp)
                     control.dataControl = data
                     control.esDespresDeApat = document.get("esDespresDeApat") as Boolean
+                    control.idControl = document.id
 
-                    llistaControls.put(document.id.toString(),control)
+                    llistaControls.add(control)
                 }
                 controlsRepositoryInterface.llistaControlsOK(llistaControls)
             }

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.*
 import com.ismasoft.controldiabetic.utilities.getDataSenseHora
 import java.text.SimpleDateFormat
@@ -44,6 +45,9 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
     val mitjanaSetmanaGlucosa : LiveData<String> get() = _mitjanaSetmanaGlucosa
     private val _mitjanaMesGlucosa = MutableLiveData<String>()
     val mitjanaMesGlucosa : LiveData<String> get() = _mitjanaMesGlucosa
+
+    private val _ambControls = MutableLiveData<Boolean>(false)
+    val ambControls : LiveData<Boolean> get() = _ambControls
 
     private lateinit var controlTractat : Control
 
@@ -84,22 +88,22 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         return calendar
     }
 
-    override fun llistaControlsOK(llistaControls: HashMap<String,Control>) {
+    override fun llistaControlsOK(llistaControls: ArrayList<ControlAmbId>) {
 
         // Ultim valor de glucosa
         var ultimaGlucosa : Int = 0
         // Ultim valor de insulina
         var ultimaInsulina : Int = 0
         // Glucosa i insulina ultim dia
-        var controlsAvui: HashMap<String,Control> = HashMap()
+        var controlsAvui: ArrayList<ControlAmbId> = ArrayList()
         // Glucosa i insulina ultim dia
-        var controlsAhir: HashMap<String,Control> = HashMap()
+        var controlsAhir: ArrayList<ControlAmbId> = ArrayList()
         var mitjaAhirGlucosa : Int = 0
         // Glucosa i insulina ultima setmana
-        var controlsSetmana: HashMap<String,Control> = HashMap()
+        var controlsSetmana: ArrayList<ControlAmbId> = ArrayList()
         var mitjaSetmanaGlucosa : Int = 0
         // Glucosa i insulina ultim mes
-        var controlsMes: HashMap<String,Control> = HashMap()
+        var controlsMes: ArrayList<ControlAmbId> = ArrayList()
         var mitjaMesGlucosa : Int = 0
 
         var dataActual = getDaysAgo(0)
@@ -110,61 +114,61 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         /** Separem els controls amb llistes d'avui, d'ahir, de la setmana i del mes **/
         for(control in llistaControls)
         {
-            var dataControl = getDataSenseHora(control.value.dataControl!!)
+            var dataControl = getDataSenseHora(control.dataControl!!)
             if(dataControl.time.after(dataActual.time)){
-                controlsAvui.put(control.key,control.value)
+                controlsAvui.add(control)
             }
             if(dataControl.time.after(dataAhir.time)){
-                controlsAhir.put(control.key,control.value)
+                controlsAhir.add(control)
             }
             if(dataControl.time.after(dataSetmana.time)){
-                controlsSetmana.put(control.key,control.value)
+                controlsSetmana.add(control)
             }
             if(dataControl.time.after(dataMes.time)){
-                controlsMes.put(control.key,control.value)
+                controlsMes.add(control)
             }
         }
 
         /** OBTENIM L'ULTIM CONTROL DE GLUCOSA I INSULINA**/
-        var controlUltimGlucosa : Control? = null
-        var controlUltimInsulina: Control? = null
+        var controlUltimGlucosa : ControlAmbId? = null
+        var controlUltimInsulina: ControlAmbId? = null
         if(controlsAvui.size>0){
             for(control in controlsAvui){
-                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.value.dataControl){
-                    controlUltimGlucosa = control.value
+                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.dataControl){
+                    controlUltimGlucosa = control
                 }
-                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.value.dataControl) && control.value.valorInsulina != 0){
-                    controlUltimInsulina = control.value
+                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.dataControl) && control.valorInsulina != 0){
+                    controlUltimInsulina = control
                 }
             }
         }
         else if(controlsAhir.size>0){
             for(control in controlsAhir){
-                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.value.dataControl){
-                    controlUltimGlucosa = control.value
+                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.dataControl){
+                    controlUltimGlucosa = control
                 }
-                if ((controlUltimInsulina == null || controlUltimInsulina?.dataControl!! < control.value.dataControl) && control.value.valorInsulina != 0){
-                    controlUltimInsulina = control.value
+                if ((controlUltimInsulina == null || controlUltimInsulina?.dataControl!! < control.dataControl) && control.valorInsulina != 0){
+                    controlUltimInsulina = control
                 }
             }
         }
         else if(controlsSetmana.size>0){
             for(control in controlsSetmana){
-                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.value.dataControl){
-                    controlUltimGlucosa = control.value
+                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.dataControl){
+                    controlUltimGlucosa = control
                 }
-                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.value.dataControl) && control.value.valorInsulina != 0){
-                    controlUltimInsulina = control.value
+                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.dataControl) && control.valorInsulina != 0){
+                    controlUltimInsulina = control
                 }
             }
         }
         else if(controlsMes.size>0){
             for(control in controlsMes){
-                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.value.dataControl){
-                    controlUltimGlucosa = control.value
+                if (controlUltimGlucosa == null || controlUltimGlucosa.dataControl!! < control.dataControl){
+                    controlUltimGlucosa = control
                 }
-                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.value.dataControl) && control.value.valorInsulina != 0){
-                    controlUltimInsulina = control.value
+                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.dataControl) && control.valorInsulina != 0){
+                    controlUltimInsulina = control
                 }
             }
         }
@@ -172,8 +176,8 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         // Busquem el valor de l'insulina fins a l'última setmana anterior en cas que no s'hagi trobat en el dia
         if(controlUltimInsulina?.valorInsulina==null){
             for(control in controlsSetmana){
-                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.value.dataControl) && control.value.valorInsulina != 0){
-                    controlUltimInsulina = control.value
+                if ((controlUltimInsulina == null || controlUltimInsulina.dataControl!! < control.dataControl) && control.valorInsulina != 0){
+                    controlUltimInsulina = control
                 }
             }
         }
@@ -193,7 +197,7 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         var contadorControls = 0
         var sumaValorsGlucosa = 0
         for(control in controlsAhir){
-            sumaValorsGlucosa += control.value.valorGlucosa?.toInt()!!
+            sumaValorsGlucosa += control.valorGlucosa?.toInt()!!
             contadorControls++
         }
         if(contadorControls != 0) {
@@ -206,7 +210,7 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         contadorControls = 0
         sumaValorsGlucosa = 0
         for(control in controlsSetmana){
-            sumaValorsGlucosa += control.value.valorGlucosa?.toInt()!!
+            sumaValorsGlucosa += control.valorGlucosa?.toInt()!!
             contadorControls++
         }
         if(contadorControls != 0) {
@@ -219,7 +223,7 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         contadorControls = 0
         sumaValorsGlucosa = 0
         for(control in controlsMes){
-            sumaValorsGlucosa += control.value.valorGlucosa?.toInt()!!
+            sumaValorsGlucosa += control.valorGlucosa?.toInt()!!
             contadorControls++
         }
         if(contadorControls != 0) {

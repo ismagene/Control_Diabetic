@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
 import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
@@ -37,7 +38,7 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     private lateinit var _llistaControls: MutableLiveData<HashMap<String, Control>>
     val llistaControls2 : LiveData<HashMap<String, Control>> get() = _llistaControls
 
-    private lateinit var llistaControlsGlobal : HashMap<String, Control>
+    private var llistaControlsGlobal : ArrayList<ControlAmbId> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,15 +55,11 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         bindingFragment.viewModel = viewModel
         bindingFragment.lifecycleOwner = this
 
-        // Comença el fragment amb data binding
-        // Recuperem tots els controls de l'usuari.
-//        viewModel.recuperarLlistaControls(this)
-
         bindingFragment.botoHistoric.setOnClickListener(){
 
             val historic = Intent(context, HistoricControlsActivity::class.java)
             val extras = Bundle()
-            extras.putSerializable("HashMap", llistaControlsGlobal)
+            extras.putSerializable("llistaControls", llistaControlsGlobal)
             historic.putExtras(extras)
             startActivityForResult(historic, RETORN_ACTIVITY_OK_CODE)
 
@@ -104,7 +101,7 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     override fun afegirControlNOK() {}
     override fun obtenirRangsOK(document: DocumentSnapshot) {}
     override fun obtenirRangsNOK() {}
-    override fun llistaControlsOK(llistaControls: HashMap<String, Control>) {
+    override fun llistaControlsOK(llistaControls: ArrayList<ControlAmbId>) {
         // Dades recuperades informades des del VM
         llistaControlsGlobal = llistaControls
 //        _llistaControls.value = llistaControls

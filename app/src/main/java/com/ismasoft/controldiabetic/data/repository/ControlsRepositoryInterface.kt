@@ -2,6 +2,7 @@ package com.ismasoft.controldiabetic.data.repository
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
+import com.ismasoft.controldiabetic.data.model.ControlAmbId
 
 interface ControlsRepositoryInterface {
 
@@ -10,7 +11,7 @@ interface ControlsRepositoryInterface {
     fun obtenirRangsOK(document: DocumentSnapshot)
     fun obtenirRangsNOK()
 
-    fun llistaControlsOK(document: HashMap<String,Control>)
+    fun llistaControlsOK(document: ArrayList<ControlAmbId>)
     fun LlistaControlsNOK()
 
     fun modificarControlOK()
