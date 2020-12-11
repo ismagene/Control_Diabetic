@@ -55,10 +55,10 @@ fun getDataCalendar(data: Date): Calendar {
 
 /** Funció que seteja les alarmes i les programa repetitives cada dia a la mateixa hora */
 fun setAlarm(posicioAlarma: Int, timestamp:Long, ctx:Context) {
-    val alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-    val alarmIntent = Intent(ctx, AlarmReceiver::class.java)
-    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
-    val pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent, 0)
+    var alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+    var alarmIntent = Intent(ctx, AlarmReceiver::class.java)
+//    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
+    var pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent, 0)
     alarmManager.setRepeating(
         AlarmManager.RTC_WAKEUP,
         timestamp,

@@ -40,7 +40,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: VisitesListAdapter
 
-    private lateinit var visitaVigent : VisitaAmbId
+    private var visitaVigent = VisitaAmbId()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,7 +132,8 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
             var dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
             bindingFragment.dataVisita.text = dataString.toString()
             bindingFragment.motiuVisita.text = viewModel.visitaVigent.value?.motiu.toString()
-            visitaVigent.idVisita = viewModel.visitaVigent.value?.idVisita
+
+            visitaVigent.idVisita = viewModel.visitaVigent.value?.idVisita.toString()
             visitaVigent.dataVisita = viewModel.visitaVigent.value?.dataVisita
             visitaVigent.motiu = viewModel.visitaVigent.value?.motiu
         }

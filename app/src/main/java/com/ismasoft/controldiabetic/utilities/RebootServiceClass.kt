@@ -20,11 +20,11 @@ class RebootServiceClass: IntentService {
         super.onCreate()
     }
     override fun onHandleIntent(intent: Intent?) {
-        val intentType = intent?.getExtras()?.getString("caller")
+        var intentType = intent?.getExtras()?.getString("caller")
         if (intentType == null) return
         if (intentType == "RebootReceiver")
         {
-            val settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+            var settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
             // Recuperem les alarmes
             for (i in 1..200){
                 if(settings.getInt("alarmID", 0) !=  null){
