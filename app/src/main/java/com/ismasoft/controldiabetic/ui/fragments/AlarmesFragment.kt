@@ -84,7 +84,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     override fun afegirAlarmaNOK() {}
     override fun jaExisteixAlarma() {}
     override fun noExisteixAlarma() {}
-    override fun modificarAlarmaOK() {}
+    override fun modificarAlarmaOK(idAlarmaManager: Int?) {}
     override fun modificarAlarmaNOK() {}
 
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {

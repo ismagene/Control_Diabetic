@@ -17,6 +17,7 @@ import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import org.jetbrains.anko.alert
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
@@ -43,6 +44,9 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
         // dia i hora per defecte.
         dataIHoraPerDefecte()
+
+        // amaguem el teclat d'inici
+        hideKeyboard(this)
 
         // Per tornar endarrera
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -151,6 +155,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
     override fun afegirAlarmaOK(idAlarmaManager: Int?) {
 
+        // Guardem la alarma al AlarmManager
         /* Preferences per guardar dades en un xml local */
         preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
         editor = preferences.edit()
@@ -162,13 +167,14 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         editor.putString("hour", hora.toString())
         editor.putString("minute", minuts.toString())
 
-        // Set the alarm to start at approximately 2:00 p.m.
-        val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, hora)
-            set(Calendar.SECOND, minuts)
-            set(Calendar.MILLISECOND,0)
-        }
+        var calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(Date())
+        parts = dataString.split("/")
+        var day =  parts[0].toInt()
+        var month = parts[1].toInt()-1
+        var year = parts[2].toInt()
+        calendar.set(year, month, day, hora, minuts, 0)
 
         //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
         editor.putInt("alarmID", idAlarmaManager!!)
@@ -205,7 +211,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     }
 
     override fun noExisteixAlarma() {}
-    override fun modificarAlarmaOK() {}
+    override fun modificarAlarmaOK(idAlarmaManager: Int?) {}
     override fun modificarAlarmaNOK() {}
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {}
     override fun llistaAlarmesNOK() {}

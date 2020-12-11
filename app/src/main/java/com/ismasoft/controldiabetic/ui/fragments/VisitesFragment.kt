@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
+import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
+import com.ismasoft.controldiabetic.ui.activities.ModificarVisitaActivity
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
@@ -59,6 +62,18 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
         adapter.setClickListener(this)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
+
+        bindingFragment.botoModificarVisita.setOnClickListener(){
+            val modificarVisita = Intent(context, ModificarVisitaActivity::class.java)
+            val extras = Bundle()
+            extras.putSerializable("visitaModificar",visitaVigent)
+            modificarVisita.putExtras(extras)
+            this.startActivity(modificarVisita)
+        }
+
+        bindingFragment.botoEliminarVisita.setOnClickListener(){
+
+        }
 
         return bindingFragment.root
 
@@ -117,6 +132,9 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
             var dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
             bindingFragment.dataVisita.text = dataString.toString()
             bindingFragment.motiuVisita.text = viewModel.visitaVigent.value?.motiu.toString()
+            visitaVigent.idVisita = viewModel.visitaVigent.value?.idVisita
+            visitaVigent.dataVisita = viewModel.visitaVigent.value?.dataVisita
+            visitaVigent.motiu = viewModel.visitaVigent.value?.motiu
         }
 
         recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!

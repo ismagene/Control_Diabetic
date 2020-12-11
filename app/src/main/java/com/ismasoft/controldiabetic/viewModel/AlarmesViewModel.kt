@@ -64,8 +64,8 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
         }
 
     }
-    override fun modificarAlarmaOK() {
-        alarmaActivityInstance.modificarAlarmaOK()
+    override fun modificarAlarmaOK(idAlarmaManager: Int?) {
+        alarmaActivityInstance.modificarAlarmaOK(idAlarmaManager)
     }
     override fun modificarAlarmaNOK() {
         alarmaActivityInstance.modificarAlarmaNOK()

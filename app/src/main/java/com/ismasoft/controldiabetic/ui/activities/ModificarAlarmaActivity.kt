@@ -2,6 +2,7 @@ package com.ismasoft.controldiabetic.ui.activities
 
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,8 +15,10 @@ import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarAlarmaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
+import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import org.jetbrains.anko.alert
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -85,9 +88,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 primerOnCreate=false
             }
-
         }
-
     }
 
     private fun recuperarDadesAlarma(alarmaModificar: AlarmaAmbId) {
@@ -97,7 +98,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
     private fun inicialitzarAlarma(binding: ActivityModificarAlarmaBinding, alarmaModificar: AlarmaAmbId
     ): AlarmaAmbId {
         val hora = binding.horaAlarma.text.toString()
-        return AlarmaAmbId(alarmaModificar.idAlarma.toString(),null, hora)
+        return AlarmaAmbId(alarmaModificar.idAlarma.toString(),alarmaModificar.idAlarmaManager, hora)
     }
 
     private fun validarEntrada(alarmaModificar: AlarmaAmbId): Boolean {
@@ -148,7 +149,40 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
         return true
     }
 
-    override fun modificarAlarmaOK() {
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+
+    override fun modificarAlarmaOK(idAlarmaManager: Int?) {
+
+        // Guardem la alarma al AlarmManager
+        /* Preferences per guardar dades en un xml local */
+        preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
+        editor = preferences.edit()
+
+        var parts = binding.horaAlarma.text.split(":")
+        var hora =  parts[0].toInt()
+        var minuts = parts[1].toInt()
+
+        editor.putString("hour", hora.toString())
+        editor.putString("minute", minuts.toString())
+
+        var calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(Date())
+        parts = dataString.split("/")
+        var day =  parts[0].toInt()
+        var month = parts[1].toInt()-1
+        var year = parts[2].toInt()
+        calendar.set(year, month, day, hora, minuts, 0)
+
+        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
+        editor.putInt("alarmID", idAlarmaManager!!)
+        editor.putLong("alarmTime", calendar.timeInMillis)
+        editor.commit()
+
+        setAlarm(idAlarmaManager, calendar.timeInMillis, this)
+
+
         alert("S'ha modificat correctament l'alarma.","Alarma modificada") {
             cancellable(false)
             positiveButton("Continuar") {

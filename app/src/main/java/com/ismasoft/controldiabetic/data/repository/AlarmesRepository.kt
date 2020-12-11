@@ -61,6 +61,7 @@ class AlarmesRepository(val application: Application) {
                 for(document in result){
                     var alarma = AlarmaAmbId()
                     alarma.idAlarma = document.id.toString()
+                    alarma.idAlarmaManager = document.get("idAlarmaManager").toString().toInt()
                     alarma.horaAlarma = document.get("horaAlarma").toString()
                     llistaAlarmes.add(alarma)
                 }
@@ -92,13 +93,12 @@ class AlarmesRepository(val application: Application) {
             ))
             .addOnSuccessListener {
                 Log.d(ContentValues.TAG, "Modificació de l'alarma OK")
-                alarmaRepositoryInterface.modificarAlarmaOK()
+                alarmaRepositoryInterface.modificarAlarmaOK(alarma.idAlarmaManager)
             }
             .addOnFailureListener{e ->
                 Log.d(ContentValues.TAG, "Error modificació de l'alarma", e)
                 alarmaRepositoryInterface.modificarAlarmaNOK()
             }
-
 
     }
 

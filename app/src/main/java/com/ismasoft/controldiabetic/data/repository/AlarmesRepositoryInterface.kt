@@ -8,7 +8,7 @@ interface AlarmesRepositoryInterface {
     fun afegirAlarmaNOK()
     fun jaExisteixAlarma()
     fun noExisteixAlarma()
-    fun modificarAlarmaOK()
+    fun modificarAlarmaOK(idAlarmaManager: Int?)
     fun modificarAlarmaNOK()
     fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>)
     fun llistaAlarmesNOK()
