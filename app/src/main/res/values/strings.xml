@@ -95,7 +95,8 @@
     <string name="dia">Dia: </string>
     <string name="literalInsulina">Insulina</string>
     <string name="esDespresDapat" tools:ignore="StringEscaping">Es després d\'un àpat</string>
-    <string name="dataFiltre">Data: </string>
+    <string name="dataFiltreInici">Data Inici: </string>
+    <string name="dataFiltreFi">Data Fi: </string>
 
     <!-- Strings related to modificar dades -->
     <string name="nom">Nom: </string>

@@ -16,7 +16,5 @@ interface ControlsRepositoryInterface {
 
     fun modificarControlOK()
     fun modificarControlNOK()
-    fun eliminarControlOK()
-    fun eliminarControlNOK()
 
 }

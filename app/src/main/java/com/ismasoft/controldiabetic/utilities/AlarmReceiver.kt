@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         var service = Intent(context, NotificationService::class.java)
-//        service.setData((Uri.parse("custom://" + System.currentTimeMillis())))
+        service.setData((Uri.parse("custom://" + System.currentTimeMillis())))
         ContextCompat.startForegroundService(context, service)
         Log.d("alarmaSet", " Alarma rebuda!")
     }

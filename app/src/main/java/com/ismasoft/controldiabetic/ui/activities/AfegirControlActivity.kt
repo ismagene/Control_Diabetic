@@ -6,9 +6,9 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -20,11 +20,8 @@ import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
-import com.ismasoft.controldiabetic.utilities.GMailSender
-import com.ismasoft.controldiabetic.utilities.JavaMailAPI
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
-import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,11 +31,8 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     private lateinit var viewModel: ControlsViewModel
     private lateinit var binding: ActivityAfegirControlBinding
 
-    private lateinit var colorHintDefault : ColorStateList
+    private lateinit var colorValorDefault : ColorStateList
     private lateinit var colorTextDefault : ColorStateList
-
-    private var primerOnCreate : Boolean = true
-    private lateinit var llistaControls : List<Control>
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +47,8 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         binding.lifecycleOwner = this
 
         // Guardem els colors del hint i del text per defecte
-        colorHintDefault = binding.glucosa.hintTextColors
-        colorTextDefault = binding.glucosa.textColors
+        colorValorDefault = binding.horaControl.textColors
+        colorTextDefault = binding.textHoraControl.textColors
 
         // dia i hora per defecte.
         dataIHoraPerDefecte()
@@ -68,6 +62,9 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             hideKeyboard(this)
 
             if(validarEntrada()){
+                // Bloquejem que es permeti fer clics durant el proces
+                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
                 var control=inicialitzarControl(binding)
                 viewModel.onButtonGuardarControl(control, this)
             }
@@ -82,24 +79,24 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
         binding.horaControl.setOnClickListener(){
             hideKeyboard(this)
-            binding.horaControl.setTextColor(colorTextDefault)
+            binding.horaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
-                binding.horaControl.setTextColor(colorTextDefault)
+                binding.horaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
             }
             hideKeyboard(this@AfegirControlActivity)
         }
         binding.diaControl.setOnClickListener(){
-            binding.diaControl.setTextColor(colorTextDefault)
+            binding.diaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
             hideKeyboard(this)
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
-                binding.diaControl.setTextColor(colorTextDefault)
+                binding.diaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
                 hideKeyboard(this)
             }
@@ -190,7 +187,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
 
-        binding.horaControl.setHintTextColor(colorHintDefault)
+        binding.horaControl.setHintTextColor(colorValorDefault)
 
         if(temps != null && !temps.equals("")){
             var parts = temps.split(":")
@@ -220,7 +217,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
         hideKeyboard(this)
 
-        binding.diaControl.setHintTextColor(colorHintDefault)
+        binding.diaControl.setHintTextColor(colorValorDefault)
 
         var c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
@@ -264,38 +261,6 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     override fun afegirControlOK() {
 
-        /** PROVES D'ENVIAMENT DE MAIL **/
-        Thread(object:Runnable {
-            public override fun run() {
-                try
-                {
-                    val sender = GMailSender(
-                        "controldiabeticsuport@outlook.com",
-                        "cdsuport2020")
-                    sender.addAttachment(Environment.getExternalStorageDirectory().getPath() + "/image.jpg")
-                    sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
-                        "controldiabeticsuport@outlook.com",
-                        "ismagm21@gmail.com")
-                }
-                catch (e:Exception) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show()
-                }
-            }
-        }).start()
-
-        val mEmail: String = "ismagm21@hotmail.com"
-        val mSubject: String = "prova"
-        val mMessage: String = "cos del missatge"
-
-
-        val javaMailAPI = JavaMailAPI(this, mEmail, mSubject, mMessage)
-
-        javaMailAPI.execute()
-        /** PROVES D'ENVIAMENT DE MAIL **/
-
-
-
-
         val factory = LayoutInflater.from(this)
         if(viewModel.rangTotalOk.value == true){
             if(viewModel.rangParcialOk.value == true){
@@ -303,6 +268,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
                 var view : View = factory.inflate(R.layout.feedback_control_ok, null);
                 val alertDialog = AlertDialog.Builder(this)
                         .setTitle("Control guardat")
+                        .setCancelable(false)
                         .setView(view)
                         .setMessage("\n"+viewModel.rangMissatge.value.toString())
                         .setPositiveButton("Continuar") { dialogInterface, i ->
@@ -316,6 +282,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
                 val alertDialog = AlertDialog.Builder(this)
                     .setTitle("Control guardat")
                     .setView(view)
+                    .setCancelable(false)
                     .setMessage(viewModel.rangMissatge.value.toString())
                     .setPositiveButton("Continuar") { dialogInterface, i ->
                         setResult(RESULT_OK)
@@ -330,6 +297,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             val alertDialog = AlertDialog.Builder(this)
                 .setTitle("Control guardat")
                 .setView(view)
+                .setCancelable(false)
                 .setMessage(viewModel.rangMissatge.value.toString())
                 .setPositiveButton("Continuar") { dialogInterface, i ->
                     setResult(RESULT_OK)
@@ -337,6 +305,8 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
                 }
             alertDialog.show()
         }
+        // Desbloquejem que no es permeti fer clics
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun afegirControlNOK() {
@@ -349,6 +319,5 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     override fun LlistaControlsNOK() {}
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}
-    override fun eliminarControlOK() {}
-    override fun eliminarControlNOK() {}
+
 }

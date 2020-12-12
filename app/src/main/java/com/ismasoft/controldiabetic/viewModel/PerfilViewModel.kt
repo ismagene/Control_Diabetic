@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.viewModel
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.*
 import com.google.firebase.Timestamp
@@ -68,7 +69,7 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _valueCognom.value = user.primerCognom
         _valueCognom2.value = user.segonCognom
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(user.dataNaixement)
+        val dataString = sdf.format(user.dataNaixement)
         _dataNaixament.value = dataString
         _genere.value = user.genere
         _pes.value = user.pes.toString()
@@ -83,7 +84,7 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _correuElectronicMetge.value = user.correuElectronicMetge
         _tipusDiabetis.value = user.tipusDiabetis
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(user.dataDiagnosi)
+        val dataString = sdf.format(user.dataDiagnosi)
         _dataDiagnosi.value = dataString
         _glucosaBaixa.value = user.glucosaBaixa.toString()
         _glucosaAlta.value = user.glucosaAlta.toString()
@@ -112,14 +113,14 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _valueNom.value = document?.get("nom").toString()
         _valueCognom.value = document?.get("primerCognom").toString()
         _valueCognom2.value = document?.get("segonCognom").toString()
-        var dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataNaixement") as Timestamp)
+        val dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataNaixement") as Timestamp)
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(dataFirebase)
+        val dataString = sdf.format(dataFirebase)
         _dataNaixament.value = dataString
-        _genere.value = document?.get("genere").toString()
-        _pes.value = document?.get("pes").toString() + " Kg"
-        _altura.value = document?.get("altura").toString() + " Cm"
-        _correuElectronic.value = document?.get("correuElectronic").toString()
+        _genere.value = document.get("genere").toString()
+        _pes.value = document.get("pes").toString() + " Kg"
+        _altura.value = document.get("altura").toString() + " Cm"
+        _correuElectronic.value = document.get("correuElectronic").toString()
     }
 
     override fun recuperarDadesMediquesOK(document: DocumentSnapshot?) {
@@ -128,16 +129,16 @@ class PerfilViewModel(application: Application) : AndroidViewModel(application) 
         _nomDelMetge.value = document?.get("nomMetge").toString()
         _correuElectronicMetge.value = document?.get("correuElectronicMetge").toString()
         _tipusDiabetis.value = document?.get("tipusDiabetis").toString()
-        var dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataDiagnosi") as Timestamp)
+        val dataFirebase = convertirADateLaDataFirebase(document?.data?.get("dataDiagnosi") as Timestamp)
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(dataFirebase)
+        val dataString = sdf.format(dataFirebase)
         _dataDiagnosi.value = dataString
-        _glucosaBaixa.value = document?.get("glucosaBaixa").toString() + " mg/dL"
-        _glucosaAlta.value = document?.get("glucosaAlta").toString() + " mg/dL"
-        _glucosaMoltBaixa.value = document?.get("glucosaMoltBaixa").toString() + " mg/dL"
-        _glucosaMoltAlta.value = document?.get("glucosaMoltAlta").toString() + " mg/dL"
-        _glucosaBaixaDA.value = document?.get("glucosaBaixaDespresApat").toString() + " mg/dL"
-        _glucosaAltaDA.value = document?.get("glucosaAltaDespresApat").toString() + " mg/dL"
+        _glucosaBaixa.value = document.get("glucosaBaixa").toString() + " mg/dL"
+        _glucosaAlta.value = document.get("glucosaAlta").toString() + " mg/dL"
+        _glucosaMoltBaixa.value = document.get("glucosaMoltBaixa").toString() + " mg/dL"
+        _glucosaMoltAlta.value = document.get("glucosaMoltAlta").toString() + " mg/dL"
+        _glucosaBaixaDA.value = document.get("glucosaBaixaDespresApat").toString() + " mg/dL"
+        _glucosaAltaDA.value = document.get("glucosaAltaDespresApat").toString() + " mg/dL"
     }
 
     fun validarContrasenya(contrasenyaAntiga:String, perfilRepositoryInterface: PerfilRepositoryInterface) {

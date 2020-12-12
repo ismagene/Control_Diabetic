@@ -114,7 +114,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     }
 
     override fun onItemClick(view: View, position: Int) {
-        Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
     override fun afegirVisitaOK() {}
     override fun afegirVisitaNOK() {}
@@ -139,6 +139,13 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
             visitaVigent.dataVisita = viewModel.visitaVigent.value?.dataVisita
             visitaVigent.motiu = viewModel.visitaVigent.value?.motiu
         }
+
+        // Ordenem les visites de mes recent a mes antiga.
+        llistaVisites.sortWith(kotlin.Comparator { o1, o2 ->
+            var date1 = o1.dataVisita
+            var date2 = o2.dataVisita
+            date1?.compareTo(date2)!! // Comparamem les dates
+        })
 
         recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
         adapter.notifyDataSetChanged()

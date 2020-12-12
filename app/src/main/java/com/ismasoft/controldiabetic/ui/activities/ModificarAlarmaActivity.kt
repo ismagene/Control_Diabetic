@@ -28,11 +28,9 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
     private lateinit var binding: ActivityModificarAlarmaBinding
 
     private lateinit var colorTextDefault : ColorStateList
-    private var primerOnCreate : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_modificar_alarma)
 
         binding = ActivityModificarAlarmaBinding.inflate(layoutInflater)
         setContentView(binding.root)

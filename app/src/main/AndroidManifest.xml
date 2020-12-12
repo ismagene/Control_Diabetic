@@ -110,7 +110,6 @@
         <receiver
             android:name=".utilities.AlarmReceiver"
             android:enabled="true" />
-
         <service
             android:name=".utilities.NotificationService"
             android:enabled="true" /> <!-- MAKE ALARMS RESTART ON REBOOT -->

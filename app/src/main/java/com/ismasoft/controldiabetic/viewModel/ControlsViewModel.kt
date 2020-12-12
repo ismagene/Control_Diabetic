@@ -1,30 +1,22 @@
 package com.ismasoft.controldiabetic.viewModel
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.getDataSenseHora
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Year
 import java.util.*
-import java.util.Calendar.DATE
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.time.ExperimentalTime
-import kotlin.time.days
 
-class ControlsViewModel(application: Application) : AndroidViewModel(application) , ControlsRepositoryInterface{
+class ControlsViewModel(application: Application) : AndroidViewModel(application) , ControlsRepositoryInterface , ControlsListAdapterInterface{
 
     // Definim el repository per accedir a la BBDD
     private var repository = ControlsRepository(application)
     lateinit var controlActivityInstance : ControlsRepositoryInterface
+    lateinit var controlListAdapterInstance : ControlsListAdapterInterface
 
     /* Variables que recuperem directament des de la l'activity */
     private val _rangTotalOK = MutableLiveData<Boolean>()
@@ -49,10 +41,12 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
     private val _ambControls = MutableLiveData<Boolean>(false)
     val ambControls : LiveData<Boolean> get() = _ambControls
 
-    private lateinit var controlTractat : Control
+    private var controlAfegir = Control()
+    private var controlModificar = ControlAmbId()
 
+    /** Funcions del MV **/
     fun onButtonGuardarControl(control: Control, controlsRepositoryInterface : ControlsRepositoryInterface){
-        controlTractat = control
+        controlAfegir = control
         controlActivityInstance = controlsRepositoryInterface
         repository.insertarControlBBDD(control,this)
     }
@@ -62,22 +56,119 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         repository.recuperarLlistaControls(this)
     }
 
-    override fun afegirControlOK() {
-        repository.obtenirRangsGlucosa(this)
-    }
-    override fun afegirControlNOK() {
-        controlActivityInstance.afegirControlNOK()
-    }
-    override fun obtenirRangsOK(document: DocumentSnapshot) {
-        validacioDeRangDeGlucosa(document)
-        controlActivityInstance.afegirControlOK()
-
-    }
-    override fun obtenirRangsNOK() {
-        controlActivityInstance.afegirControlNOK()
+    fun hiHanControls(llistaControls: ArrayList<ControlAmbId>, controlsListAdapterInterface: ControlsListAdapterInterface) {
+        if(llistaControls != null && llistaControls.size>0){
+            _ambControls.value = true
+            controlsListAdapterInterface.hihaControls()
+        }
+        else{
+            _ambControls.value = false
+            controlsListAdapterInterface.noHihaControls()
+        }
     }
 
-    fun getDaysAgo(daysAgo: Int): Calendar {
+    fun onButtonModificarControl(control: ControlAmbId, controlsRepositoryInterface : ControlsRepositoryInterface){
+        controlModificar = control
+        controlActivityInstance = controlsRepositoryInterface
+        repository.modificarControl(control, this)
+    }
+
+    fun eliminarControl(idControl: String, position: Int, controlsListAdapterInterface: ControlsListAdapterInterface) {
+        controlListAdapterInstance = controlsListAdapterInterface
+        repository.eliminarControl(idControl, position, this)
+    }
+
+    /** Funcions privades del MV **/
+    private fun validacioDeRangDeGlucosaAfegir(document: DocumentSnapshot) {
+        _rangTotalOK.value = true
+        _rangParcialOk.value = true
+        _rangMissatge.value = "El control de glucosa està dins els paràmetres establerts"
+
+        // Si el control es despres de l'apat
+        if(controlAfegir.esDespresDeApat == true){
+            val valorMaxGlucosaDespresApat = document.data?.get("glucosaAltaDespresApat")
+            val valorMinGlucosaDespresApat = document.data?.get("glucosaBaixaDespresApat")
+            if(valorMaxGlucosaDespresApat.toString().toInt() < controlAfegir.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit màxim establert"
+            }
+            else if(valorMinGlucosaDespresApat.toString().toInt() > controlAfegir.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
+            }
+        }
+        // Si el control no es despres d'un apat:
+        else{
+            val valorMaxGlucosa = document.data?.get("glucosaMoltAlta")
+            val valorMinGlucosa = document.data?.get("glucosaMoltBaixa")
+            val valorAltaGlucosa = document.data?.get("glucosaAlta")
+            val valorBaixaGlucosa = document.data?.get("glucosaBaixa")
+
+            if(valorMaxGlucosa.toString().toInt() < controlAfegir.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa sobrepasa el límit màxim establert"
+            }
+            else if(valorMinGlucosa.toString().toInt() > controlAfegir.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
+            }
+            else if(valorAltaGlucosa.toString().toInt() < controlAfegir.valorGlucosa.toString().toInt()){
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit de glucosa Alta"
+                _rangParcialOk.value = false
+            }
+            else if(valorBaixaGlucosa.toString().toInt() > controlAfegir.valorGlucosa.toString().toInt()){
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim de glucosa Baixa"
+                _rangParcialOk.value = false
+            }
+        }
+    }
+
+    /** Funcions privades del MV **/
+    private fun validacioDeRangDeGlucosaModificar(document: DocumentSnapshot) {
+        _rangTotalOK.value = true
+        _rangParcialOk.value = true
+        _rangMissatge.value = "El control de glucosa està dins els paràmetres establerts"
+
+        // Si el control es despres de l'apat
+        if(controlModificar.esDespresDeApat == true){
+            val valorMaxGlucosaDespresApat = document.data?.get("glucosaAltaDespresApat")
+            val valorMinGlucosaDespresApat = document.data?.get("glucosaBaixaDespresApat")
+            if(valorMaxGlucosaDespresApat.toString().toInt() < controlModificar.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit màxim establert"
+            }
+            else if(valorMinGlucosaDespresApat.toString().toInt() > controlModificar.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
+            }
+        }
+        // Si el control no es despres d'un apat:
+        else{
+            val valorMaxGlucosa = document.data?.get("glucosaMoltAlta")
+            val valorMinGlucosa = document.data?.get("glucosaMoltBaixa")
+            val valorAltaGlucosa = document.data?.get("glucosaAlta")
+            val valorBaixaGlucosa = document.data?.get("glucosaBaixa")
+
+            if(valorMaxGlucosa.toString().toInt() < controlModificar.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa sobrepasa el límit màxim establert"
+            }
+            else if(valorMinGlucosa.toString().toInt() > controlModificar.valorGlucosa.toString().toInt()){
+                _rangTotalOK.value = false
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
+            }
+            else if(valorAltaGlucosa.toString().toInt() < controlModificar.valorGlucosa.toString().toInt()){
+                _rangMissatge.value = "El control de glucosa sobrepassa el límit de glucosa Alta"
+                _rangParcialOk.value = false
+            }
+            else if(valorBaixaGlucosa.toString().toInt() > controlModificar.valorGlucosa.toString().toInt()){
+                _rangMissatge.value = "El control de glucosa no arriba al límit mínim de glucosa Baixa"
+                _rangParcialOk.value = false
+            }
+        }
+    }
+
+    private fun getDaysAgo(daysAgo: Int): Calendar {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
         calendar.set(Calendar.SECOND, 0)
@@ -86,6 +177,32 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         calendar.set(Calendar.MINUTE,0)
         calendar.set(Calendar.SECOND,0)
         return calendar
+    }
+
+    /** RETORNS D'INTERFACE **/
+    override fun afegirControlOK() {
+        repository.obtenirRangsGlucosa(this)
+    }
+    override fun afegirControlNOK() {
+        controlActivityInstance.afegirControlNOK()
+    }
+    override fun obtenirRangsOK(document: DocumentSnapshot) {
+        if(controlAfegir.dataControl != null) {
+            validacioDeRangDeGlucosaAfegir(document)
+            controlActivityInstance.afegirControlOK()
+        }
+        else if(controlModificar.idControl != null) {
+            validacioDeRangDeGlucosaModificar(document)
+            controlActivityInstance.modificarControlOK()
+        }
+    }
+    override fun obtenirRangsNOK() {
+        if(controlAfegir.dataControl != null) {
+            controlActivityInstance.afegirControlNOK()
+        }
+        else if(controlModificar.idControl != null) {
+            controlActivityInstance.modificarControlNOK()
+        }
     }
 
     override fun llistaControlsOK(llistaControls: ArrayList<ControlAmbId>) {
@@ -244,52 +361,21 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         controlActivityInstance.LlistaControlsNOK()
     }
 
-    private fun validacioDeRangDeGlucosa(document: DocumentSnapshot) {
-        _rangTotalOK.value = true
-        _rangParcialOk.value = true
-        _rangMissatge.value = "El control de glucosa està dins els paràmetres establerts"
-        // Si el control es despres de l'apat
-        if(controlTractat.esDespresDeApat == true){
-            val valorMaxGlucosaDespresApat = document.data?.get("glucosaAltaDespresApat")
-            val valorMinGlucosaDespresApat = document.data?.get("glucosaBaixaDespresApat")
-            if(valorMaxGlucosaDespresApat.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
-                _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa sobrepassa el límit màxim establert"
-            }
-            else if(valorMinGlucosaDespresApat.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){
-                _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
-            }
-        }
-        // Si el control no es despres d'un apat:
-        else{
-            val valorMaxGlucosa = document.data?.get("glucosaMoltAlta")
-            val valorMinGlucosa = document.data?.get("glucosaMoltBaixa")
-            val valorAltaGlucosa = document.data?.get("glucosaAlta")
-            val valorBaixaGlucosa = document.data?.get("glucosaBaixa")
-
-            if(valorMaxGlucosa.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
-                _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa sobrepasa el límit màxim establert"
-            }
-            else if(valorMinGlucosa.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){
-                _rangTotalOK.value = false
-                _rangMissatge.value = "El control de glucosa no arriba al límit mínim establert"
-            }
-            else if(valorAltaGlucosa.toString().toInt() < controlTractat.valorGlucosa.toString().toInt()){
-                _rangMissatge.value = "El control de glucosa sobrepassa el límit de glucosa Alta"
-                _rangParcialOk.value = false
-            }
-            else if(valorBaixaGlucosa.toString().toInt() > controlTractat.valorGlucosa.toString().toInt()){
-                _rangMissatge.value = "El control de glucosa no arriba al límit mínim de glucosa Baixa"
-                _rangParcialOk.value = false
-            }
-        }
+    override fun modificarControlOK() {
+        repository.obtenirRangsGlucosa(this)
+    }
+    override fun modificarControlNOK() {
+        controlActivityInstance.modificarControlNOK()
     }
 
-    override fun modificarControlOK() {}
-    override fun modificarControlNOK() {}
-    override fun eliminarControlOK() {}
-    override fun eliminarControlNOK() {}
+    override fun eliminarControlOK(position: Int) {
+        controlListAdapterInstance.eliminarControlOK(position)
+    }
+    override fun eliminarControlNOK() {
+        controlListAdapterInstance.eliminarControlNOK()
+    }
+    override fun hihaControls(){}
+    override fun noHihaControls() {}
+
 
 }

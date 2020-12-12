@@ -1,74 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textHoraControl"
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textHoraControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textDiaControl"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="2dp"
+            android:text="@string/hora" />
+
+        <TextView
+            android:id="@+id/horaControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/diaControl"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/textHoraControl" />
+
+        <TextView
+            android:id="@+id/textDiaControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="2dp"
+            android:text="@string/dia" />
+
+        <TextView
+            android:id="@+id/diaControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/textDiaControl" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/hora"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/horaControl"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"/>
+        <TextView
+            android:id="@+id/textGlucosaControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="2dp"
+            android:text="@string/literalGlucosaPunts" />
 
-    <TextView
-        android:id="@+id/textDiaControl"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        android:text="@string/dia"/>
-
-    <TextView
-        android:id="@+id/diaControl"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.2"/>
-
-    <TextView
-        android:id="@+id/textGlucosaControl"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.7"
-        android:text="@string/literalGlucosaPunts"/>
-
-    <TextView
-        android:id="@+id/glucosaControl"
-        android:layout_width="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.3"/>
-
+        <TextView
+            android:id="@+id/glucosaControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/botoModificarControl"
-        android:layout_width="0dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_weight="1"
         android:background="@drawable/style_border_textview"
-        android:src="@drawable/ic_modificar"
-        android:foreground="?android:attr/selectableItemBackground"/>
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_modificar" />
 
     <ImageButton
         android:id="@+id/botoEliminarControl"
-        android:layout_width="0dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_weight="1"
         android:background="@drawable/style_fons_boto"
-        android:src="@drawable/ic_esborrar"
-        android:foreground="?android:attr/selectableItemBackground"/>
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_esborrar" />
 
 </LinearLayout>

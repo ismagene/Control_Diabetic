@@ -112,6 +112,4 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     }
     override fun modificarControlOK() {}
     override fun modificarControlNOK() {}
-    override fun eliminarControlOK() {}
-    override fun eliminarControlNOK() {}
 }

@@ -236,6 +236,10 @@ class AfegirVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface {
     }
 
     override fun afegirVisitaOK() {
+
+        // Programar Alarma per enviar correu electrònic automaticament
+
+
         alert("S'ha afegit una nova visita al metge ","Afegida nova visita") {
             cancellable(false)
             positiveButton("Continuar") {

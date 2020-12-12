@@ -44,8 +44,8 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         binding.lifecycleOwner = this
 
         // Guardem els colors del hint i del text per defecte
-        colorHintDefault = binding.diaVisita.hintTextColors
-        colorTextDefault = binding.diaVisita.textColors
+        colorHintDefault = binding.textDiaVisita.hintTextColors
+        colorTextDefault = binding.textDiaVisita.textColors
 
         // Per tornar endarrera
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -75,26 +75,34 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
 
         binding.horaVisita.setOnClickListener(){
             hideKeyboard(this)
-            binding.horaVisita.setTextColor(colorTextDefault)
+            binding.textHoraVisita.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
         }
         binding.horaVisita.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this@ModificarVisitaActivity)
             if (hasFocus) {
-                binding.horaVisita.setTextColor(colorTextDefault)
+                binding.textHoraVisita.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
             }
         }
         binding.diaVisita.setOnClickListener(){
             hideKeyboard(this)
-            binding.diaVisita.setTextColor(colorTextDefault)
+            binding.textDiaVisita.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarData(binding.diaVisita.text.toString())
         }
         binding.diaVisita.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
                 hideKeyboard(this)
-                binding.diaVisita.setTextColor(colorTextDefault)
+                binding.textDiaVisita.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarData(binding.diaVisita.text.toString())
+            }
+        }
+        binding.motiuVisita.setOnClickListener(){
+            binding.textMotiuVisita.setTextColor(colorTextDefault)
+        }
+        binding.motiuVisita.setOnFocusChangeListener(){ _, hasFocus->
+            if (hasFocus) {
+                binding.textMotiuVisita.setTextColor(colorTextDefault)
             }
         }
 
@@ -134,7 +142,7 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         var parts = dataString.split(" ")
         var dia =  parts[0]
         var hora = parts[1]
-        if(binding.horaVisita.text.toString() == hora.toString() &&
+        if(binding.horaVisita.text.toString() == hora &&
             binding.diaVisita.text.toString() == dia &&
             binding.motiuVisita.text.toString() == visitaModificar.motiu){
             Toast.makeText(this, "No s'ha modificat les dades de la visita", Toast.LENGTH_SHORT).show()

@@ -1,6 +1,7 @@
 package com.ismasoft.controldiabetic.data.repository
 
 import android.app.Application
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.Timestamp
@@ -9,6 +10,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.type.DateTime
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
+import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
+import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
@@ -61,7 +64,6 @@ class ControlsRepository(val application: Application) {
 
     fun recuperarLlistaControls(controlsRepositoryInterface: ControlsRepositoryInterface) {
         var llistaControls : ArrayList<ControlAmbId> = ArrayList()
-
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
             .get()
             .addOnSuccessListener { result ->
@@ -81,6 +83,37 @@ class ControlsRepository(val application: Application) {
             }
             .addOnFailureListener{
                 controlsRepositoryInterface.LlistaControlsNOK()
+            }
+    }
+
+    fun eliminarControl(idControl: String, position: Int, controlsListAdapterInterface: ControlsListAdapterInterface) {
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_CONTROLS).document(idControl)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                controlsListAdapterInterface.eliminarControlOK(position)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                controlsListAdapterInterface.eliminarControlNOK()
+            }
+    }
+
+    fun modificarControl(controlModificar: ControlAmbId, controlsRepositoryInterface : ControlsRepositoryInterface){
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_CONTROLS).document(controlModificar.idControl.toString())
+            .update(mapOf(
+                "dataControl" to controlModificar.dataControl,
+                "esDespresDeApat" to controlModificar.esDespresDeApat,
+                "valorGlucosa" to controlModificar.valorGlucosa,
+                "valorInsulina" to controlModificar.valorInsulina
+            ))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "Modificació del control OK")
+                controlsRepositoryInterface.modificarControlOK()
+            }
+            .addOnFailureListener{e ->
+                Log.d(ContentValues.TAG, "Error modificació del control", e)
+                controlsRepositoryInterface.modificarControlNOK()
             }
     }
 

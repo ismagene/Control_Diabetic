@@ -75,7 +75,7 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
 
         item.hora.text = hora
         item.dia.text = dia
-        item.glucosa.text = control.valorGlucosa.toString()
+        item.glucosa.text = control.valorGlucosa.toString() + "mg/dL"
 
         item.modificarControl.setOnClickListener(){
             val modificarControl = Intent(context, ModificarControlActivity::class.java)
@@ -85,11 +85,11 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
             context.startActivity(modificarControl)
         }
         item.eliminarControl.setOnClickListener(){
-            context.alert ("Segur que voleu eliminar el control ${item.hora.text} del dia ${item.dia.text} ?","Eliminar alarma") {
+            context.alert ("Segur que voleu eliminar el control de l'hora:  ${item.hora.text} del dia: ${item.dia.text} ?","Eliminar alarma") {
                 cancellable(false)
                 positiveButton("Confirmar") {
                     viewModel = ControlsViewModel(application = Application())
-//                    viewModel.eliminarAlarma(mData[position].idControl.toString(), position, this@ControlsListAdapter)
+                    viewModel.eliminarControl(mData[position].idControl.toString(), position, this@ControlsListAdapter)
                 }
                 negativeButton("Cancelar"){
                     // Nothing to do
@@ -111,7 +111,7 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
         // Retorn de la crida OK d'esborrar l'alarma
         mData.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position,mData.size)
+        notifyDataSetChanged()
         if(mData.size == 0){
 //            viewModel.noQuedenAlarmes()
             // NO actualitza pantalla
@@ -121,5 +121,9 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
     override fun eliminarControlNOK() {
         Toast.makeText(context, "Error al eliminar el control", Toast.LENGTH_SHORT).show()
     }
+
+    override fun hihaControls() {}
+
+    override fun noHihaControls() {}
 
 }

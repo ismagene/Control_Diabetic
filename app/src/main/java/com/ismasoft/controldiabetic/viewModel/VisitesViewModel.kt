@@ -27,6 +27,7 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
 
     private lateinit var visitaAfegir : Visita
 
+    /** Funcions del MV **/
     fun onButtonGuardarVisita(visita : Visita, visitesRepositoryInterface : VisitesRepositoryInterface){
         visitalActivityInstance = visitesRepositoryInterface
         visitaAfegir = visita
@@ -50,6 +51,8 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
         repository.eliminarVisita(idVisita,this)
     }
 
+
+    /** RETORNS D'INTERFACE **/
     override fun afegirVisitaOK() {
         visitalActivityInstance.afegirVisitaOK()
     }

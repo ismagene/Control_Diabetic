@@ -7,10 +7,10 @@
 
     <TextView
         android:id="@+id/textHora"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginEnd="2dp"
         android:text="@string/hora"/>
 
     <TextView
@@ -18,24 +18,22 @@
         android:layout_width="0dp"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="7"/>
+        android:layout_weight="1"/>
 
     <ImageButton
         android:id="@+id/botoModificarAlarma"
-        android:layout_width="0dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_weight="1"
         android:background="@drawable/style_border_textview"
         android:src="@drawable/ic_modificar"
         android:foreground="?android:attr/selectableItemBackground"/>
 
     <ImageButton
         android:id="@+id/botoEliminarAlarma"
-        android:layout_width="0dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_weight="1"
         android:background="@drawable/style_fons_boto"
         android:src="@drawable/ic_esborrar"
         android:foreground="?android:attr/selectableItemBackground"/>

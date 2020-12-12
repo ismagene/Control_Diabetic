@@ -58,7 +58,7 @@ fun getDataHours(hora : Int, minuts : Int): Date {
 fun setAlarm(posicioAlarma: Int, timestamp:Long, ctx:Context) {
     var alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
     var alarmIntent = Intent(ctx, AlarmReceiver::class.java)
-//    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
+    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
     var pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent, 0)
     alarmManager.setRepeating(
         AlarmManager.RTC_WAKEUP,
@@ -76,40 +76,3 @@ fun deleteAlarm(posicioAlarma:Int, ctx:Context) {
     pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent,0)
     alarmManager.cancel(pendingIntent)
 }
-
-
-/** Funció per enviar un mail automaticament quan ens registrem */
-//fun mailConfirmacioRegistre(email : String) {
-//
-//    val app = Javalin.create().start(7070)
-//
-//    app.get("/") { ctx ->
-//        ctx.html("""
-//            <form action="/contact-us" method="post">
-//                <input name="subject" placeholder="Subject">
-//                <br>
-//                <textarea name="message" placeholder="Your message ..."></textarea>
-//                <br>
-//                <button>Submit</button>
-//            </form>
-//    """.trimIndent())
-//    }
-//
-//    app.post("/contact-us") { ctx ->
-//        SimpleEmail().apply {
-//            setHostName("smtp.googlemail.com")
-//            setSmtpPort(465)
-//            setAuthenticator(DefaultAuthenticator("controldiabeticsuport@gmail.com", "cdsuport2020"))
-//            setSSLOnConnect(true)
-//            setFrom("YOUR_EMAIL")
-//            setSubject(ctx.formParam("subject"))
-//            setMsg(ctx.formParam("message"))
-//            addTo(email)
-//        }.send() // will throw email-exception if something is wrong
-//        ctx.redirect("/contact-us/success")
-//    }
-//
-//    app.get("/contact-us/success") { ctx -> ctx.html("Your message was sent") }
-//
-//}
-

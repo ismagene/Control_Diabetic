@@ -61,44 +61,92 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/dataFiltre"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:text="@string/dataFiltre" />
+                        android:layout_weight="2.6"
+                        android:text="@string/dataFiltreInici" />
 
                     <EditText
-                        android:id="@+id/horaControl"
+                        android:id="@+id/diaFiltreInici"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_weight="6"
+                        android:layout_weight="5.2"
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/selecciona"
                         android:inputType="text" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"/>
+
+                    <ImageButton
+                        android:id="@+id/eliminarFiltreIni"
+                        android:layout_width="10dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_fons_boto"
+                        android:src="@drawable/ic_esborrar"
+                        android:foreground="?android:attr/selectableItemBackground"/>
+
 
                     <Button
-                        android:id="@+id/cancelarGuardarControl"
+                        android:id="@+id/filtrarControls"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:text="@string/filtrar"
-                        app:backgroundTint="@color/colorPrimary" />
+                        app:backgroundTint="@color/colorPrimary"
+                        android:layout_gravity="center"/>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-                <!-- Afegir taula amb les alarmes-->
+                    <TextView
+                        android:id="@+id/dataFiltreFi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.6"
+                        android:text="@string/dataFiltreFi" />
+
+                    <EditText
+                        android:id="@+id/diaFiltreFi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="5.2"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/selecciona"
+                        android:inputType="text" />
+
+
+                    <ImageButton
+                        android:id="@+id/eliminarFiltreFi"
+                        android:layout_width="10dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_fons_boto"
+                        android:src="@drawable/ic_esborrar"
+                        android:foreground="?android:attr/selectableItemBackground"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"/>
+
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="10dp"
                     android:id="@+id/recyclerViewControls"
@@ -106,18 +154,9 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
+                    app:visible="@{viewModel.ambControls.booleanValue()}"
                     />
-<!--                app:visible="@{activity.ambControls}"-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/titolTextCapAlarma"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/titolSenseControls"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    android:textSize="16dp"-->
-<!--                    android:textStyle="bold"-->
-<!--                    app:visible="@{!activityControl.ambControls}"/>-->
 
             </LinearLayout>
 

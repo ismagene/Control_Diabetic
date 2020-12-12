@@ -329,10 +329,15 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     override fun registreInsertarOK() {
 
-//        mailConfirmacioRegistre(usuari.correuElectronic.toString())
+        // ENVIAMENT DE MAIL
+        val mEmail: String = usuari.correuElectronic.toString()
+        val mSubject: String = "Confirmació de registre a l'aplicació Control diabètic"
+        val mMessage: String = "Benvolgut "+usuari.nom.toString()+" "+usuari.primerCognom.toString()+" "+usuari.segonCognom.toString()+" s'ha registrat correctament a l'aplicació. " +
+                               "\nJa pot fer loggin. " +
+                               "\n\n Moltes gràcies.\n L'equip de l'aplicació: Control diabètic."
 
-        // OJOISMA
-
+        val javaMailAPI = JavaMailAPI(this, mEmail, mSubject, mMessage)
+        javaMailAPI.execute()
 
         alert(
             "S'ha enviat un correu de confirmació del registre al correu electrònic introduit.",

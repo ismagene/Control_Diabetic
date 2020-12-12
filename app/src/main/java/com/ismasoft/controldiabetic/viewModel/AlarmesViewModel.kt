@@ -104,7 +104,8 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun noQuedenAlarmes() {
-
+        _ambAlarmes.value = false
+        _senseAlarmes.value = true
     }
 
 }

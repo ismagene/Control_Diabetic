@@ -98,7 +98,7 @@ class AlarmesListAdapter (var context: Context, val mData: ArrayList<AlarmaAmbId
         deleteAlarm(0,context)
         mData.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position,mData.size)
+        notifyDataSetChanged()
         if(mData.size == 0){
             viewModel.noQuedenAlarmes()
             // NO actualitza pantalla

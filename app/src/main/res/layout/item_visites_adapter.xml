@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/textData"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginEnd="2dp"
         android:text="@string/dia"/>
 
     <TextView
@@ -19,16 +19,16 @@
         android:layout_width="0dp"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="left"
+        android:layout_weight="1"
+        android:gravity="start"
         />
 
     <TextView
         android:id="@+id/textmotiu"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_marginEnd="2dp"
         android:text="@string/motiuVisita"/>
 
     <TextView
@@ -36,26 +36,7 @@
         android:layout_width="0dp"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="left"/>
-
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="10dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:src="@drawable/ic_modificar"
-        android:visibility="invisible"/>
-
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="10dp"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:src="@drawable/ic_esborrar"
-        android:visibility="invisible"
-        />
+        android:gravity="start"/>
 
 </LinearLayout>
