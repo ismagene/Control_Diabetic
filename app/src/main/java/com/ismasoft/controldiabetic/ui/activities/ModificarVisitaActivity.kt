@@ -80,16 +80,10 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         }
         binding.horaVisita.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this@ModificarVisitaActivity)
-            if(!primerOnCreate) {
-                if (hasFocus) {
-                    binding.horaVisita.setTextColor(colorTextDefault)
-                    obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
-                }
-            }else{
-                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                primerOnCreate=false
+            if (hasFocus) {
+                binding.horaVisita.setTextColor(colorTextDefault)
+                obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
             }
-
         }
         binding.diaVisita.setOnClickListener(){
             hideKeyboard(this)
@@ -232,6 +226,11 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         dpd.show()
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
         hideKeyboard(this)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun afegirVisitaOK() {}

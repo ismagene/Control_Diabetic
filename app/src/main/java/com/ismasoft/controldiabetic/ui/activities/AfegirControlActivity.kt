@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -19,6 +20,8 @@ import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
+import com.ismasoft.controldiabetic.utilities.GMailSender
+import com.ismasoft.controldiabetic.utilities.JavaMailAPI
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
@@ -83,28 +86,22 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
         binding.horaControl.setOnFocusChangeListener(){ _, hasFocus->
-            hideKeyboard(this@AfegirControlActivity)
-            if(!primerOnCreate) {
-                if (hasFocus) {
-                    binding.horaControl.setTextColor(colorTextDefault)
-                    obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
-                }
-            }else{
-                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                primerOnCreate=false
+            if (hasFocus) {
+                binding.horaControl.setTextColor(colorTextDefault)
+                obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
             }
-
+            hideKeyboard(this@AfegirControlActivity)
         }
         binding.diaControl.setOnClickListener(){
-            hideKeyboard(this)
             binding.diaControl.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
+            hideKeyboard(this)
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
-                hideKeyboard(this)
                 binding.diaControl.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
+                hideKeyboard(this)
             }
         }
         binding.glucosa.setOnClickListener(){
@@ -266,6 +263,39 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     }
 
     override fun afegirControlOK() {
+
+        /** PROVES D'ENVIAMENT DE MAIL **/
+        Thread(object:Runnable {
+            public override fun run() {
+                try
+                {
+                    val sender = GMailSender(
+                        "controldiabeticsuport@outlook.com",
+                        "cdsuport2020")
+                    sender.addAttachment(Environment.getExternalStorageDirectory().getPath() + "/image.jpg")
+                    sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
+                        "controldiabeticsuport@outlook.com",
+                        "ismagm21@gmail.com")
+                }
+                catch (e:Exception) {
+                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show()
+                }
+            }
+        }).start()
+
+        val mEmail: String = "ismagm21@hotmail.com"
+        val mSubject: String = "prova"
+        val mMessage: String = "cos del missatge"
+
+
+        val javaMailAPI = JavaMailAPI(this, mEmail, mSubject, mMessage)
+
+        javaMailAPI.execute()
+        /** PROVES D'ENVIAMENT DE MAIL **/
+
+
+
+
         val factory = LayoutInflater.from(this)
         if(viewModel.rangTotalOk.value == true){
             if(viewModel.rangParcialOk.value == true){

@@ -36,7 +36,7 @@
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
-                // Afegir taula amb les alarmes
+                <!-- Afegir taula amb les alarmes -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

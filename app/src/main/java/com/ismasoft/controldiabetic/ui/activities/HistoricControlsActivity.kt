@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +33,9 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ControlsListAdapter
 
+    private val _ambControls = MutableLiveData<Boolean>(false)
+    val ambControls : LiveData<Boolean> get() = _ambControls
+
     override fun onCreateView(
         parent: View?,
         name: String,
@@ -52,6 +57,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
         // Recuperem els valors enviats del fragment de controls
         var llistaControls : ArrayList<ControlAmbId> = objetoIntent.extras?.get("llistaControls") as ArrayList<ControlAmbId>
+        _ambControls.value = llistaControls.size>0
 
         binding = ActivityHistoricControlsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -61,16 +67,15 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
         recyclerView = binding.recyclerViewControls
         recyclerView.layoutManager = LinearLayoutManager(this)
-//        adapter = this.let { ControlsListAdapter(it, ArrayList<ControlAmbId>()) }!!
-//        adapter.setClickListener(this)
+        adapter = this.let { ControlsListAdapter(it, ArrayList<ControlAmbId>()) }!!
+        adapter.setClickListener(this)
+        recyclerView.adapter = adapter
 
+        // Posem els valors de la llista de controls
         adapter = this.let { ControlsListAdapter(it, llistaControls) }!!
         adapter.notifyDataSetChanged()
-
-        recyclerView.adapter = adapter
 
     }
 

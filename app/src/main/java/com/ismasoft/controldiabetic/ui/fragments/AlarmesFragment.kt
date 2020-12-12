@@ -15,7 +15,16 @@ import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
+import com.ismasoft.controldiabetic.utilities.getDataHours
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.LocalDate.parse
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import java.util.logging.Logger
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -87,8 +96,33 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     override fun modificarAlarmaNOK() {}
 
     override fun llistaAlarmesOK(llistaAlarmes: ArrayList<AlarmaAmbId>) {
+
+        llistaAlarmes.sortWith(kotlin.Comparator { o1, o2 ->
+            var obj1 = o1 as AlarmaAmbId
+            var obj2 = o2 as AlarmaAmbId
+            var isoFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            var date1 = Date()
+            var date2 = Date()
+            try {
+                // Convertimos las cadenas en date
+                date1 = isoFormat.parse("2000-01-01 "+obj1.horaAlarma.toString()+":00") as Date
+                date2 = isoFormat.parse("2000-01-01 "+obj2.horaAlarma.toString()+":00") as Date
+            } catch (ex: ParseException) {
+                Logger.getLogger("Error al converitr les dates de les alarmes")
+            }
+            date1.compareTo(date2) // Comparamos las fechas
+        })
+
         recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes) }!!
         adapter.notifyDataSetChanged()
+    }
+
+    private fun dataHora(hora :String) : Date{
+        var parts = hora.split(":")
+        var hora =  parts[0].toInt()
+        var minuts = parts[1].toInt()
+        return getDataHours(hora,minuts)
+
     }
 
     override fun llistaAlarmesNOK() {}

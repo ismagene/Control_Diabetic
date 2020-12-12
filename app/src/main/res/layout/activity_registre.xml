@@ -44,7 +44,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginNom"
-                    android:inputType="textPersonName" />
+                    android:inputType="textCapSentences" />
 
                 <EditText
                     android:id="@+id/loginCognom"
@@ -55,7 +55,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginCognom"
-                    android:inputType="textPersonName" />
+                    android:inputType="textCapSentences" />
 
                 <EditText
                     android:id="@+id/loginCognom2"
@@ -66,7 +66,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginCognom2"
-                    android:inputType="textPersonName" />
+                    android:inputType="textCapSentences" />
 
                 <EditText
                     android:id="@+id/loginNaixament"

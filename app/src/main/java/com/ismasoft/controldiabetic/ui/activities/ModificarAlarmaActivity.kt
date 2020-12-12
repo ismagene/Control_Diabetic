@@ -77,17 +77,11 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
             obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
         }
         binding.horaAlarma.setOnFocusChangeListener(){ _, hasFocus->
-            hideKeyboard(this@ModificarAlarmaActivity)
-
-            if(!primerOnCreate) {
-                if (hasFocus) {
-                    binding.textHoraAlarma.setTextColor(colorTextDefault)
-                    obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
-                }
-            }else{
-                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                primerOnCreate=false
+            if (hasFocus) {
+                binding.textHoraAlarma.setTextColor(colorTextDefault)
+                obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
             }
+            hideKeyboard(this@ModificarAlarmaActivity)
         }
     }
 
@@ -163,9 +157,6 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
         var hora =  parts[0].toInt()
         var minuts = parts[1].toInt()
 
-        editor.putString("hour", hora.toString())
-        editor.putString("minute", minuts.toString())
-
         var calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         var dataString = sdf.format(Date())
@@ -175,13 +166,13 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
         var year = parts[2].toInt()
         calendar.set(year, month, day, hora, minuts, 0)
 
-        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
-        editor.putInt("alarmID", idAlarmaManager!!)
-        editor.putLong("alarmTime", calendar.timeInMillis)
+        //guardem els valors de l'identificar de l'alarma i el temps al SharedPreference per recuperar-ho en cas de reboot
+        editor.putInt("alarmID+${idAlarmaManager}", idAlarmaManager!!)
+        editor.putLong("alarmTime+${idAlarmaManager}", calendar.timeInMillis)
         editor.commit()
 
+        // Instanciem l'alarma
         setAlarm(idAlarmaManager, calendar.timeInMillis, this)
-
 
         alert("S'ha modificat correctament l'alarma.","Alarma modificada") {
             cancellable(false)

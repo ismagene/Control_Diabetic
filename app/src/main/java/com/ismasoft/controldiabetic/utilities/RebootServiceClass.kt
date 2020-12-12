@@ -27,8 +27,8 @@ class RebootServiceClass: IntentService {
             var settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
             // Recuperem les alarmes
             for (i in 1..200){
-                if(settings.getInt("alarmID", 0) !=  null){
-                    setAlarm(settings.getInt("alarmID", 0), settings.getLong("alarmTime", 0), this)
+                if(settings.getInt("alarmID+${i}", 0) !=  null){
+                    setAlarm(settings.getInt("alarmID+${i}", 0), settings.getLong("alarmTime${i}", 0), this)
                 }
             }
         }

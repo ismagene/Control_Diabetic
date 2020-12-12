@@ -155,7 +155,7 @@
                     android:textStyle="bold"
                     app:visible="@{viewModel.ambVisites}"/>
 
-                // Afegir taula amb les alarmes
+                <!-- Afegir taula amb les alarmes -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewVisites"
                     android:layout_width="match_parent"

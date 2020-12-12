@@ -122,7 +122,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private fun obrirCalendariPerSeleccionarData(data: String){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
+//        hideKeyboard(this)    OJOISMA
 
         binding.loginNaixament.setHintTextColor(colorHintDefault)
 

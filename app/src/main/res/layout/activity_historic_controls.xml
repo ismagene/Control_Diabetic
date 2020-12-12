@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.ismasoft.controldiabetic.viewModel.ControlsViewModel" />
+
+        <variable
+            name="activityControl"
+            type="com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity" />
     </data>
 
     <FrameLayout
@@ -94,7 +98,7 @@
                 </LinearLayout>
 
 
-                // Afegir taula amb les alarmes
+                <!-- Afegir taula amb les alarmes-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="10dp"
                     android:id="@+id/recyclerViewControls"
@@ -102,18 +106,18 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:visible="@{viewModel.ambControls}"
                     />
+<!--                app:visible="@{activity.ambControls}"-->
 
-                <TextView
-                    android:id="@+id/titolTextCapAlarma"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/titolSenseControls"
-                    android:layout_marginBottom="20dp"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    app:visible="@{!viewModel.ambControls}"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/titolTextCapAlarma"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/titolSenseControls"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:visible="@{!activityControl.ambControls}"/>-->
 
             </LinearLayout>
 

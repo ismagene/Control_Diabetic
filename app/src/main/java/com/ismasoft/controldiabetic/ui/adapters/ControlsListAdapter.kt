@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
+import com.ismasoft.controldiabetic.ui.activities.ModificarControlActivity
 import com.ismasoft.controldiabetic.utilities.deleteAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
@@ -36,7 +37,7 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = mInflater.inflate(R.layout.item_alarmes_adapter, parent, false)
+        val view = mInflater.inflate(R.layout.item_controls_adapter, parent, false)
         return ControlViewHolder(view)
     }
 
@@ -77,11 +78,11 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
         item.glucosa.text = control.valorGlucosa.toString()
 
         item.modificarControl.setOnClickListener(){
-            val modificarAlarma = Intent(context, ModificarAlarmaActivity::class.java)
+            val modificarControl = Intent(context, ModificarControlActivity::class.java)
             val extras = Bundle()
-            extras.putSerializable("alarmaModificar",control)
-            modificarAlarma.putExtras(extras)
-            context.startActivity(modificarAlarma)
+            extras.putSerializable("controlModificar",control)
+            modificarControl.putExtras(extras)
+            context.startActivity(modificarControl)
         }
         item.eliminarControl.setOnClickListener(){
             context.alert ("Segur que voleu eliminar el control ${item.hora.text} del dia ${item.dia.text} ?","Eliminar alarma") {

@@ -54,7 +54,8 @@
                         android:textSize="16dp"
                         android:text="@{viewModel.valueNom}"
                         android:layout_weight="2"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:inputType="textCapSentences"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,7 +86,8 @@
                         android:textSize="16dp"
                         android:layout_weight="2"
                         android:text="@{viewModel.valueCognom}"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:inputType="textCapSentences"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -116,7 +118,8 @@
                         android:textSize="16dp"
                         android:layout_weight="2"
                         android:text="@{viewModel.valueCognom2}"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:inputType="textCapSentences"/>
                 </LinearLayout>
 
                 <LinearLayout

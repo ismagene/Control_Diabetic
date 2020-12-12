@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
+//import io.javalin.Javalin
+//import org.apache.commons.mail.DefaultAuthenticator
+//import org.apache.commons.mail.SimpleEmail
 import org.jetbrains.anko.contentView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,18 +42,16 @@ fun getDataSenseHora(data: Date): Calendar {
     return calendar
 }
 
-fun getDataCalendar(data: Date): Calendar {
+fun getDataHours(hora : Int, minuts : Int): Date {
     val calendar = Calendar.getInstance()
     val sdf = SimpleDateFormat("dd/MM/yyyy")
-    var dataString = sdf.format(data)
+    var dataString = sdf.format(Date())
     var parts = dataString.split("/")
     var day =  parts[0].toInt()
     var month = parts[1].toInt()-1
     var year = parts[2].toInt()
-    var hour = data.hours
-    var minute = data.minutes
-    calendar.set(year, month, day, hour, minute, 0)
-    return calendar
+    calendar.set(year, month, day, hora, minuts, 0)
+    return calendar.time
 }
 
 /** Funció que seteja les alarmes i les programa repetitives cada dia a la mateixa hora */
@@ -75,4 +76,40 @@ fun deleteAlarm(posicioAlarma:Int, ctx:Context) {
     pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent,0)
     alarmManager.cancel(pendingIntent)
 }
+
+
+/** Funció per enviar un mail automaticament quan ens registrem */
+//fun mailConfirmacioRegistre(email : String) {
+//
+//    val app = Javalin.create().start(7070)
+//
+//    app.get("/") { ctx ->
+//        ctx.html("""
+//            <form action="/contact-us" method="post">
+//                <input name="subject" placeholder="Subject">
+//                <br>
+//                <textarea name="message" placeholder="Your message ..."></textarea>
+//                <br>
+//                <button>Submit</button>
+//            </form>
+//    """.trimIndent())
+//    }
+//
+//    app.post("/contact-us") { ctx ->
+//        SimpleEmail().apply {
+//            setHostName("smtp.googlemail.com")
+//            setSmtpPort(465)
+//            setAuthenticator(DefaultAuthenticator("controldiabeticsuport@gmail.com", "cdsuport2020"))
+//            setSSLOnConnect(true)
+//            setFrom("YOUR_EMAIL")
+//            setSubject(ctx.formParam("subject"))
+//            setMsg(ctx.formParam("message"))
+//            addTo(email)
+//        }.send() // will throw email-exception if something is wrong
+//        ctx.redirect("/contact-us/success")
+//    }
+//
+//    app.get("/contact-us/success") { ctx -> ctx.html("Your message was sent") }
+//
+//}
 

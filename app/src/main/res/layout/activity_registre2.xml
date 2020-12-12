@@ -44,7 +44,8 @@
                     android:layout_marginStart="6dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:hint="@string/loginMedicalCenter" />
+                    android:hint="@string/loginMedicalCenter"
+                    android:inputType="textCapSentences"/>
 
                 <EditText
                     android:id="@+id/loginPoblacioCentre"
@@ -54,7 +55,8 @@
                     android:layout_marginStart="6dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:hint="@string/loginPoblacioMedicalCenter" />
+                    android:hint="@string/loginPoblacioMedicalCenter"
+                    android:inputType="textCapSentences"/>
 
                 <EditText
                     android:id="@+id/loginNomMetge"
@@ -64,7 +66,8 @@
                     android:layout_marginStart="6dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:hint="@string/loginDoctor" />
+                    android:hint="@string/loginDoctor"
+                    android:inputType="textCapSentences"/>
 
                 <EditText
                     android:id="@+id/loginEmailMetge"

@@ -1,10 +1,9 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+//import com.ismasoft.controldiabetic.utilities.mailConfirmacioRegistre
+
 import android.app.DatePickerDialog
-import android.app.ProgressDialog
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -18,20 +17,12 @@ import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.JavaMailAPI
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
-
-import javax.mail.Authenticator
-import javax.mail.Message
-import javax.mail.MessagingException
-import javax.mail.PasswordAuthentication
-import javax.mail.Session
-import javax.mail.Transport
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
 
 
 class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
@@ -81,7 +72,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             if(validacionsRegistre()){
                 usuari = inicialitzarUsuari(binding)
                 var bundle = intent.extras
-                viewModel.onButtonRegistreClicked(bundle?.getString("correuElectronic").toString(), bundle?.getString("contrasenya").toString(),this)
+                viewModel.onButtonRegistreClicked(
+                    bundle?.getString("correuElectronic").toString(), bundle?.getString(
+                        "contrasenya"
+                    ).toString(), this
+                )
             }
 
         }
@@ -269,7 +264,11 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         if(dataIntroduida.after(dataActual))
         {
             binding.loginDataDiagnosi.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de diagnosi no pot ser superior a l'actual'", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "La data de diagnosi no pot ser superior a l'actual'",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
 
@@ -330,15 +329,21 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     override fun registreInsertarOK() {
 
-        alert("S'ha enviat un correu de confirmació del registre al correu electrònic introduit.","Registre realitzat") {
+//        mailConfirmacioRegistre(usuari.correuElectronic.toString())
+
+        // OJOISMA
+
+
+        alert(
+            "S'ha enviat un correu de confirmació del registre al correu electrònic introduit.",
+            "Registre realitzat"
+        ) {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)
                 finish()
             }
         }.show()
-
-        // OJOISMA ENVIAR MAIL
 
     }
 

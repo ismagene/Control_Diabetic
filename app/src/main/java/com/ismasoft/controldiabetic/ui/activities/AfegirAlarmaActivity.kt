@@ -70,23 +70,17 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         }
 
         binding.horaAlarma.setOnClickListener(){
-            hideKeyboard(this)
+
             binding.textHoraAlarma.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
+
         }
         binding.horaAlarma.setOnFocusChangeListener(){ _, hasFocus->
-            hideKeyboard(this@AfegirAlarmaActivity)
-
-            if(!primerOnCreate) {
-                if (hasFocus) {
-                    binding.textHoraAlarma.setTextColor(colorTextDefault)
-                    obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
-                }
-            }else{
-                /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-                primerOnCreate=false
+            if (hasFocus) {
+                binding.textHoraAlarma.setTextColor(colorTextDefault)
+                obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
             }
-
+            hideKeyboard(this)
         }
 
     }
