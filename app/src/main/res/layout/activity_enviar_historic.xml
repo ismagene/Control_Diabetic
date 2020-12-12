@@ -9,57 +9,94 @@
             type="com.ismasoft.controldiabetic.viewModel.ControlsViewModel" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.AlarmesFragment">
+        android:padding="12dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="399dp"
+            android:layout_height="649dp"
+            android:layout_above="@id/linearLayoutEnviarMail"
+            android:layout_marginBottom="2dp">
 
             <LinearLayout
-                android:id="@+id/layoutTitolsAlarmes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp">
+                android:paddingBottom="10dp">
 
-                <TextView
-                    android:id="@+id/titolTextAlarma"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/titolControls"
-                    android:layout_marginBottom="20dp"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <!-- Afegir taula amb les alarmes -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewControls"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:visible="@{viewModel.ambControls}"
-                    />
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/titolTextCapAlarma"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/titolSenseControls"
-                    android:layout_marginBottom="20dp"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    app:visible="@{!viewModel.ambControls}"/>
+                    <TextView
+                        android:id="@+id/textCorreuElectronicAenviar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/correuElectronic" />
 
+                    <EditText
+                        android:id="@+id/correuElectronicAEnviar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="6"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/mailAEnviar"
+                        android:inputType="textEmailAddress" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/explicacioEnviarMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/mailAEnviarexplicacio" />
+                </LinearLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
 
-    </FrameLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:id="@+id/linearLayoutEnviarMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10dp">
+            <Button
+                android:id="@+id/enviarCorreuElectronic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/enviar"
+                app:backgroundTint="@color/colorPrimary" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+            <Button
+                android:id="@+id/cancelarEnviarCorreuElectronic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/cancelar"
+                app:backgroundTint="@color/colorPrimary" />
+        </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -74,6 +74,7 @@
     <string name="modificar">Modificar</string>
     <string name="cancelar">Cancelar</string>
     <string name="filtrar">Filtrar</string>
+    <string name="enviar">Enviar</string>
 
     <!-- Strings related to Controls -->
     <string name="ultimControlGlucosa">Últim control\nde glucosa</string>
@@ -167,5 +168,8 @@
     <!-- Notificacions d'alarma -->
     <string name="new_notification">Alarma programada - clica per Afegir nou control</string>
 
+    <!-- Enviar mail -->
+    <string name="mailAEnviar">Escriu el correu electrònic a enviar</string>
+    <string name="mailAEnviarexplicacio">S\enviaràn al correu introduit els controls filtrats en la pantalla anterior. Apreteu enviar per continuar.</string>
 
 </resources>

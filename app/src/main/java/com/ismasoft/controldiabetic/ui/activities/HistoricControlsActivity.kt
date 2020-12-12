@@ -57,7 +57,6 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_historic_controls)
 
         var objetoIntent : Intent = intent
 
@@ -74,6 +73,8 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             var date2 = o2.dataControl
             date2?.compareTo(date1)!! // Comparamem les dates
         })
+
+        llistaControlsFiltrats = llistaControls
 
         binding = ActivityHistoricControlsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -96,9 +97,9 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             hideKeyboard(this)
         }
         binding.diaFiltreInici.setOnFocusChangeListener(){ _, hasFocus->
+            hideKeyboard(this)
             if (hasFocus) {
                 obrirCalendariPerSeleccionarData(binding.diaFiltreInici.text.toString())
-                hideKeyboard(this)
             }
         }
         binding.diaFiltreFi.setOnClickListener {

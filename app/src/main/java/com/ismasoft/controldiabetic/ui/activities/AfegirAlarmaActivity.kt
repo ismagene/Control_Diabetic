@@ -26,7 +26,6 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     private lateinit var binding: ActivityAfegirAlarmaBinding
 
     private lateinit var colorTextDefault : ColorStateList
-    private var primerOnCreate : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
