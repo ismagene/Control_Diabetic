@@ -111,11 +111,19 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
                 binding.loginCorreuElectronic.setTextColor(colorTextDefault)
             }
         }
+        binding.loginCorreuElectronic.setOnClickListener() {
+            binding.loginCorreuElectronic.setHintTextColor(colorHintDefault)
+            binding.loginCorreuElectronic.setTextColor(colorTextDefault)
+        }
         binding.loginPassword.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
                 binding.loginPassword.setHintTextColor(colorHintDefault)
                 binding.loginPassword.setTextColor(colorTextDefault)
             }
+        }
+        binding.loginPassword.setOnClickListener() {
+            binding.loginPassword.setHintTextColor(colorHintDefault)
+            binding.loginPassword.setTextColor(colorTextDefault)
         }
 
     }

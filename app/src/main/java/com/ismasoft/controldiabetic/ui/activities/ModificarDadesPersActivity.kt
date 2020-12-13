@@ -93,6 +93,9 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
         }
 
         /* Recuperem els valors de Hint i de Color del text si han estat marcats com error */
+        binding.valueNom.setOnClickListener(){
+            binding.textValueNom.setTextColor(colorTextDefault)
+        }
         binding.valueNom.setOnFocusChangeListener { _, hasFocus ->
             if(!primerOnCreate) {
                 if(hasFocus) {
@@ -104,8 +107,14 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
                 primerOnCreate=false
             }
         }
+        binding.valueCognom.setOnClickListener(){
+            binding.textValueCognom.setTextColor(colorTextDefault)
+        }
         binding.valueCognom.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValueCognom.setTextColor(colorTextDefault)
+        }
+        binding.valueCognom2.setOnClickListener(){
+            binding.textValueCognom2.setTextColor(colorTextDefault)
         }
         binding.valueCognom2.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValueCognom2.setTextColor(colorTextDefault)
@@ -126,8 +135,14 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
         binding.valuePes.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValuePes.setTextColor(colorTextDefault)
         }
+        binding.valuePes.setOnClickListener() {
+            binding.textValuePes.setTextColor(colorTextDefault)
+        }
         binding.valueAltura.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValueAltura.setTextColor(colorTextDefault)
+        }
+        binding.valueAltura.setOnClickListener() {
+            binding.textValueAltura.setTextColor(colorTextDefault)
         }
 
         binding.valueCorreuElectronic.setOnClickListener(){
@@ -222,20 +237,20 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
 
     private fun inicialitzarUsuari(): User {
 
-        val nom : String? = binding.valueNom.text.toString()
-        val cognom: String? = binding.valueCognom.text.toString()
-        val cognom2: String? = binding.valueCognom2.text.toString()
-        val date: String? = binding.valueDataNaixament.text.toString()
+        val nom : String = binding.valueNom.text.toString()
+        val cognom: String = binding.valueCognom.text.toString()
+        val cognom2: String = binding.valueCognom2.text.toString()
+        val date: String = binding.valueDataNaixament.text.toString()
         val dataNaixament = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
-        val genere: String? = binding.valueGenere.selectedItem.toString()
-        val pesString: String? = binding.valuePes.text.toString()
+        val genere: String = binding.valueGenere.selectedItem.toString()
+        val pesString: String = binding.valuePes.text.toString()
         var parts = pesString!!.split(" ")
         var pes =  parts[0].toInt()
-        val pesNumeric = pes?.toInt()
-        val alturaString: String? = binding.valueAltura.text.toString()
+        val pesNumeric = pes.toInt()
+        val alturaString: String = binding.valueAltura.text.toString()
         parts = alturaString!!.split(" ")
         var altura =  parts[0].toInt()
-        val alturaNumeric = altura?.toInt()
+        val alturaNumeric = altura.toInt()
 
         return User(
             nom,

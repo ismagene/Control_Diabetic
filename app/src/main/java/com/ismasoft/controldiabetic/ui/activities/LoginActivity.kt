@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
             /* Funció Login */
             login.setOnClickListener {
+                viewModel?.amagarRecuperarPass()
                 /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
                 hideKeyboard(this@LoginActivity)
 

@@ -44,7 +44,7 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         binding.lifecycleOwner = this
 
         // Guardem els colors del hint i del text per defecte
-        colorTextDefault = binding.valuepoblacioDelCentre.textColors
+        colorTextDefault = binding.textValueNomDelCentre.textColors
 
         // Recuperem info del usuari
         var objetoIntent : Intent = intent
@@ -112,14 +112,26 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
                 primerOnCreate=false
             }
         }
+        binding.valueNomDelCentre.setOnClickListener() {
+            binding.textValueNomDelCentre.setTextColor(colorTextDefault)
+        }
         binding.valuepoblacioDelCentre.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValuepoblacioDelCentre.setTextColor(colorTextDefault)
+        }
+        binding.valuepoblacioDelCentre.setOnClickListener() {
+            binding.textValuepoblacioDelCentre.setTextColor(colorTextDefault)
         }
         binding.valueNomDelMetge.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValueNomDelMetge.setTextColor(colorTextDefault)
         }
+        binding.valueNomDelMetge.setOnClickListener() {
+            binding.textValueNomDelMetge.setTextColor(colorTextDefault)
+        }
         binding.valuecorreuElectronicMetge.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValuecorreuElectronicMetge.setTextColor(colorTextDefault)
+        }
+        binding.valuecorreuElectronicMetge.setOnClickListener() {
+            binding.textValuecorreuElectronicMetge.setTextColor(colorTextDefault)
         }
         binding.valueTipusDiabetis.setOnTouchListener { view, motionEvent ->
             binding.textValueTipusDiabetis.setTextColor(colorTextDefault)
@@ -131,38 +143,57 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
                 obrirCalendariPerSeleccionarData(binding.valuedataDiagnosi.text.toString())
             }
         }
+        binding.valuedataDiagnosi.setOnClickListener() {
+            obrirCalendariPerSeleccionarData(binding.valuedataDiagnosi.text.toString())
+        }
         binding.glucosaBaixa.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaBaixa.setTextColor(colorTextDefault)
             }
+        }
+        binding.glucosaBaixa.setOnClickListener() {
+            binding.textGlucosaBaixa.setTextColor(colorTextDefault)
         }
         binding.glucosaAlta.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaAlta.setTextColor(colorTextDefault)
             }
         }
-
+        binding.glucosaAlta.setOnClickListener() {
+            binding.textGlucosaAlta.setTextColor(colorTextDefault)
+        }
         binding.glucosaMoltBaixa.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaMoltBaixa.setTextColor(colorTextDefault)
             }
+        }
+        binding.glucosaMoltBaixa.setOnClickListener() {
+            binding.textGlucosaMoltBaixa.setTextColor(colorTextDefault)
         }
         binding.glucosaMoltAlta.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaMoltAlta.setTextColor(colorTextDefault)
             }
         }
+        binding.glucosaMoltAlta.setOnClickListener() {
+            binding.textGlucosaMoltAlta.setTextColor(colorTextDefault)
+        }
         binding.glucosaBaixaDA.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaBaixaDA.setTextColor(colorTextDefault)
             }
+        }
+        binding.glucosaBaixaDA.setOnClickListener() {
+            binding.textGlucosaBaixaDA.setTextColor(colorTextDefault)
         }
         binding.glucosaAltaDA.setOnFocusChangeListener(){ _, hasFocus ->
             if(hasFocus){
                 binding.textGlucosaAltaDA.setTextColor(colorTextDefault)
             }
         }
-
+        binding.glucosaAltaDA.setOnClickListener() {
+            binding.textGlucosaAltaDA.setTextColor(colorTextDefault)
+        }
 
     }
 
@@ -228,33 +259,33 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         }
 
         // En la modificació els valors dels rangs de glucosa seràn obligatoris
-        if(binding.glucosaBaixa.text == null || binding.glucosaBaixa.text.toString() == ""){
-            binding.textGlucosaBaixa.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaBaixa.text == null || binding.glucosaBaixa.text.toString() == "" || binding.glucosaBaixa.text.toString() == "0"){
+            binding.textGlucosaBaixa.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Baixa és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.glucosaAlta.text == null || binding.glucosaAlta.text.toString() == ""){
-            binding.textGlucosaAlta.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaAlta.text == null || binding.glucosaAlta.text.toString() == "" || binding.glucosaAlta.text.toString() == "0"){
+            binding.textGlucosaAlta.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Alta és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.glucosaMoltBaixa.text == null || binding.glucosaMoltBaixa.text.toString() == ""){
-            binding.textGlucosaMoltBaixa.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaMoltBaixa.text == null || binding.glucosaMoltBaixa.text.toString() == "" || binding.glucosaMoltBaixa.text.toString() == "0"){
+            binding.textGlucosaMoltBaixa.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Molt Baixa és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.glucosaMoltAlta.text == null || binding.glucosaMoltAlta.text.toString() == ""){
-            binding.textGlucosaMoltAlta.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaMoltAlta.text == null || binding.glucosaMoltAlta.text.toString() == "" || binding.glucosaMoltAlta.text.toString() == "0"){
+            binding.textGlucosaMoltAlta.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Molt Alta és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.glucosaBaixaDA.text == null || binding.glucosaBaixaDA.text.toString() == ""){
-            binding.textGlucosaBaixaDA.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaBaixaDA.text == null || binding.glucosaBaixaDA.text.toString() == "" || binding.glucosaBaixaDA.text.toString() == "0"){
+            binding.textGlucosaBaixaDA.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Baixa desprès d'un apat és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(binding.glucosaAltaDA.text == null || binding.glucosaAltaDA.text.toString() == ""){
-            binding.textGlucosaAltaDA.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+        if(binding.glucosaAltaDA.text == null || binding.glucosaAltaDA.text.toString() == "" || binding.glucosaAltaDA.text.toString() == "0"){
+            binding.textGlucosaAltaDA.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "El valor de la glucosa Alta desprès d'un apat és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -325,7 +356,7 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         var month = c.get(Calendar.MONTH)
         var day = c.get(Calendar.DAY_OF_MONTH)
 
-        if(data != null && !data.equals("")){
+        if(data != ""){
             var parts = data.split("/")
             day =  parts[0].toInt()
             month = parts[1].toInt()-1

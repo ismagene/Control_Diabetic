@@ -98,10 +98,13 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
                 binding.loginEmailMetge.setTextColor(colorTextDefault)
             }
         }
+        binding.loginEmailMetge.setOnClickListener() {
+            binding.loginEmailMetge.setHintTextColor(colorHintDefault)
+            binding.loginEmailMetge.setTextColor(colorTextDefault)
+        }
         binding.loginTipusDiabetisSpiner.setOnFocusChangeListener { _, hasFocus ->
-
-                binding.loginEmailMetge.setHintTextColor(colorHintDefault)
-                binding.loginEmailMetge.setTextColor(colorTextDefault)
+            binding.loginEmailMetge.setHintTextColor(colorHintDefault)
+            binding.loginEmailMetge.setTextColor(colorTextDefault)
         }
         binding.loginTipusDiabetisSpiner.setOnTouchListener { view, motionEvent ->
             binding.loginTipusDiabetis.setTextColor(colorTextDefault)
