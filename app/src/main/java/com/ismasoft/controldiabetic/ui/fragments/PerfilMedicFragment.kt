@@ -10,13 +10,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilMedicBinding
-import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
 import com.ismasoft.controldiabetic.ui.activities.ModificarDadesMedActivity
-import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 import java.text.SimpleDateFormat

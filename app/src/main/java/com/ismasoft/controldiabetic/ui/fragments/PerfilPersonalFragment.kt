@@ -9,17 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
-import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
-import com.ismasoft.controldiabetic.ui.activities.LoginActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants

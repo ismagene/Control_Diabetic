@@ -1,6 +1,5 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,21 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
-import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarVisitaActivity
-import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
-import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
@@ -94,7 +87,6 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun onResume() {
         super.onResume()
         viewModel.recuperarLlistaVisites(this)
-
     }
 
     companion object {
@@ -157,8 +149,8 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
 
     override fun eliminarVisitaOK() {
         onResume()
-        onResume()
-//        viewModel.recuperarLlistaVisites(this)
+        // NO actualitza la pantalla
+        viewModel.recuperarLlistaVisites(this)
     }
     override fun eliminarVisitaNOK() {
         Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()

@@ -9,6 +9,7 @@ class LoginRepository(val application: Application) {
 
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    /** Funció que fa el login de l'usuari a Firebase **/
     fun requestLogin(mail:String, password:String, loginRepositoryInterface: LoginRepositoryInterface)  {
 
         firebaseAuth.signInWithEmailAndPassword(mail, password)

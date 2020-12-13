@@ -10,7 +10,6 @@ import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.databinding.ActivityMenuPrincipalBinding
 import com.ismasoft.controldiabetic.ui.fragments.*
-import com.ismasoft.controldiabetic.utilities.Constants.REGISTRE_2_CODE
 import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
 import com.ismasoft.controldiabetic.viewModel.MenuPrincipalViewModel
 

@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarVisitaBinding
@@ -28,8 +27,6 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
 
     private lateinit var colorTextDefault : ColorStateList
     private lateinit var colorHintDefault : ColorStateList
-    private var primerOnCreate : Boolean = true
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,12 +120,12 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
     private fun validarEntrada(visitaModificar: VisitaAmbId): Boolean {
         if(binding.horaVisita.text == null || binding.horaVisita.text.toString() == ""){
             binding.textHoraVisita.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'hora és obligatoria per modificar la visita", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'hora és obligatòria per modificar la visita", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.diaVisita.text == null || binding.diaVisita.text.toString() == ""){
             binding.textDiaVisita.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data és obligatoria per modificar la visita", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La data és obligatòria per modificar la visita", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.motiuVisita.text == null || binding.motiuVisita.text.toString() == ""){

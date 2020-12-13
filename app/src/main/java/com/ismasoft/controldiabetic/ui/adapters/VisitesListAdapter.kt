@@ -10,7 +10,6 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import java.text.SimpleDateFormat
 
-
 class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

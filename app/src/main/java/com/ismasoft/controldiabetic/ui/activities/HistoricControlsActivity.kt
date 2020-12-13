@@ -116,16 +116,16 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
             if(!binding.diaFiltreInici.text.toString().equals("")){
                 val date = binding.diaFiltreInici.text.toString()
-                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
+                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 00:00:00")
             }else{
-                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("01/01/1900 00:00")
+                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/1900 00:00:00")
             }
 
             if(!binding.diaFiltreFi.text.toString().equals("")){
                 val date = binding.diaFiltreFi.text.toString()
-                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("$date 00:00")
+                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 23:59:59")
             }else{
-                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("01/01/2900 00:00")
+                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/2900 00:00:00")
             }
 
             for(control in llistaControls){

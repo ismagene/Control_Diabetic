@@ -1,9 +1,5 @@
 package com.ismasoft.controldiabetic.utilities
 
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.ColorSpace
-
 object Constants {
 
     const val DB_ROOT_USUARIS = "usuaris"

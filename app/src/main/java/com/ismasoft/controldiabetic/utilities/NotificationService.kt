@@ -9,7 +9,6 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.ui.activities.AfegirAlarmaActivity
 import com.ismasoft.controldiabetic.ui.activities.AfegirControlActivity
 
 class NotificationService: IntentService {

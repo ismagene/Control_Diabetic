@@ -59,7 +59,6 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
                 var alarma = inicialitzarAlarma(binding)
                 viewModel.onButtonGuardarAlarma(alarma, this)
             }
-
         }
 
         binding.cancelarGuardarAlama.setOnClickListener(){
@@ -107,10 +106,9 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
     private fun validarEntrada(): Boolean {
         if(binding.horaAlarma.text == null || binding.horaAlarma.text.toString() == ""){
             binding.textHoraAlarma.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'hora és obligatoria per guardar l'alarma", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'hora és obligatòria per guardar l'alarma", Toast.LENGTH_SHORT).show()
             return false
         }
-
         return true
     }
 

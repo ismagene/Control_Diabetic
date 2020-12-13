@@ -1,7 +1,6 @@
 package com.ismasoft.controldiabetic.data.repository
 
 import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 
 interface ControlsRepositoryInterface {

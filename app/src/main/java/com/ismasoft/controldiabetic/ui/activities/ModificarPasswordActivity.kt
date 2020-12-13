@@ -83,7 +83,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
     private fun validarEntrada(): Boolean {
         if(binding.contrasenyaAntiga.text == null || binding.contrasenyaAntiga.text.toString() == ""){
             binding.contrasenyaAntiga.setHintTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La contrasenya actual és obligatoria", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La contrasenya actual és obligatòria", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaAntiga.text.length < 6){
@@ -93,7 +93,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         }
         if(binding.contrasenyaNova.text == null || binding.contrasenyaNova.text.toString() == ""){
             binding.contrasenyaNova.setHintTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La contrasenya nova és obligatoria", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La contrasenya nova és obligatòria", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaNova.text.length < 6) {
@@ -103,7 +103,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         }
         if(binding.contrasenyaNovaConfirmar.text == null || binding.contrasenyaNovaConfirmar.text.toString() == "" ){
             binding.contrasenyaNovaConfirmar.setHintTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La contrasenya de confirmació és obligatoria", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La contrasenya de confirmació és obligatòria", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaNovaConfirmar.text.length < 6){

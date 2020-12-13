@@ -4,13 +4,10 @@ import android.app.Application
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.User
-import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 
 class PerfilRepository(val application: Application) {
@@ -18,6 +15,7 @@ class PerfilRepository(val application: Application) {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
+    /** Funció que recupera les dades de l'usuari loguejat **/
     fun recuperarDadesUsuari(perfilRepositoryInterface: PerfilRepositoryInterface) {
 
         db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
@@ -35,6 +33,7 @@ class PerfilRepository(val application: Application) {
 
     }
 
+    /** Funció que recupera les dades de l'usuari loguejat per tractar les dades mèdiques**/
     fun recuperarDadesMediques(perfilRepositoryInterface: PerfilRepositoryInterface) {
 
         db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
@@ -52,6 +51,7 @@ class PerfilRepository(val application: Application) {
 
     }
 
+    /** Funció que comproba que la contrasenya introduida de l'usuari loguejat és correcta **/
     fun validarContrasenya(contrasenya: String, perfilRepositoryInterface: PerfilRepositoryInterface) {
 
         val user= FirebaseAuth.getInstance().currentUser
@@ -69,6 +69,7 @@ class PerfilRepository(val application: Application) {
             }
     }
 
+    /** Funció que modifica la contrasenya de Firebase de l'usuari **/
     fun modificarContrasenya(contrasenya : String, perfilRepositoryInterface: PerfilRepositoryInterface) {
         val user= FirebaseAuth.getInstance().currentUser
         user?.updatePassword(contrasenya)
@@ -83,10 +84,12 @@ class PerfilRepository(val application: Application) {
             }
     }
 
+    /** Funció que tanca la sessió de l'usuari **/
     fun tancarSessio(){
         firebaseAuth.signOut()
     }
 
+    /** Funció que modifica les dades personals de l'usuari **/
     fun modificarDadesPers(usuariModificat: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
         val user= FirebaseAuth.getInstance().currentUser
         db.collection(DB_ROOT_USUARIS).document(user?.uid.toString())
@@ -110,6 +113,7 @@ class PerfilRepository(val application: Application) {
 
     }
 
+    /** Funció que modifica les dades mèdiques de l'usuari **/
     fun modificarDadesMed(usuariModificat: User, perfilRepositoryInterface: PerfilRepositoryInterface) {
         val user= FirebaseAuth.getInstance().currentUser
         db.collection(DB_ROOT_USUARIS).document(user?.uid.toString())

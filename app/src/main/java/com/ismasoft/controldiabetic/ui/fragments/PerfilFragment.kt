@@ -1,20 +1,14 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager.widget.ViewPager
 import com.atlabs.cafe.PagerAdapter.ProfilePagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.ui.activities.MainActivity
 import com.ismasoft.controldiabetic.ui.activities.MenuPrincipalActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -81,14 +75,11 @@ class PerfilFragment : Fragment() {
 
             override fun onPageScrollStateChanged(p0: Int) {
             }
-
             override fun onPageScrolled(position: Int, p1: Float, positionOffsetPixels: Int) {
 
             }
-
             override fun onPageSelected(p0: Int) {
             }
-
         })
     }
 

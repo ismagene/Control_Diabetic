@@ -13,10 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarControlActivity
-import com.ismasoft.controldiabetic.utilities.deleteAlarm
-import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat

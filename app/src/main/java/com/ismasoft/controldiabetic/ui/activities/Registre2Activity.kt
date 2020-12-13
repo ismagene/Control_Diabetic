@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -24,7 +23,6 @@ import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private lateinit var viewModel: RegistreViewModel
@@ -36,7 +34,6 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private lateinit var usuari : User
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

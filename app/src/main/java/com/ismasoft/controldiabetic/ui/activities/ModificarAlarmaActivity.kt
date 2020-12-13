@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarAlarmaBinding
@@ -96,7 +95,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
     private fun validarEntrada(alarmaModificar: AlarmaAmbId): Boolean {
         if(binding.horaAlarma.text == null || binding.horaAlarma.text.toString() == ""){
             binding.textHoraAlarma.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'hora és obligatoria per guardar l'alarma", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'hora és obligatòria per guardar l'alarma", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.horaAlarma.text.toString() == alarmaModificar.horaAlarma.toString()){

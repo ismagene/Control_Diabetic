@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.*
-import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,13 +31,11 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
         visitalActivityInstance = visitesRepositoryInterface
         visitaAfegir = visita
         repository.recuperarUltimaVisita(this)
-
     }
 
     fun onButtoModificarVisita(visita : VisitaAmbId, visitesRepositoryInterface : VisitesRepositoryInterface){
         visitalActivityInstance = visitesRepositoryInterface
         repository.modificarVisita(visita,this)
-
     }
 
     fun recuperarLlistaVisites(visitesRepositoryInterface : VisitesRepositoryInterface){

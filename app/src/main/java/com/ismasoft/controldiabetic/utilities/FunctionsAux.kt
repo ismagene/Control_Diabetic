@@ -9,14 +9,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
-//import io.javalin.Javalin
-//import org.apache.commons.mail.DefaultAuthenticator
-//import org.apache.commons.mail.SimpleEmail
-import org.jetbrains.anko.contentView
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.days
-import kotlin.time.hours
 
 /** Funció per amagar el teclat virtual */
 fun hideKeyboard(context: Context) {

@@ -3,9 +3,7 @@ package com.ismasoft.controldiabetic.ui.activities
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,13 +14,10 @@ import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
-import com.ismasoft.controldiabetic.utilities.getDataSenseHora
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.hours
-
 
 class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
@@ -129,8 +124,6 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-//        hideKeyboard(this)    OJOISMA
 
         binding.loginNaixament.setHintTextColor(colorHintDefault)
 

@@ -3,7 +3,6 @@ package com.ismasoft.controldiabetic.viewModel
 import android.app.Application
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.User
-import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.data.repository.RegistreRepository
 import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.repository.LoginRepository
 import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.Constants
-import kotlinx.coroutines.android.awaitFrame
 
 class LoginViewModel(application: Application) : AndroidViewModel(application), LoginRepositoryInterface{
     // Definim el repository per accedir a la BBDD

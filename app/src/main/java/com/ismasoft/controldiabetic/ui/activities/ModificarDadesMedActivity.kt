@@ -14,7 +14,6 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarDadesMedBinding
-import com.ismasoft.controldiabetic.databinding.ActivityModificarDadesPersBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel

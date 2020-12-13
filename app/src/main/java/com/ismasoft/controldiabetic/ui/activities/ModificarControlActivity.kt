@@ -14,15 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
-import com.ismasoft.controldiabetic.databinding.ActivityModificarAlarmaBinding
 import com.ismasoft.controldiabetic.databinding.ActivityModificarControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
-import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -131,7 +127,7 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
     private fun validarEntrada(controlModificar: ControlAmbId): Boolean {
         if(binding.horaControl.text == null || binding.horaControl.text.toString() == ""){
             binding.textHoraControl.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'hora és obligatoria per modificar el control", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'hora és obligatòria per modificar el control", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.diaControl.text == null || binding.diaControl.text.toString() == ""){
@@ -311,6 +307,5 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
     override fun modificarControlNOK() {
         Toast.makeText(this, "Error al modificar el control", Toast.LENGTH_SHORT).show()
     }
-
 
 }

@@ -12,6 +12,7 @@ class RegistreRepository(val application: Application) {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
+    /** Funció que valida si tenim guarda un correu electrònic a la BBDD **/
     fun comprobarExisteixEmail(mail: String, registreRepositoryInterface : RegistreRepositoryInterface){
         // call fireBaseService
         db.collection(DB_ROOT_USUARIS)
@@ -32,8 +33,8 @@ class RegistreRepository(val application: Application) {
         }
     }
 
+    /** Funció que registre l'usuari a Firebase **/
     fun requestRegistreUsuari(mail:String,password:String, registreRepositoryInterface : RegistreRepositoryInterface) {
-
         // call fireBaseservice
         firebaseAuth.createUserWithEmailAndPassword(mail, password)
             .addOnCompleteListener{
@@ -47,6 +48,7 @@ class RegistreRepository(val application: Application) {
         }
     }
 
+    /** Funció que inserta un nou usuari a la BBDD **/
     fun insertarUsuariBBDD(user: com.ismasoft.controldiabetic.data.model.User, registreRepositoryInterface: RegistreRepositoryInterface){
 
         db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
@@ -62,6 +64,7 @@ class RegistreRepository(val application: Application) {
 
     }
 
+    /** Funció que restaura la contrasenya de Firebase d'un usuari**/
     fun restaurarContrasenya(email: String, registreRepositoryInterface: RegistreRepositoryInterface) {
 
         firebaseAuth.sendPasswordResetEmail(email.toString())
@@ -75,8 +78,6 @@ class RegistreRepository(val application: Application) {
                     registreRepositoryInterface.registreNOK()
                 }
             }
-
-
     }
 
 }

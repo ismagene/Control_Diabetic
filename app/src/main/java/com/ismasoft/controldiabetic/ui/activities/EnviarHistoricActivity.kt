@@ -82,6 +82,9 @@ class EnviarHistoricActivity : AppCompatActivity() {
                     if (control.valorInsulina.toString().toInt() > 0) {
                         mMessage += ("Insulina: ${control.valorInsulina}")
                     }
+                    if(control.esDespresDeApat == true){
+                        mMessage += (" el control és desprès d'àpat.")
+                    }
                 }
 
                 mMessage = "$mMessage\n\n\nAtt; L'equip de l'aplicació: Control diabètic."

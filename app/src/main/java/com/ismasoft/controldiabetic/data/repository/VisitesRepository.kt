@@ -19,6 +19,7 @@ class VisitesRepository(val application: Application) {
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
+    /** Funció que accedeix a la BBDD per recuperar la llista de visites de l'usuari **/
     fun recuperarLlistaVisites(visitesRepositoryInterface : VisitesRepositoryInterface){
         val llistaVisites : ArrayList<VisitaAmbId> = ArrayList()
         db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
@@ -40,6 +41,7 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    /** Funció que accedeix a la BBDD per recuperar la visita amb la data mes recent  **/
     fun recuperarUltimaVisita(visitesRepositoryInterface : VisitesRepositoryInterface){
         db.collection(Constants.DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
             .get()
@@ -63,6 +65,7 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    /** Funció que guarda una nova visita a la BBDD  **/
     fun guardarVisita(visita: Visita, visitesRepositoryInterface : VisitesRepositoryInterface){
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES)
             .add(visita)
@@ -76,6 +79,7 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    /** Funció que modifica una visita existent **/
     fun modificarVisita(visitaModificar: VisitaAmbId, visitesRepositoryInterface : VisitesRepositoryInterface){
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES).document(visitaModificar.idVisita.toString())
             .update(mapOf(
@@ -92,6 +96,7 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    /** Funció que elimina una visita existent **/
     fun eliminarVisita(idVisita: String, visitesRepositoryInterface : VisitesRepositoryInterface){
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES).document(idVisita)
             .delete()

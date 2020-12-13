@@ -17,7 +17,6 @@ import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
 import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
-import com.ismasoft.controldiabetic.utilities.Constants.REGISTRE_2_CODE
 import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 
@@ -28,15 +27,9 @@ import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
  */
 
 class ControlsFragment : Fragment(), ControlsRepositoryInterface {
-//    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
 
     private lateinit var viewModel: ControlsViewModel
     private lateinit var bindingFragment: FragmentControlsBinding
-
-    private lateinit var _llistaControls: MutableLiveData<HashMap<String, Control>>
-    val llistaControls2 : LiveData<HashMap<String, Control>> get() = _llistaControls
 
     private var llistaControlsGlobal : ArrayList<ControlAmbId> = ArrayList()
 
@@ -89,12 +82,7 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                ControlsFragment().apply {
-//                    arguments = Bundle().apply {
-//                        putString(ARG_PARAM1, param1)
-//                        putString(ARG_PARAM2, param2)
-//                    }
-                }
+                ControlsFragment().apply {}
     }
 
     override fun afegirControlOK() {}
@@ -104,7 +92,6 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
     override fun llistaControlsOK(llistaControls: ArrayList<ControlAmbId>) {
         // Dades recuperades informades des del VM
         llistaControlsGlobal = llistaControls
-//        _llistaControls.value = llistaControls
     }
     override fun LlistaControlsNOK() {
         // Enviar Toast al Activity?

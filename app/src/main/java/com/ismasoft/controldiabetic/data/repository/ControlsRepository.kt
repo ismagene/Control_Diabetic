@@ -7,7 +7,6 @@ import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.type.DateTime
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
@@ -15,20 +14,15 @@ import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class ControlsRepository(val application: Application) {
 
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-    fun insertarControlBBDD(
-        control: Control,
-        controlsRepositoryInterface: ControlsRepositoryInterface
-    ){
+    /** Funció que inserta un nou control de glucosa a BBDD **/
+    fun insertarControlBBDD(control: Control, controlsRepositoryInterface: ControlsRepositoryInterface){
 
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
             .add(control)
@@ -42,6 +36,7 @@ class ControlsRepository(val application: Application) {
             }
     }
 
+    /** Funció que obté el rang de glucosa segons l'usuari loguejat **/
     fun obtenirRangsGlucosa(controlsRepositoryInterface: ControlsRepositoryInterface){
         // call fireBaseService
         val docRef = db.collection(DB_ROOT_USUARIS).document(firebaseAuth.currentUser?.uid.toString())
@@ -62,6 +57,7 @@ class ControlsRepository(val application: Application) {
             }
     }
 
+    /** Funció que recupera tots els controls de l'usuari loguejat **/
     fun recuperarLlistaControls(controlsRepositoryInterface: ControlsRepositoryInterface) {
         var llistaControls : ArrayList<ControlAmbId> = ArrayList()
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + DB_ROOT_CONTROLS)
@@ -86,6 +82,7 @@ class ControlsRepository(val application: Application) {
             }
     }
 
+    /** Funció que elimina un control segons el seu id **/
     fun eliminarControl(idControl: String, position: Int, controlsListAdapterInterface: ControlsListAdapterInterface) {
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_CONTROLS).document(idControl)
             .delete()
@@ -99,6 +96,7 @@ class ControlsRepository(val application: Application) {
             }
     }
 
+    /** Funció que elimina un control segons el seu id i les dades actualitzades**/
     fun modificarControl(controlModificar: ControlAmbId, controlsRepositoryInterface : ControlsRepositoryInterface){
         db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_CONTROLS).document(controlModificar.idControl.toString())
             .update(mapOf(

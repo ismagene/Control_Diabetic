@@ -14,12 +14,9 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarDadesPersBinding
-import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
-import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
-import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 import java.util.*

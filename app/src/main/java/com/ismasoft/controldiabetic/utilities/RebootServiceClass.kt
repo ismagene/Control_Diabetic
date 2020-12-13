@@ -25,7 +25,7 @@ class RebootServiceClass: IntentService {
         if (intentType == "RebootReceiver")
         {
             var settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
-            // Recuperem les alarmes
+            // Recuperem les alarmes definim un numero maxim de 200 alarmes, ningú posarà més d'aquest número.
             for (i in 1..200){
                 if(settings.getInt("alarmID+${i}", 0) !=  null){
                     setAlarm(settings.getInt("alarmID+${i}", 0), settings.getLong("alarmTime${i}", 0), this)
