@@ -8,30 +8,19 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.databinding.ActivityAfegirAlarmaBinding
 import com.ismasoft.controldiabetic.databinding.ActivityHistoricControlsBinding
-import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
-import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
-import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.Logger
 import kotlin.collections.ArrayList
 
 class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemClickListener, ControlsListAdapterInterface {

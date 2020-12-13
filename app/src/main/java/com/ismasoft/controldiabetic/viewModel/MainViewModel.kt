@@ -16,7 +16,7 @@ class MainViewModel (application: Application) : AndroidViewModel(application){
         coroutineScope  {
             launch {
                 // Funcions varies inicials de l'aplicació
-                Thread.sleep(2500)
+                Thread.sleep(1500)
                 _progressFinish.value = false
             }
         }
