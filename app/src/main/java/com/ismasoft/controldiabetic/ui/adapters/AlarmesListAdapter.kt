@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.ui.activities.ModificarAlarmaActivity
+import com.ismasoft.controldiabetic.ui.fragments.AlarmesFragment
 import com.ismasoft.controldiabetic.utilities.deleteAlarm
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import org.jetbrains.anko.alert
 
-class AlarmesListAdapter (var context: Context, val mData: ArrayList<AlarmaAmbId>) :
+class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() , AlarmesListAdapterInterface {
 
     private var mInflater: LayoutInflater = LayoutInflater.from(context)

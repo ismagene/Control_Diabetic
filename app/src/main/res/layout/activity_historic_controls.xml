@@ -157,6 +157,15 @@
                     app:visible="@{viewModel.ambControls.booleanValue()}"
                     />
 
+                <TextView
+                    android:id="@+id/titolTextCapAlarma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titolSenseAlarmes"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:visible="@{!viewModel.ambControls.booleanValue()}"/>
 
             </LinearLayout>
 

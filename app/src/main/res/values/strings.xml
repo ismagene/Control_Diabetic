@@ -158,7 +158,7 @@
     <string name="titolAfegirVisita">Introduir nova Visita</string>
     <string name="motiuVisita">Motiu: </string>
     <string name="motiuPerDefecte">El motiu per defecte es: \"Control\" </string>
-    <string name="titolSenseVisites">No hi ha cap visita introduida</string>
+    <string name="titolSenseVisites">No hi ha cap visita realitzada</string>
     <string name="titolModificarVisita">Modificar Visita</string>
 
     <!-- TODO: Remove or change this placeholder text -->

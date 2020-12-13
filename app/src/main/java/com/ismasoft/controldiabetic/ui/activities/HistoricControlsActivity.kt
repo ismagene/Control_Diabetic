@@ -108,7 +108,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         }
         binding.diaFiltreFi.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
-                obrirCalendariPerSeleccionarData(binding.diaFiltreFi.text.toString())
+                obrirCalendariPerSeleccionarDataFi(binding.diaFiltreFi.text.toString())
                 hideKeyboard(this)
             }
         }
@@ -154,13 +154,24 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         }
 
         binding.botoEnviarHistoric.setOnClickListener(){
-            val historic = Intent(this, EnviarHistoricActivity::class.java)
-            val extras = Bundle()
-            extras.putSerializable("llistaControlsFiltrats", llistaControlsFiltrats)
-            historic.putExtras(extras)
-            startActivityForResult(historic, Constants.RETORN_ACTIVITY_OK_CODE)
+
+            if(validarEnviarHistoric()) {
+                val historic = Intent(this, EnviarHistoricActivity::class.java)
+                val extras = Bundle()
+                extras.putSerializable("llistaControlsFiltrats", llistaControlsFiltrats)
+                historic.putExtras(extras)
+                startActivityForResult(historic, Constants.RETORN_ACTIVITY_OK_CODE)
+            }
         }
 
+    }
+
+    private fun validarEnviarHistoric(): Boolean {
+        if(llistaControlsFiltrats.size<=0){
+            Toast.makeText(this, "No hi ha cap control filtrat per poder enviar. ", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     private fun obrirCalendariPerSeleccionarData(data :String){

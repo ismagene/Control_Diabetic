@@ -15,6 +15,7 @@ import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
+import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapter
 import com.ismasoft.controldiabetic.utilities.getDataHours
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import java.text.ParseException
@@ -39,6 +40,8 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AlarmesListAdapter
 
+    private var llistaAlarmesGlobal = ArrayList<AlarmaAmbId>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,6 +61,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
         adapter = context?.let { AlarmesListAdapter(it, ArrayList<AlarmaAmbId>()) }!!
         adapter.setClickListener(this)
         recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         return bindingFragment.root
     }
@@ -65,6 +69,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     override fun onResume() {
         super.onResume()
         viewModel.recuperarLlistaAlarmes(this)
+        adapter.notifyDataSetChanged()
 
     }
 
@@ -113,8 +118,13 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
             date1.compareTo(date2) // Comparamos las fechas
         })
 
+        llistaAlarmesGlobal = llistaAlarmes
+
         recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes) }!!
+        adapter.setClickListener(this)
+        adapter.notifyItemRangeChanged(0,llistaAlarmes.size)
         adapter.notifyDataSetChanged()
+
     }
 
     private fun dataHora(hora :String) : Date{

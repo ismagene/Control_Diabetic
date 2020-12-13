@@ -349,10 +349,10 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
             mitjaMesGlucosa = 0
         }
 
-        _mitjanaAhirGlucosa.value = "${mitjaAhirGlucosa} mg/dl"
-        _mitjanaSetmanaGlucosa.value = "${mitjaSetmanaGlucosa} mg/dl"
-        _mitjanaMesGlucosa.value = "${mitjaMesGlucosa} mg/dl"
-        _ultimControlGlucosa.value= "${ultimaGlucosa} mg/dl"
+        _mitjanaAhirGlucosa.value = "${mitjaAhirGlucosa} mg/dL"
+        _mitjanaSetmanaGlucosa.value = "${mitjaSetmanaGlucosa} mg/dL"
+        _mitjanaMesGlucosa.value = "${mitjaMesGlucosa} mg/dL"
+        _ultimControlGlucosa.value= "${ultimaGlucosa} mg/dL"
         _ultimControlInsulina.value = "${ultimaInsulina} ui"
         controlActivityInstance.llistaControlsOK(llistaControls)
     }
