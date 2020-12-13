@@ -221,7 +221,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         }
         if (binding.loginAltura.text == null || binding.loginAltura.text.toString() == "") {
             binding.loginAltura.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'altura és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'alçada és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginCorreuElectronic.text == null || binding.loginCorreuElectronic.text.toString() == "") {
