@@ -144,7 +144,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
         llistaVisites.sortWith(kotlin.Comparator { o1, o2 ->
             var date1 = o1.dataVisita
             var date2 = o2.dataVisita
-            date1?.compareTo(date2)!! // Comparamem les dates
+            date2?.compareTo(date1)!! // Comparamem les dates
         })
 
         recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
