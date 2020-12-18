@@ -36,18 +36,6 @@ fun getDataSenseHora(data: Date): Calendar {
     return calendar
 }
 
-fun getDataHours(hora : Int, minuts : Int): Date {
-    val calendar = Calendar.getInstance()
-    val sdf = SimpleDateFormat("dd/MM/yyyy")
-    var dataString = sdf.format(Date())
-    var parts = dataString.split("/")
-    var day =  parts[0].toInt()
-    var month = parts[1].toInt()-1
-    var year = parts[2].toInt()
-    calendar.set(year, month, day, hora, minuts, 0)
-    return calendar.time
-}
-
 /** Funció que seteja les alarmes i les programa repetitives cada dia a la mateixa hora */
 fun setAlarm(posicioAlarma: Int, timestamp:Long, ctx:Context) {
     var alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager

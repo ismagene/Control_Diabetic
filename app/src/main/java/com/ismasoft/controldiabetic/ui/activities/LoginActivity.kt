@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
@@ -8,14 +9,20 @@ import android.util.Log
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
+import com.ismasoft.controldiabetic.R
+import com.ismasoft.controldiabetic.data.repository.interfaces.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
+import com.ismasoft.controldiabetic.utilities.deleteAlarm
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
+import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.LoginViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
@@ -179,6 +186,29 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         intent = Intent(applicationContext, MenuPrincipalActivity::class.java)
         startActivity(intent)
         guardarUsuariAlPreference(binding)
+
+        var settings = getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
+        // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
+        for (i in 1..1440){
+            if(settings.getInt("alarmID${i}", 0) != 0 ){
+
+                var parts = settings.getString("alarmTime${i}","")?.split(":")
+                var hora = parts?.get(0)?.toInt()
+                var minuts = parts?.get(1)?.toInt()
+
+                var calendar = Calendar.getInstance()
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                var dataString = sdf.format(Date())
+                parts = dataString.split("/")
+                var day =  parts[0].toInt()
+                var month = parts[1].toInt()-1
+                var year = parts[2].toInt()
+                calendar.set(year, month, day, hora!!, minuts!!, 0)
+
+                setAlarm(settings.getInt("alarmID${i}", 0), calendar.timeInMillis, this)
+            }
+            else break
+        }
     }
 
     override fun credencialsNOK() {
@@ -193,6 +223,14 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         editor.putString("contrasenyaGuardada", "")
         editor.commit()
         editor.clear()
+
+        var settings = getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
+        // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
+        for (i in 1..1440){
+            if(settings.getInt("alarmID${i}", 0) !=  0){
+                deleteAlarm(settings.getInt("alarmID${i}", 0), this)
+            }else break
+        }
 
     }
 

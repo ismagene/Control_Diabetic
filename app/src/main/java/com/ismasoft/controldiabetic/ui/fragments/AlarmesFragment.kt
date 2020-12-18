@@ -10,10 +10,9 @@ import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentAlarmesBinding
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapter
-import com.ismasoft.controldiabetic.utilities.getDataHours
 import com.ismasoft.controldiabetic.viewModel.AlarmesViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -26,7 +25,8 @@ import kotlin.collections.ArrayList
  * Use the [AlarmesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, AlarmesRepositoryInterface {
+class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener,
+    AlarmesRepositoryInterface {
 
     private lateinit var viewModel: AlarmesViewModel
     private lateinit var bindingFragment: FragmentAlarmesBinding
@@ -35,11 +35,6 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
     private lateinit var adapter: AlarmesListAdapter
 
     private var llistaAlarmesGlobal = ArrayList<AlarmaAmbId>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -64,7 +59,9 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
         super.onResume()
         viewModel.recuperarLlistaAlarmes(this)
         adapter.notifyDataSetChanged()
-
+        if(adapter.senseAlarmes.value == true){
+            viewModel.noQuedenAlarmes()
+        }
     }
 
     companion object {
@@ -79,8 +76,8 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                AlarmesFragment().apply {
-1                }
+            AlarmesFragment().apply {
+        }
     }
 
     override fun onItemClick(view: View, position: Int) {
@@ -118,14 +115,6 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener, Alarme
         adapter.setClickListener(this)
         adapter.notifyItemRangeChanged(0,llistaAlarmes.size)
         adapter.notifyDataSetChanged()
-
-    }
-
-    private fun dataHora(hora :String) : Date{
-        var parts = hora.split(":")
-        var hora =  parts[0].toInt()
-        var minuts = parts[1].toInt()
-        return getDataHours(hora,minuts)
 
     }
 

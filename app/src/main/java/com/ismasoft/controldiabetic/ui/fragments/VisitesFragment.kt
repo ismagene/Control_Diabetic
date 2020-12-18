@@ -2,17 +2,17 @@ package com.ismasoft.controldiabetic.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
 import com.ismasoft.controldiabetic.ui.activities.ModificarVisitaActivity
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
@@ -62,16 +62,16 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
         bindingFragment.botoModificarVisita.setOnClickListener(){
             val modificarVisita = Intent(context, ModificarVisitaActivity::class.java)
             val extras = Bundle()
-            extras.putSerializable("visitaModificar",visitaVigent)
+            extras.putSerializable("visitaModificar", visitaVigent)
             modificarVisita.putExtras(extras)
             this.startActivity(modificarVisita)
         }
 
         bindingFragment.botoEliminarVisita.setOnClickListener(){
-            requireContext().alert ("Segur que voleu eliminar la visita?","Eliminar visita") {
+            requireContext().alert("Segur que voleu eliminar la visita?", "Eliminar visita") {
                 cancellable(false)
                 positiveButton("Confirmar") {
-                    viewModel.eliminarVisita(visitaVigent.idVisita.toString(),this@VisitesFragment)
+                    viewModel.eliminarVisita(visitaVigent.idVisita.toString(), this@VisitesFragment)
                 }
                 negativeButton("Cancelar"){
                     // Nothing to do

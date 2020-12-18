@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarAlarmaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard

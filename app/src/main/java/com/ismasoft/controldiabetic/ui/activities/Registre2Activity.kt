@@ -4,7 +4,6 @@ package com.ismasoft.controldiabetic.ui.activities
 
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
-import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.JavaMailAPI

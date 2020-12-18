@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.RegistreRepository
-import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 
 class RegistreViewModel(application: Application) : AndroidViewModel(application){
 

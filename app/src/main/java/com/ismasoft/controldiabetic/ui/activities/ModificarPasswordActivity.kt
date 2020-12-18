@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarPasswordBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel

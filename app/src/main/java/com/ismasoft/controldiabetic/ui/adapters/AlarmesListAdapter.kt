@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
@@ -25,12 +29,11 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
     private var mClickListener: ItemClickListener? = null
     private lateinit var viewModel : AlarmesViewModel
 
+    private val _senseAlarmes = MutableLiveData<Boolean>(false)
+    val senseAlarmes : LiveData<Boolean> get() = _senseAlarmes
+
     override fun getItemCount(): Int {
         return mData.size
-    }
-
-    internal fun getItem(position: Int): AlarmaAmbId? {
-        return mData[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -76,6 +79,7 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
                 positiveButton("Confirmar") {
                     viewModel = AlarmesViewModel(application = Application())
                     viewModel.eliminarAlarma(mData[position].idAlarma.toString(), position, this@AlarmesListAdapter)
+
                 }
                 negativeButton("Cancelar"){
                     // Nothing to do

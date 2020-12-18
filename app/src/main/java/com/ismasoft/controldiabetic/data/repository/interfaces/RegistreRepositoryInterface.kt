@@ -1,4 +1,4 @@
-package com.ismasoft.controldiabetic.data.repository
+package com.ismasoft.controldiabetic.data.repository.interfaces
 
 interface RegistreRepositoryInterface {
 

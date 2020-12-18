@@ -1,4 +1,4 @@
-package com.ismasoft.controldiabetic.data.repository
+package com.ismasoft.controldiabetic.data.repository.interfaces
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.ControlAmbId

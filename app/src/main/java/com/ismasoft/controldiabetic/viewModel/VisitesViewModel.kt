@@ -5,10 +5,12 @@ import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
 import java.util.*
 import kotlin.collections.ArrayList
 
-class VisitesViewModel(application: Application) : AndroidViewModel(application) , VisitesRepositoryInterface{
+class VisitesViewModel(application: Application) : AndroidViewModel(application) ,
+    VisitesRepositoryInterface {
 
     // Definim el repository per accedir a la BBDD
     private var repository = VisitesRepository(application)
@@ -99,6 +101,7 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
         visitalActivityInstance.modificarVisitaNOK()
     }
     override fun eliminarVisitaOK() {
+        _ambProximaVisita.value = false
         visitalActivityInstance.eliminarVisitaOK()
     }
     override fun eliminarVisitaNOK() {

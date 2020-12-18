@@ -2,9 +2,7 @@ package com.ismasoft.controldiabetic.data.model
 
 import java.util.*
 
-data class Visita(
-    var dataVisita: Date? = null,
-    var motiu: String? = null,
-){
-
-}
+open class Visita(
+    open var dataVisita: Date? = null,
+    open var motiu: String? = null,
+){}

@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
-import com.ismasoft.controldiabetic.data.repository.RegistreRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRecuperarContrasenyaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel

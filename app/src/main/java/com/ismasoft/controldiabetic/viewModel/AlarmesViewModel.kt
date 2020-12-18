@@ -5,10 +5,12 @@ import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapterInterface
 import kotlin.collections.ArrayList
 
-class AlarmesViewModel(application: Application) : AndroidViewModel(application), AlarmesRepositoryInterface,
+class AlarmesViewModel(application: Application) : AndroidViewModel(application),
+    AlarmesRepositoryInterface,
     AlarmesListAdapterInterface {
 
     // Definim el repository per accedir a la BBDD
@@ -72,9 +74,9 @@ class AlarmesViewModel(application: Application) : AndroidViewModel(application)
     }
     override fun eliminarAlarmaOK(position: Int) {
         alarmaListAdapterInstance.eliminarAlarmaOK(position)
-        if(position==1){
-            _ambAlarmes.value = true
-            _senseAlarmes.value = false
+        if(position==0){
+            _ambAlarmes.value = false
+            _senseAlarmes.value = true
         }
     }
     override fun eliminarAlarmaNOK() {

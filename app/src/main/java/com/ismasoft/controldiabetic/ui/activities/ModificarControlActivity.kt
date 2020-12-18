@@ -15,7 +15,7 @@ import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard

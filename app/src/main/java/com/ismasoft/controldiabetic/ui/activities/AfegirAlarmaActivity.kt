@@ -8,9 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
-import com.ismasoft.controldiabetic.data.repository.AlarmesRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirAlarmaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
@@ -148,15 +149,12 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
         // Guardem la alarma al AlarmManager
         /* Preferences per guardar dades en un xml local */
-        preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
+        preferences = applicationContext.getSharedPreferences("sharedControlAlarmes", MODE_PRIVATE)
         editor = preferences.edit()
 
         var parts = binding.horaAlarma.text.split(":")
         var hora =  parts[0].toInt()
         var minuts = parts[1].toInt()
-
-        editor.putString("hour", hora.toString())
-        editor.putString("minute", minuts.toString())
 
         var calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -168,8 +166,8 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
         calendar.set(year, month, day, hora, minuts, 0)
 
         //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
-        editor.putInt("alarmID", idAlarmaManager!!)
-        editor.putLong("alarmTime", calendar.timeInMillis)
+        editor.putInt("alarmID${idAlarmaManager}", idAlarmaManager!!)
+        editor.putString("alarmTime${idAlarmaManager}", binding.horaAlarma.text.toString())
         editor.commit()
 
         setAlarm(idAlarmaManager, calendar.timeInMillis, this)

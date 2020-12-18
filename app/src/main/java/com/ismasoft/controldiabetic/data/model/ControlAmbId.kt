@@ -5,10 +5,10 @@ import java.util.*
 
 data class ControlAmbId(
     var idControl: String? = null,
-    var dataControl: Date? = null,
-    var valorGlucosa: Number? = null,
-    var valorInsulina: Number? = null,
-    var esDespresDeApat: Boolean? = null
-) : Serializable{
+    override var dataControl: Date? = null,
+    override var valorGlucosa: Number? = null,
+    override var valorInsulina: Number? = null,
+    override var esDespresDeApat: Boolean? = null
+) : Control(dataControl,valorGlucosa,valorInsulina,esDespresDeApat),Serializable{
 
 }

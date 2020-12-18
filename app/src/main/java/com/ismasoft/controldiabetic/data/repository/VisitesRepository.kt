@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
+import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import com.ismasoft.controldiabetic.data.repository.VisitesRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirVisitaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard

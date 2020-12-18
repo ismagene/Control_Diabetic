@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 
 class RegistreRepository(val application: Application) {

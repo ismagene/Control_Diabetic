@@ -7,19 +7,27 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.os.Build
+import androidx.core.app.JobIntentService
 import androidx.core.app.NotificationCompat
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.ui.activities.AfegirControlActivity
 
-class NotificationService: IntentService {
+class NotificationService: JobIntentService() {
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     internal lateinit var notification: Notification
-    constructor(name:String) : super(name) {}
-    constructor() : super("SERVICE") {}
+//    constructor(name:String) : super(name) {}
+//    constructor() : super("SERVICE") {}
+//
+//    @TargetApi(Build.VERSION_CODES.O)
+//    override fun onHandleIntent(intent: Intent?) {
+//
+//    }
+    companion object {
+        private val NOTIFICATION_ID = 1
+    }
 
-    @TargetApi(Build.VERSION_CODES.O)
-    override fun onHandleIntent(intent: Intent?) {
+    override fun onHandleWork(intent: Intent) {
         val NOTIFICATION_CHANNEL_ID = getApplicationContext().getString(R.string.app_name)  // Titol de la notificació
         val context = this.getApplicationContext()
         var notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -79,9 +87,6 @@ class NotificationService: IntentService {
                 .setContentText(message).build()
             notificationManager.notify(NOTIFICATION_ID, notification)
         }
-    }
-    companion object {
-        private val NOTIFICATION_ID = 1
     }
 
 

@@ -6,12 +6,14 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.getDataSenseHora
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ControlsViewModel(application: Application) : AndroidViewModel(application) , ControlsRepositoryInterface , ControlsListAdapterInterface{
+class ControlsViewModel(application: Application) : AndroidViewModel(application) ,
+    ControlsRepositoryInterface, ControlsListAdapterInterface{
 
     // Definim el repository per accedir a la BBDD
     private var repository = ControlsRepository(application)

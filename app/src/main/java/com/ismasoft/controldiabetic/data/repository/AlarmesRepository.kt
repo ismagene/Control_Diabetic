@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Alarma
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
+import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_ALARMES

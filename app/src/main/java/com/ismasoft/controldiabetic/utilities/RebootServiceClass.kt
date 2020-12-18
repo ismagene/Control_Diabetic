@@ -1,36 +1,34 @@
 package com.ismasoft.controldiabetic.utilities
 
-import android.app.IntentService
-import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.JobIntentService
 import com.ismasoft.controldiabetic.R
 
-class RebootServiceClass: IntentService {
+class RebootServiceClass: JobIntentService() {
     /**
      * Creates an IntentService. Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    constructor(name:String) : super(name) {
-        startForeground(1, Notification())
-    }
-    constructor() : super("RebootServiceClass") {}
-    override fun onCreate() {
-        super.onCreate()
-    }
-    override fun onHandleIntent(intent: Intent?) {
+
+    override fun onHandleWork(intent: Intent) {
         var intentType = intent?.getExtras()?.getString("caller")
         if (intentType == null) return
         if (intentType == "RebootReceiver")
         {
-            var settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
-            // Recuperem les alarmes definim un numero maxim de 200 alarmes, ningú posarà més d'aquest número.
-            for (i in 1..200){
-                if(settings.getInt("alarmID+${i}", 0) !=  null){
-                    setAlarm(settings.getInt("alarmID+${i}", 0), settings.getLong("alarmTime${i}", 0), this)
+            var settings = getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
+            // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
+            for (i in 1..1440){
+                if(settings.getInt("alarmID${i}", 0) !=  0){
+
+
+
+                    setAlarm(settings.getInt("alarmID${i}", 0), settings.getLong("alarmTime${i}", 0), this)
                 }
+                else break
             }
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
-import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentPerfilPersonalBinding
 import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.deleteAlarm
+import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 import java.text.SimpleDateFormat
 
@@ -77,6 +81,14 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
             editor.putString("checkGuardat", null)
             editor.apply()
             editor.clear()
+
+            var settings = context?.applicationContext!!.getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
+            // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
+            for (i in 1..1440){
+                if(settings.getInt("alarmID${i}", 0) !=  0){
+                    deleteAlarm(settings.getInt("alarmID${i}", 0), requireContext())
+                }else break
+            }
 
         }
 

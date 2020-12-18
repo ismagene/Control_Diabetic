@@ -14,6 +14,7 @@
     <string name="recuperarContrasenya">Recupera-la</string>
     <string name="titolrecuperarContrasenya">Recuperar contrasenya</string>
     <string name="textRecuperarContrasenya">Introdueix el correu electrònic a recuperar</string>
+    <string name="sharedControlAlarmes">sharedControlAlarmes</string>
 
     <!-- Strings related to registre -->
     <string name="personalData">Dades personals</string>

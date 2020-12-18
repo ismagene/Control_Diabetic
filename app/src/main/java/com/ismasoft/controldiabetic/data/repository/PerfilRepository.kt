@@ -8,6 +8,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.User
+import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 
 class PerfilRepository(val application: Application) {

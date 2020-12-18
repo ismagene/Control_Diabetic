@@ -5,8 +5,8 @@ import java.util.*
 
 data class VisitaAmbId(
     var idVisita: String? = null,
-    var dataVisita: Date? = null,
-    var motiu: String? = null,
-) : Serializable{
+    override var dataVisita: Date? = null,
+    override var motiu: String? = null,
+) : Visita(dataVisita,motiu) , Serializable{
 
 }

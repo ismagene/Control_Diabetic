@@ -1,16 +1,17 @@
 package com.ismasoft.controldiabetic.viewModel
 
-import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.*
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.*
+import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
 import java.text.SimpleDateFormat
 
-class PerfilViewModel(application: Application) : AndroidViewModel(application) , PerfilRepositoryInterface{
+class PerfilViewModel(application: Application) : AndroidViewModel(application) ,
+    PerfilRepositoryInterface {
 
     // Definim el repository per accedir a la BBDD
     private var repository = PerfilRepository(application)

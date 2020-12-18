@@ -2,11 +2,11 @@ package com.ismasoft.controldiabetic.data.model
 
 import java.util.*
 
-data class Control(
-    var dataControl: Date? = null,
-    var valorGlucosa: Number? = null,
-    var valorInsulina: Number? = null,
-    var esDespresDeApat: Boolean? = null
+open class Control(
+    open var dataControl: Date? = null,
+    open var valorGlucosa: Number? = null,
+    open var valorInsulina: Number? = null,
+    open var esDespresDeApat: Boolean? = null
 ){
 
 }

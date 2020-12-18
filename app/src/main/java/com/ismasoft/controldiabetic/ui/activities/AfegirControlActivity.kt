@@ -17,7 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityAfegirControlBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
 import com.ismasoft.controldiabetic.utilities.hideKeyboard

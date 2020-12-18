@@ -1,8 +1,8 @@
 package com.ismasoft.controldiabetic.data.model
 
-data class Alarma(
-    var idAlarmaManager: Int? = null,
-    var horaAlarma: String? = null
+open class Alarma(
+    open var idAlarmaManager: Int? = null,
+    open var horaAlarma: String? = null
 ){
 
 }

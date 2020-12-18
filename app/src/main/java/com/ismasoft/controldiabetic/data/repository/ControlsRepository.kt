@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_CONTROLS

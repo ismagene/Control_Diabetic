@@ -3,10 +3,11 @@ package com.ismasoft.controldiabetic.viewModel
 import android.app.Application
 import androidx.lifecycle.*
 import com.ismasoft.controldiabetic.data.repository.LoginRepository
-import com.ismasoft.controldiabetic.data.repository.LoginRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 
-class LoginViewModel(application: Application) : AndroidViewModel(application), LoginRepositoryInterface{
+class LoginViewModel(application: Application) : AndroidViewModel(application),
+    LoginRepositoryInterface {
     // Definim el repository per accedir a la BBDD
     private var repository = LoginRepository(application)
     lateinit var loginActivityInstance : LoginRepositoryInterface

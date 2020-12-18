@@ -4,8 +4,8 @@ import java.io.Serializable
 
 data class AlarmaAmbId(
     var idAlarma: String? = null,
-    var idAlarmaManager: Int? = null,
-    var horaAlarma: String? = null
-) : Serializable{
+    override var idAlarmaManager: Int? = null,
+    override var horaAlarma: String? = null
+): Alarma(idAlarmaManager, horaAlarma) , Serializable{
 
 }

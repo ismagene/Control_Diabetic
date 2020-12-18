@@ -12,7 +12,7 @@ import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.User
-import com.ismasoft.controldiabetic.data.repository.PerfilRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarDadesMedBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard

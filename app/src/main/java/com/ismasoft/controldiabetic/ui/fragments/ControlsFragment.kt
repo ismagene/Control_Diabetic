@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.firebase.firestore.DocumentSnapshot
-import com.ismasoft.controldiabetic.data.model.Control
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
-import com.ismasoft.controldiabetic.data.repository.ControlsRepositoryInterface
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.FragmentControlsBinding
 import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
 import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE

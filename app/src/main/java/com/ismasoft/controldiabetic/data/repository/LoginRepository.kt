@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ContentValues
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.ismasoft.controldiabetic.data.repository.interfaces.LoginRepositoryInterface
 
 class LoginRepository(val application: Application) {
 
