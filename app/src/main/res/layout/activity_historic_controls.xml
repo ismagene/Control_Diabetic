@@ -155,6 +155,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:visible="@{viewModel.ambControls.booleanValue()}"
+                    android:scrollbars="vertical"
                     />
 
                 <TextView

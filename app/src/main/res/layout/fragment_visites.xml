@@ -162,7 +162,9 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    app:visible="@{viewModel.ambVisites}"/>
+                    app:visible="@{viewModel.ambVisites}"
+                    android:scrollbars="vertical"
+                    android:layout_marginBottom="40dp"/>
 
                 <TextView
                     android:id="@+id/titolTextCapAlarma"

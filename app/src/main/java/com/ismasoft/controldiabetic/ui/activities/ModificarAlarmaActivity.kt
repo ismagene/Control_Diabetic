@@ -163,6 +163,12 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
         var year = parts[2].toInt()
         calendar.set(year, month, day, hora, minuts, 0)
 
+        // Si la data de l'alarma amb la data d'avui ja ha passat, sumarem un dia al calendari perquè no apareixin automaticament les alarmes pasades cada cop que entrem.
+        var calendarComparar = Calendar.getInstance()
+        if(calendarComparar.after(calendar)){
+            calendar.add(Calendar.DAY_OF_YEAR, +1)
+        }
+
         //guardem els valors de l'identificar de l'alarma i el temps al SharedPreference per recuperar-ho en cas de reboot
         editor.putInt("alarmID+${idAlarmaManager}", idAlarmaManager!!)
         editor.putLong("alarmTime+${idAlarmaManager}", calendar.timeInMillis)
