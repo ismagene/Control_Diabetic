@@ -44,7 +44,7 @@ class RebootServiceClass: JobIntentService() {
                         calendar.add(Calendar.DAY_OF_YEAR, +1)
                     }
 
-                    setAlarm(settings.getInt("alarmID${i}", 0), settings.getLong("alarmTime${i}", 0), this)
+                    setAlarm(settings.getInt("alarmID${i}", 0), calendar.timeInMillis, this)
                 }
                 else break
             }
