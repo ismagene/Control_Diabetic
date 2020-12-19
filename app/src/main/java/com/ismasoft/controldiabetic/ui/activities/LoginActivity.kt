@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
@@ -203,7 +202,14 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
                 var day =  parts[0].toInt()
                 var month = parts[1].toInt()-1
                 var year = parts[2].toInt()
+                
                 calendar.set(year, month, day, hora!!, minuts!!, 0)
+
+                // Si la data de l'alarma amb la data d'avui ja ha passat, sumarem un dia al calendari perquè no apareixin automaticament les alarmes pasades cada cop que entrem.
+                var calendarComparar = Calendar.getInstance()
+                if(calendarComparar.after(calendar)){
+                    calendar.add(Calendar.DAY_OF_YEAR, +1)
+                }
 
                 setAlarm(settings.getInt("alarmID${i}", 0), calendar.timeInMillis, this)
             }

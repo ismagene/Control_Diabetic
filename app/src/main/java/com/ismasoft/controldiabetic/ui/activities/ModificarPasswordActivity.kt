@@ -1,5 +1,6 @@
 package com.ismasoft.controldiabetic.ui.activities
 
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,9 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
     private lateinit var colorHintDefault : ColorStateList
     private lateinit var colorTextDefault : ColorStateList
 
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recuperar_contrasenya)
@@ -41,6 +45,10 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         // Per tornar endarrera
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        /* Preferences per guardar dades en un xml local */
+        preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
+        editor = preferences.edit()
 
         binding.buttonRecuperar.setOnClickListener(){
 
@@ -146,6 +154,12 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         alert("S'ha modificat correctament la contrasenya.","Contrasenya modificada") {
             cancellable(false)
             positiveButton("Continuar") {
+                // Guardem al sharedPreference la contrasenya modificada.
+                var checkGuardat = preferences.getString("checkGuardat", null)
+                if(checkGuardat != null){
+                    editor.putString("contrasenyaGuardada", binding.contrasenyaNova?.text.toString())
+                    editor.commit()
+                }
                 setResult(RESULT_OK)
                 finish()
             }

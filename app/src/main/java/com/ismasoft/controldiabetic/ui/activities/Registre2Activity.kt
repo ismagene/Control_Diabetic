@@ -15,6 +15,14 @@ import com.ismasoft.controldiabetic.data.model.User
 import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistre2Binding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00016
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00017
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00018
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00019
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00020
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00021
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00022
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00023
 import com.ismasoft.controldiabetic.utilities.JavaMailAPI
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
@@ -209,51 +217,39 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
 
         if (binding.loginCentre.text == null || binding.loginCentre.text.toString() == "") {
             binding.loginCentre.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El nom del centre és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00016, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginPoblacioCentre.text == null || binding.loginPoblacioCentre.text.toString() == "") {
             binding.loginPoblacioCentre.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La població del centre és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00017, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginNomMetge.text == null || binding.loginNomMetge.text.toString() == "") {
             binding.loginNomMetge.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El nom del metge és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00018, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginEmailMetge.text == null || binding.loginEmailMetge.text.toString() == "") {
             binding.loginEmailMetge.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(
-                this,
-                "El correu electrònic del metge és un camp obligatori",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, ERROR_00019, Toast.LENGTH_SHORT).show()
             return false
         }else{
             var mailCorrecte = android.util.Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailMetge.text.toString()).matches()
             if(!mailCorrecte){
                 binding.loginEmailMetge.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(
-                    this,
-                    "El format del correu electrònic del metge no es correcte",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, ERROR_00020, Toast.LENGTH_SHORT).show()
                 return false
             }
         }
         if (binding.loginTipusDiabetisSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER) {
             binding.loginTipusDiabetis.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(
-                this,
-                "El tipus de diabetis és un camp obligatori",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, ERROR_00021, Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.loginDataDiagnosi.text == null || binding.loginDataDiagnosi.text.toString() == ""){
             binding.loginDataDiagnosi.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00022, Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -263,11 +259,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         if(dataIntroduida.after(dataActual))
         {
             binding.loginDataDiagnosi.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(
-                this,
-                "La data de diagnosi no pot ser superior a l'actual'",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, ERROR_00023, Toast.LENGTH_SHORT).show()
             return false
         }
 

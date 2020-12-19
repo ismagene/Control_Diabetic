@@ -13,6 +13,21 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.interfaces.RegistreRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityRegistreBinding
 import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00001
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00002
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00003
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00004
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00005
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00006
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00007
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00008
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00009
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00010
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00011
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00012
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00013
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00014
+import com.ismasoft.controldiabetic.utilities.Constants.ERROR_00015
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.RegistreViewModel
 import kotlinx.coroutines.*
@@ -157,7 +172,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
     private fun errorCorreuElectronicExistent() {
         binding.loginCorreuElectronic.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-        Toast.makeText(this, "Aquest correu electrònic ja està registra't", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, ERROR_00013, Toast.LENGTH_SHORT).show()
     }
 
     private fun anarALaSegonaPaginaDeRegistre() {
@@ -183,22 +198,22 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
 
         if (binding.loginNom.text == null || binding.loginNom.text.toString() == "") {
             binding.loginNom.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El nom és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00001, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginCognom.text == null || binding.loginCognom.text.toString() == "") {
             binding.loginCognom.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El cognom és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00002, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginCognom2.text == null || binding.loginCognom2.text.toString() == "") {
             binding.loginCognom2.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El segon cognom és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00003, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginNaixament.text == null || binding.loginNaixament.text.toString() == "") {
             binding.loginNaixament.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00004, Toast.LENGTH_SHORT).show()
             return false
         }
         // Validem que la data no sigui superior o igual a la del dia
@@ -207,27 +222,37 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         if(dataIntroduida.after(dataActual))
         {
             binding.loginNaixament.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement no pot ser igual o superior a l'actual'", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00005, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginGenereSpiner.selectedItem == constants.OPCIO_DEFECTE_SPINER) {
             binding.loginGenere.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El genere és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00006, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginPes.text == null || binding.loginPes.text.toString() == "") {
             binding.loginPes.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El Pes és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00007, Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.loginPes.text.toString().toInt() <= 0) {
+            binding.loginPes.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, ERROR_00014, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginAltura.text == null || binding.loginAltura.text.toString() == "") {
             binding.loginAltura.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "L'alçada és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00008, Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.loginAltura.text.toString().toInt() <= 0) {
+            binding.loginAltura.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, ERROR_00015, Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.loginCorreuElectronic.text == null || binding.loginCorreuElectronic.text.toString() == "") {
             binding.loginCorreuElectronic.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El correu electrònic és un camp obligatori", Toast.LENGTH_SHORT)
+            Toast.makeText(this, ERROR_00009, Toast.LENGTH_SHORT)
                 .show()
             return false
         } else {
@@ -236,22 +261,18 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
                     .matches()
             if (!mailCorrecte) {
                 binding.loginCorreuElectronic.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-                Toast.makeText(
-                    this,
-                    "El format del correu electrònic no es correcte",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, ERROR_00010, Toast.LENGTH_SHORT).show()
                 return false
             }
         }
         if (binding.loginPassword.text == null || binding.loginPassword.text.toString() == ""){
             binding.loginPassword.setHintTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La contrasenya és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ERROR_00011, Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.loginPassword.text.length < 6){
             binding.loginPassword.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caracters",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,ERROR_00012,Toast.LENGTH_SHORT).show()
             return false
         }
 
