@@ -30,10 +30,6 @@ class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbI
         return mData.size
     }
 
-    internal fun getItem(position: Int): ControlAmbId? {
-        return mData[position]
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = mInflater.inflate(R.layout.item_controls_adapter, parent, false)
         return ControlViewHolder(view)
@@ -112,8 +108,6 @@ class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbI
         notifyDataSetChanged()
         if(mData.size == 0){
             activity.senseControls()
-//            viewModel.noQuedenAlarmes()
-            // NO actualitza pantalla
         }
     }
 

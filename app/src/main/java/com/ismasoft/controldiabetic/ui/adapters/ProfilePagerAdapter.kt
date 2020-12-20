@@ -26,8 +26,4 @@ class ProfilePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm,BEHAVIOR
         return mFragmentTitleList[position]
     }
 
-    // OJOISMA
-//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-//        return super.instantiateItem(container, position)
-//    }
 }

@@ -38,14 +38,10 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
 
     private var visitaVigent = VisitaAmbId()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindingFragment = FragmentVisitesBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
@@ -105,9 +101,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
             }
     }
 
-    override fun onItemClick(view: View, position: Int) {
-//        Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
-    }
+    override fun onItemClick(view: View, position: Int) {}
     override fun afegirVisitaOK() {}
     override fun afegirVisitaNOK() {}
     override fun existeixVisitaVigent() {}
@@ -118,10 +112,10 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
 
         if(viewModel.ambProximaVisita.value == true){
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
-            var dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
-            var parts = dataString.split(" ")
-            var dia =  parts[0]
-            var hora = parts[1]
+            val dataString = sdf.format(viewModel.visitaVigent.value?.dataVisita)
+            val parts = dataString.split(" ")
+            val dia =  parts[0]
+            val hora = parts[1]
 
             bindingFragment.dataVisita.text = dia
             bindingFragment.horaVisita.text = hora
@@ -134,8 +128,8 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
 
         // Ordenem les visites de mes recent a mes antiga.
         llistaVisites.sortWith(kotlin.Comparator { o1, o2 ->
-            var date1 = o1.dataVisita
-            var date2 = o2.dataVisita
+            val date1 = o1.dataVisita
+            val date2 = o2.dataVisita
             date2?.compareTo(date1)!! // Comparamem les dates
         })
 
@@ -146,12 +140,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun llistaVisitesNOK() {}
     override fun modificarVisitaOK() {}
     override fun modificarVisitaNOK() {}
-
-    override fun eliminarVisitaOK() {
-        onResume()
-        // NO actualitza la pantalla
-        viewModel.recuperarLlistaVisites(this)
-    }
+    override fun eliminarVisitaOK() {}
     override fun eliminarVisitaNOK() {
         Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
     }

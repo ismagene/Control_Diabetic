@@ -21,7 +21,6 @@ import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.deleteAlarm
-import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 import java.text.SimpleDateFormat
 
@@ -38,14 +37,10 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         bindingFragment = FragmentPerfilPersonalBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
@@ -54,7 +49,7 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
         bindingFragment.lifecycleOwner = this
 
         bindingFragment.buttonModificar.setOnClickListener(){
-            var usuari = recuperarDadesUsuari()
+            val usuari = recuperarDadesUsuari()
 
             val modificar = Intent(context, ModificarDadesPersActivity::class.java)
             val extras = Bundle()
@@ -82,7 +77,7 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
             editor.apply()
             editor.clear()
 
-            var settings = context?.applicationContext!!.getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
+            val settings = context?.applicationContext!!.getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
             // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
             for (i in 1..1440){
                 if(settings.getInt("alarmID${i}", 0) !=  0){

@@ -2,9 +2,7 @@ package com.ismasoft.controldiabetic.utilities;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;

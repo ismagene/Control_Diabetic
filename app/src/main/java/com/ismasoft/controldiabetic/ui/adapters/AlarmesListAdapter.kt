@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -80,7 +78,6 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
                 positiveButton("Confirmar") {
                     viewModel = AlarmesViewModel(application = Application())
                     viewModel.eliminarAlarma(mData[position].idAlarma.toString(), position, this@AlarmesListAdapter)
-
                 }
                 negativeButton("Cancelar"){
                     // Nothing to do

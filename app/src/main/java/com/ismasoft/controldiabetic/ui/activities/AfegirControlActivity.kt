@@ -34,7 +34,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
     private lateinit var colorValorDefault : ColorStateList
     private lateinit var colorTextDefault : ColorStateList
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -95,6 +95,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             hideKeyboard(this)
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
+            hideKeyboard(this)
             if (hasFocus) {
                 binding.diaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())

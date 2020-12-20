@@ -30,14 +30,10 @@ class ControlsFragment : Fragment(), ControlsRepositoryInterface {
 
     private var llistaControlsGlobal : ArrayList<ControlAmbId> = ArrayList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         bindingFragment = FragmentControlsBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()

@@ -28,14 +28,10 @@ class PerfilMedicFragment : Fragment(), PerfilRepositoryInterface {
     private lateinit var viewModel: PerfilViewModel
     private lateinit var bindingFragment: FragmentPerfilMedicBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindingFragment = FragmentPerfilMedicBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get()
 

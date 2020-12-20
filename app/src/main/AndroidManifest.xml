@@ -114,12 +114,12 @@
             android:name=".utilities.NotificationService"
             android:enabled="true" /> <!-- MAKE ALARMS RESTART ON REBOOT -->
         <service android:name=".utilities.RebootServiceClass" />
-
         <receiver android:name=".utilities.MyRebootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

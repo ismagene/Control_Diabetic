@@ -80,9 +80,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener,
         }
     }
 
-    override fun onItemClick(view: View, position: Int) {
-//        Toast.makeText(context, "Clicat element $position", Toast.LENGTH_SHORT).show()
-    }
+    override fun onItemClick(view: View, position: Int) {}
 
     override fun afegirAlarmaOK(idAlarmaManager: Int?) {}
     override fun afegirAlarmaNOK() {}

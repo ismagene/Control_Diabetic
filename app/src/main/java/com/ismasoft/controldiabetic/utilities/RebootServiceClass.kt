@@ -1,5 +1,7 @@
 package com.ismasoft.controldiabetic.utilities
 
+import android.app.IntentService
+import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
@@ -7,14 +9,20 @@ import com.ismasoft.controldiabetic.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RebootServiceClass: JobIntentService() {
+class RebootServiceClass: IntentService {
     /**
      * Creates an IntentService. Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-
-    override fun onHandleWork(intent: Intent) {
+    constructor(name:String) : super(name) {
+        startForeground(1, Notification())
+    }
+    constructor() : super("RebootServiceClass") {}
+    override fun onCreate() {
+        super.onCreate()
+    }
+    override fun onHandleIntent(intent: Intent?) {
         var intentType = intent?.getExtras()?.getString("caller")
         if (intentType == null) return
         if (intentType == "RebootReceiver")
