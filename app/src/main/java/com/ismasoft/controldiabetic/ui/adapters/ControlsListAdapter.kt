@@ -13,12 +13,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
+import com.ismasoft.controldiabetic.ui.activities.HistoricControlsActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarControlActivity
 import com.ismasoft.controldiabetic.viewModel.ControlsViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
 
-class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmbId>) :
+class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbId>, val activity: HistoricControlsActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() , ControlsListAdapterInterface {
 
     private var mInflater: LayoutInflater = LayoutInflater.from(context)
@@ -110,6 +111,7 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
         notifyItemRemoved(position)
         notifyDataSetChanged()
         if(mData.size == 0){
+            activity.senseControls()
 //            viewModel.noQuedenAlarmes()
             // NO actualitza pantalla
         }
@@ -120,7 +122,6 @@ class ControlsListAdapter (var context: Context, val mData: ArrayList<ControlAmb
     }
 
     override fun hihaControls() {}
-
     override fun noHihaControls() {}
 
 }

@@ -132,7 +132,6 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         return true
     }
 
-
     override fun recuperarDadesPersonalsOK(document: DocumentSnapshot?) {}
     override fun recuperarDadesPersonalsNOK() {}
     override fun recuperarDadesMediquesOK(document: DocumentSnapshot?) {}

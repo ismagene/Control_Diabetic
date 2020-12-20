@@ -20,10 +20,6 @@ class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>
         return mData.size
     }
 
-    internal fun getItem(position: Int): VisitaAmbId? {
-        return mData[position]
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = mInflater.inflate(R.layout.item_visites_adapter, parent, false)
         return VisitesViewHolder(view)

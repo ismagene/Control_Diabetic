@@ -85,7 +85,7 @@
     <string name="historic">Històric</string>
     <string name="ahir">Ahir</string>
     <string name="setmana">Setmana</string>
-    <string name="mes">30 últims dies</string>
+    <string name="mes">Últims 30 dies</string>
     <string name="afegirControl">Afegir control</string>
     <string name="titolMitjanes">Mitjanes de glucosa</string>
     <string name="titolSenseControls">No hi ha cap control introduït</string>

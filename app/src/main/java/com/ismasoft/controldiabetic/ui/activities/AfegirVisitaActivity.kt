@@ -27,7 +27,6 @@ class AfegirVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface {
 
     private lateinit var colorTextDefault : ColorStateList
     private lateinit var colorHintDefault : ColorStateList
-    private var primerOnCreate : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

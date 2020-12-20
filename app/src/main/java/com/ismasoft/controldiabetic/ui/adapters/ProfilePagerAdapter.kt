@@ -1,15 +1,13 @@
-package com.atlabs.cafe.PagerAdapter
+package com.ismasoft.controldiabetic.ui.adapters
 
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class ProfilePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
+class ProfilePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val mFragmentList: ArrayList<Fragment> = ArrayList()
     private val mFragmentTitleList: ArrayList<String> = ArrayList()
-
 
     override fun getItem(position: Int): Fragment {
         return mFragmentList[position]
@@ -24,16 +22,12 @@ class ProfilePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         mFragmentTitleList.add(title)
     }
 
-    fun removeFragment(fragment: Fragment, title: String) {
-        mFragmentList.remove(fragment)
-        mFragmentTitleList.remove(title)
-    }
-
     override fun getPageTitle(position: Int): CharSequence? {
         return mFragmentTitleList[position]
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position)
-    }
+    // OJOISMA
+//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+//        return super.instantiateItem(container, position)
+//    }
 }

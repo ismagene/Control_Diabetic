@@ -35,15 +35,6 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
     var llistaControlsFiltrats = ArrayList<ControlAmbId>()
 
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        return super.onCreateView(parent, name, context, attrs)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,7 +67,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         recyclerView = binding.recyclerViewControls
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Posem els valors de la llista de controls
-        adapter = ControlsListAdapter(this, llistaControls)
+        adapter = ControlsListAdapter(this, llistaControls, this)
         adapter.setClickListener(this)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -110,35 +101,41 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
         binding.filtrarControls.setOnClickListener(){
 
-            llistaControlsFiltrats = ArrayList<ControlAmbId>()
-            var dataFiltreInici = Date()
-            var dataFiltreFi = Date()
+            if(validarFiltrar()) {
 
-            if(!binding.diaFiltreInici.text.toString().equals("")){
-                val date = binding.diaFiltreInici.text.toString()
-                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 00:00:00")
-            }else{
-                dataFiltreInici  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/1900 00:00:00")
-            }
+                llistaControlsFiltrats = ArrayList<ControlAmbId>()
+                var dataFiltreInici = Date()
+                var dataFiltreFi = Date()
 
-            if(!binding.diaFiltreFi.text.toString().equals("")){
-                val date = binding.diaFiltreFi.text.toString()
-                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 23:59:59")
-            }else{
-                dataFiltreFi  = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/2900 00:00:00")
-            }
-
-            for(control in llistaControls){
-                if(dataFiltreInici.before(control.dataControl) && dataFiltreFi.after(control.dataControl)){
-                    llistaControlsFiltrats.add(control)
+                if (!binding.diaFiltreInici.text.toString().equals("")) {
+                    val date = binding.diaFiltreInici.text.toString()
+                    dataFiltreInici =
+                        SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 00:00:00")
+                } else {
+                    dataFiltreInici =
+                        SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/1900 00:00:00")
                 }
-            }
 
-            adapter = ControlsListAdapter(this, llistaControlsFiltrats)
-            adapter.setClickListener(this)
-            recyclerView.adapter = adapter
-            adapter.notifyItemRangeChanged(0,llistaControlsFiltrats.size)
-            adapter.notifyDataSetChanged()
+                if (!binding.diaFiltreFi.text.toString().equals("")) {
+                    val date = binding.diaFiltreFi.text.toString()
+                    dataFiltreFi = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("$date 23:59:59")
+                } else {
+                    dataFiltreFi =
+                        SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/2900 00:00:00")
+                }
+
+                for (control in llistaControls) {
+                    if (dataFiltreInici.before(control.dataControl) && dataFiltreFi.after(control.dataControl)) {
+                        llistaControlsFiltrats.add(control)
+                    }
+                }
+
+                adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
+                adapter.setClickListener(this)
+                recyclerView.adapter = adapter
+                adapter.notifyItemRangeChanged(0, llistaControlsFiltrats.size)
+                adapter.notifyDataSetChanged()
+            }
 
         }
 
@@ -153,11 +150,24 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             }
         }
 
+        binding.tornarMenu.setOnClickListener(){
+            hideKeyboard(this)
+            finish()
+        }
+
     }
 
     private fun validarEnviarHistoric(): Boolean {
         if(llistaControlsFiltrats.size<=0){
             Toast.makeText(this, "No hi ha cap control filtrat per poder enviar. ", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private fun validarFiltrar(): Boolean {
+        if(llistaControlsFiltrats.size<=0){
+            Toast.makeText(this, "No hi ha cap control per filtrar. ", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
@@ -244,7 +254,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     override fun onResume() {
         super.onResume()
         viewModel.hiHanControls(llistaControls, this)
-        adapter = ControlsListAdapter(this, llistaControlsFiltrats)
+        adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
         adapter.notifyDataSetChanged()
     }
 
@@ -260,11 +270,13 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     override fun eliminarControlOK(position: Int) {}
     override fun eliminarControlNOK() {}
     override fun hihaControls() {
-        adapter = ControlsListAdapter(this, llistaControls)
+        adapter = ControlsListAdapter(this, llistaControls, this)
         adapter.notifyDataSetChanged()
     }
+    override fun noHihaControls() {}
 
-    override fun noHihaControls() {
-
+    fun senseControls(){
+        viewModel.senseControls()
     }
+
 }

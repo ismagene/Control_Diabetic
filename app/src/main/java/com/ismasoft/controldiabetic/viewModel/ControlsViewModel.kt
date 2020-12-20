@@ -69,6 +69,10 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun senseControls(){
+        _ambControls.value = false
+    }
+
     fun onButtonModificarControl(control: ControlAmbId, controlsRepositoryInterface : ControlsRepositoryInterface){
         controlModificar = control
         controlActivityInstance = controlsRepositoryInterface

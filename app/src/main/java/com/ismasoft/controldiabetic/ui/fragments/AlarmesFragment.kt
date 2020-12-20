@@ -47,7 +47,7 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener,
 
         recyclerView = bindingFragment.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = context?.let { AlarmesListAdapter(it, ArrayList<AlarmaAmbId>()) }!!
+        adapter = context?.let { AlarmesListAdapter(it, ArrayList<AlarmaAmbId>(),this)}!!
         adapter.setClickListener(this)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -111,11 +111,16 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener,
 
         llistaAlarmesGlobal = llistaAlarmes
 
-        recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes) }!!
+        recyclerView.adapter = context?.let { AlarmesListAdapter(it, llistaAlarmes, this) }!!
         adapter.setClickListener(this)
         adapter.notifyItemRangeChanged(0,llistaAlarmes.size)
         adapter.notifyDataSetChanged()
 
+    }
+
+    fun noAlarmes(){
+        parentFragmentManager.beginTransaction().detach(this).commitNow()
+        parentFragmentManager.beginTransaction().attach(this).commitNow()
     }
 
     override fun llistaAlarmesNOK() {}

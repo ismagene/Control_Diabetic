@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
-import com.atlabs.cafe.PagerAdapter.ProfilePagerAdapter
+import com.ismasoft.controldiabetic.ui.adapters.ProfilePagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.ui.activities.MenuPrincipalActivity
