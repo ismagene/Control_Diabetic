@@ -146,6 +146,20 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
             return false
         }
 
+        val dataIntroduida = SimpleDateFormat("dd/MM/yyyy HH:mm").parse("${binding.diaVisita.text.toString()} ${binding.horaVisita.text.toString()}")
+        val dataActual = Date()
+        if(dataIntroduida.before(dataActual))
+        {
+            binding.diaVisita.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
+            binding.horaVisita.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(
+                this,
+                "La data i hora de la visita ha de ser posterior a l'actual",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
         return true
     }
 

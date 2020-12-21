@@ -50,7 +50,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
 
         recyclerView = bindingFragment.recyclerViewVisites
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
+        adapter = context?.let { VisitesListAdapter(it, llistaVisites, this) }!!
         adapter.setClickListener(this)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -133,7 +133,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
             date2?.compareTo(date1)!! // Comparamem les dates
         })
 
-        recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites) }!!
+        recyclerView.adapter = context?.let { VisitesListAdapter(it, llistaVisites, this) }!!
         adapter.notifyDataSetChanged()
     }
 
@@ -144,4 +144,10 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun eliminarVisitaNOK() {
         Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
     }
+
+    fun noVisites(){
+        parentFragmentManager.beginTransaction().detach(this).commitNow()
+        parentFragmentManager.beginTransaction().attach(this).commitNow()
+    }
+
 }

@@ -14,7 +14,7 @@ import com.ismasoft.controldiabetic.ui.activities.AfegirControlActivity
 class NotificationService: IntentService {
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
-    internal lateinit var notification: Notification
+    private lateinit var notification: Notification
     constructor(name:String) : super(name) {}
     constructor() : super("SERVICE") {}
 
@@ -22,7 +22,7 @@ class NotificationService: IntentService {
     override fun onHandleIntent(intent: Intent?) {
         val NOTIFICATION_CHANNEL_ID = getApplicationContext().getString(R.string.app_name)  // Titol de la notificació
         val context = this.getApplicationContext()
-        var notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val mIntent = Intent(this, AfegirControlActivity::class.java)
         val res = this.getResources()
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
@@ -64,7 +64,7 @@ class NotificationService: IntentService {
                 .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))
             val notification = builder.build()
             notifManager.notify(NOTIFY_ID, notification)
-            startForeground(1, notification)
+            startForeground(NOTIFICATION_ID, notification)
         }
         else
         {
@@ -81,7 +81,7 @@ class NotificationService: IntentService {
         }
     }
     companion object {
-        private val NOTIFICATION_ID = 1
+        private const val NOTIFICATION_ID = 1
     }
 
 

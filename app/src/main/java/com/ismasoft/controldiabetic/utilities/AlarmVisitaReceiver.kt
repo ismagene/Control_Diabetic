@@ -5,15 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 
-class AlarmReceiver: BroadcastReceiver() {
+class AlarmVisitaReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val service = Intent(context, NotificationService::class.java)
+        var service = Intent(context, EnviamentAutoHistoricService::class.java)
         service.setData((Uri.parse("custom://" + System.currentTimeMillis())))
         ContextCompat.startForegroundService(context, service)
-        Log.d("alarmaSet", " Alarma rebuda!")
-        Toast.makeText(context, "AlarmaExecutada", Toast.LENGTH_LONG).show()
+        Log.d("alarmaVisitaSet", " Alarma visita rebuda!")
     }
 }

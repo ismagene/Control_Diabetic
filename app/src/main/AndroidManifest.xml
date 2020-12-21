@@ -110,9 +110,16 @@
         <receiver
             android:name=".utilities.AlarmReceiver"
             android:enabled="true" />
+        <receiver
+            android:name=".utilities.AlarmVisitaReceiver"
+            android:enabled="true" />
         <service
             android:name=".utilities.NotificationService"
-            android:enabled="true" /> <!-- MAKE ALARMS RESTART ON REBOOT -->
+            android:enabled="true" />
+        <service
+            android:name=".utilities.EnviamentAutoHistoricService"
+            android:enabled="true" />
+        <!-- MAKE ALARMS RESTART ON REBOOT -->
         <service android:name=".utilities.RebootServiceClass" />
         <receiver android:name=".utilities.MyRebootReceiver">
             <intent-filter>

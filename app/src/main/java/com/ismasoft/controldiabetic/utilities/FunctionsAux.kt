@@ -58,3 +58,17 @@ fun deleteAlarm(posicioAlarma:Int, ctx:Context) {
     pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent,0)
     alarmManager.cancel(pendingIntent)
 }
+
+
+/** Funció que seteja la alarma per fer l'enviament automàtic del historial de glucosa */
+fun setAlarmVisita(posicioAlarma: Int, timestamp:Long, ctx:Context) {
+    var alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+    var alarmIntent = Intent(ctx, AlarmVisitaReceiver::class.java)
+    alarmIntent.setData((Uri.parse("custo://" + System.currentTimeMillis())))
+    var pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent, 0)
+    alarmManager.setExact(
+        AlarmManager.RTC_WAKEUP,
+        timestamp,
+        pendingIntent
+    )
+}

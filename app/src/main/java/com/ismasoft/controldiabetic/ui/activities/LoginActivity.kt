@@ -187,7 +187,7 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
         guardarUsuariAlPreference(binding)
 
         var settings = getSharedPreferences(getString(R.string.sharedControlAlarmes), Context.MODE_PRIVATE)
-        // Recuperem les alarmes definim un numero maxim de 200 alarmes, no es poden posar mes alarmes que minuts
+        // Recuperem les alarmes definim un numero maxim de 1440 alarmes, no es poden posar mes alarmes que minuts al dia.
         for (i in 1..1440){
             if(settings.getInt("alarmID${i}", 0) != 0 ){
 

@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
+import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapterInterface
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.Constants.DB_ROOT_USUARIS
 import com.ismasoft.controldiabetic.utilities.convertirADateLaDataFirebase
@@ -111,5 +112,18 @@ class VisitesRepository(val application: Application) {
             }
     }
 
+    /** Funció que elimina una visita existent **/
+    fun eliminarVisitaPasada(idVisita: String, position : Int, visitaListAdapterInterface : VisitesListAdapterInterface){
+        db.collection(DB_ROOT_USUARIS + "/" + firebaseAuth.currentUser?.uid + "/" + Constants.DB_ROOT_VISITES).document(idVisita)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                visitaListAdapterInterface.eliminarVisitaPasadaOK(position)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                visitaListAdapterInterface.eliminarVisitaPasadaNOK()
+            }
+    }
 
 }

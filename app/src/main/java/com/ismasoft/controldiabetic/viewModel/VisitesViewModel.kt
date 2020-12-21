@@ -6,15 +6,19 @@ import com.ismasoft.controldiabetic.data.model.Visita
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
 import com.ismasoft.controldiabetic.data.repository.*
 import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepositoryInterface
+import com.ismasoft.controldiabetic.ui.adapters.AlarmesListAdapterInterface
+import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapterInterface
 import java.util.*
 import kotlin.collections.ArrayList
 
 class VisitesViewModel(application: Application) : AndroidViewModel(application) ,
-    VisitesRepositoryInterface {
+    VisitesRepositoryInterface,
+    VisitesListAdapterInterface{
 
     // Definim el repository per accedir a la BBDD
     private var repository = VisitesRepository(application)
     lateinit var visitalActivityInstance : VisitesRepositoryInterface
+    lateinit var visitaListAdapterInstance : VisitesListAdapterInterface
 
     private var _ambVisites = MutableLiveData<Boolean>(false)
     val ambVisites : LiveData<Boolean> get() = _ambVisites
@@ -48,6 +52,11 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
     fun eliminarVisita(idVisita: String, visitesRepositoryInterface : VisitesRepositoryInterface){
         visitalActivityInstance = visitesRepositoryInterface
         repository.eliminarVisita(idVisita,this)
+    }
+
+    fun eliminarVisitaPasada(idVisita: String, position: Int, visitesListAdapterInterface : VisitesListAdapterInterface){
+        visitaListAdapterInstance = visitesListAdapterInterface
+        repository.eliminarVisitaPasada(idVisita,position,this)
     }
 
 
@@ -106,6 +115,17 @@ class VisitesViewModel(application: Application) : AndroidViewModel(application)
     }
     override fun eliminarVisitaNOK() {
         visitalActivityInstance.eliminarVisitaNOK()
+    }
+    override fun eliminarVisitaPasadaOK(position: Int) {
+        visitaListAdapterInstance.eliminarVisitaPasadaOK(position)
+    }
+    override fun eliminarVisitaPasadaNOK() {
+        visitaListAdapterInstance.eliminarVisitaPasadaNOK()
+    }
+
+    fun noQuedenVisites() {
+        _ambVisites.value = false
+        _senseVisites.value = true
     }
 
 }

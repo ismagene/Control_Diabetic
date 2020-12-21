@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
 
         scope.launch {
-            val deferred = async {
+            async {
                 viewModel.onButtonClicked()
                 intent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(intent)

@@ -97,14 +97,13 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
 
     override fun eliminarAlarmaOK(position: Int) {
         // Retorn de la crida OK d'esborrar l'alarma
-        deleteAlarm(0,context)
+        deleteAlarm(position,context)
         mData.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged()
         if(mData.size == 0){
             fragment.noAlarmes()
             viewModel.noQuedenAlarmes()
-            // NO actualitza pantalla
         }
     }
 

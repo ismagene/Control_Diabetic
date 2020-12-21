@@ -8,6 +8,7 @@ import androidx.core.app.JobIntentService
 import com.ismasoft.controldiabetic.R
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.absoluteValue
 
 class RebootServiceClass: IntentService {
     /**
@@ -56,6 +57,15 @@ class RebootServiceClass: IntentService {
                 }
                 else break
             }
+
+            var alarmaVisita = getSharedPreferences("sharedAlarmaVisita", Context.MODE_PRIVATE)
+            if(alarmaVisita.getString("enviarVisita", null) !=  null){
+
+                var calendar = Calendar.getInstance()
+//                calendar.timeInMillis.absoluteValue = alarmaVisita.getString("enviarVisita", null).toString().toLong()
+
+            }
+
         }
     }
 

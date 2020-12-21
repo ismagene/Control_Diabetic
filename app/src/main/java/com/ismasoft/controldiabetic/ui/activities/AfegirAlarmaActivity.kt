@@ -149,7 +149,7 @@ class AfegirAlarmaActivity : AppCompatActivity(), AlarmesRepositoryInterface {
 
         // Guardem la alarma al AlarmManager
         /* Preferences per guardar dades en un xml local */
-        preferences = applicationContext.getSharedPreferences("sharedControlAlarmes", MODE_PRIVATE)
+        preferences = applicationContext.getSharedPreferences(getString(R.string.sharedControlAlarmes), MODE_PRIVATE)
         editor = preferences.edit()
 
         var parts = binding.horaAlarma.text.split(":")
