@@ -8,6 +8,7 @@ class MenuPrincipalViewModel (application: Application) : AndroidViewModel(appli
     /* Variables que recuperem directament des de la vista */
     private val _progressFinish = MutableLiveData<Boolean>()
     val progressFinish : LiveData<Boolean> get() = _progressFinish
-    val message = MutableLiveData<String>()
+
+    // Clase preparada per el cas d'haver d'utilitzar databinding en el menú principal amb tots els fragments.
 
 }
