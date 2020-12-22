@@ -21,6 +21,7 @@ import com.ismasoft.controldiabetic.ui.activities.ModificarDadesPersActivity
 import com.ismasoft.controldiabetic.ui.activities.ModificarPasswordActivity
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.deleteAlarm
+import com.ismasoft.controldiabetic.utilities.deleteVisitaAlarm
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 import java.text.SimpleDateFormat
 
@@ -84,6 +85,8 @@ class PerfilPersonalFragment : Fragment(), PerfilRepositoryInterface {
                     deleteAlarm(settings.getInt("alarmID${i}", 0), requireContext())
                 }else break
             }
+
+            deleteVisitaAlarm(10000, requireContext())
 
         }
 

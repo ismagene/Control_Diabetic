@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.AlarmaAmbId
 import com.ismasoft.controldiabetic.data.repository.interfaces.AlarmesRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarAlarmaBinding
@@ -147,7 +148,7 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
 
         // Guardem la alarma al AlarmManager
         /* Preferences per guardar dades en un xml local */
-        preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
+        preferences = applicationContext.getSharedPreferences(getString(R.string.sharedControlAlarmes), MODE_PRIVATE)
         editor = preferences.edit()
 
         var parts = binding.horaAlarma.text.split(":")

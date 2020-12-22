@@ -16,6 +16,7 @@ import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepository
 import com.ismasoft.controldiabetic.databinding.FragmentVisitesBinding
 import com.ismasoft.controldiabetic.ui.activities.ModificarVisitaActivity
 import com.ismasoft.controldiabetic.ui.adapters.VisitesListAdapter
+import com.ismasoft.controldiabetic.utilities.deleteVisitaAlarm
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
@@ -140,7 +141,10 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
     override fun llistaVisitesNOK() {}
     override fun modificarVisitaOK() {}
     override fun modificarVisitaNOK() {}
-    override fun eliminarVisitaOK() {}
+    override fun eliminarVisitaOK() {
+        // Retorn de la crida OK d'esborrar l'alarma
+        deleteVisitaAlarm(10000, requireContext())
+    }
     override fun eliminarVisitaNOK() {
         Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
     }

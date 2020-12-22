@@ -58,12 +58,15 @@ class RebootServiceClass: IntentService {
                 else break
             }
 
-            var alarmaVisita = getSharedPreferences("sharedAlarmaVisita", Context.MODE_PRIVATE)
-            if(alarmaVisita.getString("enviarVisita", null) !=  null){
-
-                var calendar = Calendar.getInstance()
-//                calendar.timeInMillis.absoluteValue = alarmaVisita.getString("enviarVisita", null).toString().toLong()
-
+            // restaurar alarma visita
+            settings = getSharedPreferences("sharedAlarmaVisita", Context.MODE_PRIVATE)
+            var horaAlarmaVisita = settings.getString("enviarVisita",null)
+            if(horaAlarmaVisita != null) {
+                var calendar = horaAlarmaVisita.toLong()
+                var calendarComparar = Calendar.getInstance()
+                if(calendarComparar.timeInMillis < calendar) {
+                    setAlarmVisita(10000, calendar, this)
+                }
             }
 
         }

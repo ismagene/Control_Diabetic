@@ -3,6 +3,7 @@ package com.ismasoft.controldiabetic.ui.activities
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.ismasoft.controldiabetic.data.repository.interfaces.VisitesRepository
 import com.ismasoft.controldiabetic.databinding.ActivityModificarVisitaBinding
 import com.ismasoft.controldiabetic.utilities.Constants
 import com.ismasoft.controldiabetic.utilities.hideKeyboard
+import com.ismasoft.controldiabetic.utilities.setAlarmVisita
 import com.ismasoft.controldiabetic.viewModel.VisitesViewModel
 import org.jetbrains.anko.alert
 import java.text.SimpleDateFormat
@@ -259,7 +261,36 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
     override fun noExisteixVisitaVigent() {}
     override fun llistaVisitesOK(document: ArrayList<VisitaAmbId>) {}
     override fun llistaVisitesNOK() {}
+
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+
     override fun modificarVisitaOK() {
+
+        // Guardem la alarma al AlarmManager
+        /* Preferences per guardar dades en un xml local */
+        preferences = applicationContext.getSharedPreferences("sharedAlarmaVisita", MODE_PRIVATE)
+        editor = preferences.edit()
+
+        var parts = binding.horaVisita.text.split(":")
+        var hora =  parts[0].toInt()
+        var minuts = parts[1].toInt()
+
+        var calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        var dataString = sdf.format(Date())
+        parts = dataString.split("/")
+        var day =  parts[0].toInt()
+        var month = parts[1].toInt()-1
+        var year = parts[2].toInt()
+        calendar.set(year, month, day, hora, minuts, 0)
+
+        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
+        editor.putString("enviarVisita", calendar.timeInMillis.toString())
+        editor.commit()
+
+        setAlarmVisita(10000, calendar.timeInMillis, this)
+
         alert("S'ha modificat correctament la visita.","Visita modificada") {
             cancellable(false)
             positiveButton("Continuar") {

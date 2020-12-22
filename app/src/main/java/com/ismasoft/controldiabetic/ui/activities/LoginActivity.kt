@@ -14,11 +14,8 @@ import androidx.lifecycle.get
 import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.interfaces.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityLoginBinding
-import com.ismasoft.controldiabetic.utilities.Constants
+import com.ismasoft.controldiabetic.utilities.*
 import com.ismasoft.controldiabetic.utilities.Constants.RETORN_ACTIVITY_OK_CODE
-import com.ismasoft.controldiabetic.utilities.deleteAlarm
-import com.ismasoft.controldiabetic.utilities.hideKeyboard
-import com.ismasoft.controldiabetic.utilities.setAlarm
 import com.ismasoft.controldiabetic.viewModel.LoginViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -149,17 +146,17 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
 
         if(!checkGuardat.isNullOrEmpty()){
             binding.guardarUsuari.isChecked = true
-        }
-        if(!usuariGuardat.isNullOrEmpty()){
-            binding.username?.setText(usuariGuardat)
-        }
-        if(!contrasenyaGuardada.isNullOrEmpty()){
-            binding.password.setText(contrasenyaGuardada)
-        }
-        if(binding.guardarUsuari.isChecked){
-            viewModel?.onButtonLoginClicked(binding.username?.text.toString(),binding.password?.text.toString(),loginRepositoryInterface)
-        }
 
+            if(!usuariGuardat.isNullOrEmpty()){
+                binding.username?.setText(usuariGuardat)
+            }
+            if(!contrasenyaGuardada.isNullOrEmpty()){
+                binding.password.setText(contrasenyaGuardada)
+            }
+            if(binding.guardarUsuari.isChecked){
+                viewModel?.onButtonLoginClicked(binding.username?.text.toString(),binding.password?.text.toString(),loginRepositoryInterface)
+            }
+        }
     }
 
     /** Funció per tractar les validacions del Login **/
@@ -212,9 +209,22 @@ class LoginActivity : AppCompatActivity(), LoginRepositoryInterface {
                 }
 
                 setAlarm(settings.getInt("alarmID${i}", 0), calendar.timeInMillis, this)
+
             }
             else break
         }
+
+        // restaurar alarma visita
+        settings = getSharedPreferences("sharedAlarmaVisita", Context.MODE_PRIVATE)
+        var horaAlarmaVisita = settings.getString("enviarVisita",null)
+        if(horaAlarmaVisita != null) {
+            var calendar = horaAlarmaVisita.toLong()
+            var calendarComparar = Calendar.getInstance()
+            if(calendarComparar.timeInMillis < calendar) {
+                setAlarmVisita(10000, calendar, this)
+            }
+        }
+
     }
 
     override fun credencialsNOK() {

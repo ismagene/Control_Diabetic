@@ -2,6 +2,7 @@ package com.ismasoft.controldiabetic.utilities
 
 import android.annotation.TargetApi
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
@@ -127,6 +128,11 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
 
         val javaMailAPI = JavaMailAPI(this, mEmail, mSubject, mMessage)
         javaMailAPI.execute()
+
+        /* Preferences per guardar dades en un xml local */
+        preferences = applicationContext.getSharedPreferences("sharedAlarmaVisita", MODE_PRIVATE)
+        editor = preferences.edit()
+        editor.clear()
     }
 
     override fun credencialsNOK() {}

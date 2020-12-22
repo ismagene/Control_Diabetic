@@ -72,3 +72,12 @@ fun setAlarmVisita(posicioAlarma: Int, timestamp:Long, ctx:Context) {
         pendingIntent
     )
 }
+
+/** Funció que cancela la alarma de la visita */
+fun deleteVisitaAlarm(posicioAlarma:Int, ctx:Context) {
+    val alarmManager = ctx.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+    val alarmIntent = Intent(ctx, AlarmVisitaReceiver::class.java)
+    val pendingIntent: PendingIntent
+    pendingIntent = PendingIntent.getBroadcast(ctx, posicioAlarma, alarmIntent,0)
+    alarmManager.cancel(pendingIntent)
+}
