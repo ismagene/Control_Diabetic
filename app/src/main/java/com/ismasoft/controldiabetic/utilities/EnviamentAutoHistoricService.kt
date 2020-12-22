@@ -97,11 +97,14 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
     override fun recuperarDadesUsuariOK(mailMetge: String, nomUsuari: String) {
         // Fer enviament.
         val mEmail: String = mailMetge
-        val mSubject: String = "Control diabètic - Històric de controls de glucosa "
+        val mSubject: String = "Control diabètic - Històric de controls de glucosa de $nomUsuari"
         var mMessage: String = "Històric de controls de glucosa: \n\n"
-        mMessage += "Usuari: ${nomUsuari} \n"
+        mMessage += "Usuari: $nomUsuari \n\n"
 
         var diaAcutal = ""
+        if(llistaControlsFiltrats.size==0){
+            mMessage += "\nNo hi ha controls guardats des de l'última visita"
+        }
         for (control in llistaControlsFiltrats) {
 
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
