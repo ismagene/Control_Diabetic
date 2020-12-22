@@ -56,7 +56,7 @@ class NotificationService: IntentService {
             builder.setContentTitle(getString(R.string.app_name)).setCategory(Notification.CATEGORY_SERVICE)
                 .setSmallIcon(R.drawable.icon_alarm) // required
                 .setContentText(message)
-                .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.icon_alarm))
+                .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.control_diabetic_logo))
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
                 .setSound(soundUri)

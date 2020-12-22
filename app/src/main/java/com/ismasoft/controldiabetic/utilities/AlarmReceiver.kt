@@ -14,6 +14,5 @@ class AlarmReceiver: BroadcastReceiver() {
         service.setData((Uri.parse("custom://" + System.currentTimeMillis())))
         ContextCompat.startForegroundService(context, service)
         Log.d("alarmaSet", " Alarma rebuda!")
-        Toast.makeText(context, "AlarmaExecutada", Toast.LENGTH_LONG).show()
     }
 }

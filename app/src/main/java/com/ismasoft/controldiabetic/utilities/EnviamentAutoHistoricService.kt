@@ -1,26 +1,30 @@
 package com.ismasoft.controldiabetic.utilities
 
 import android.annotation.TargetApi
-import android.app.*
+import android.app.IntentService
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Build
-import com.google.firebase.firestore.DocumentSnapshot
+import androidx.core.app.NotificationCompat
+import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
 import com.ismasoft.controldiabetic.data.model.VisitaAmbId
-import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
-import com.ismasoft.controldiabetic.data.repository.interfaces.LoginRepositoryInterface
 import com.ismasoft.controldiabetic.ui.adapters.EnviamentAutoAdapter
 import com.ismasoft.controldiabetic.ui.adapters.EnviamentAutoInterface
+import com.ismasoft.controldiabetic.ui.fragments.VisitesFragment
 import java.text.SimpleDateFormat
 
 class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
-    internal lateinit var notification: Notification
-    constructor(name:String) : super(name) {}
-    constructor() : super("SERVICE") {}
+    internal var notification= Notification()
+    constructor(name: String) : super(name)
+    constructor() : super("SERVICE")
 
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -34,8 +38,34 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
     @TargetApi(Build.VERSION_CODES.O)
     override fun onHandleIntent(intent: Intent?) {
 
+        val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         preferences = applicationContext.getSharedPreferences("ControlDiabetic", MODE_PRIVATE)
         editor = preferences.edit()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, applicationContext.getString(R.string.app_name))
+            builder.setContentTitle("Realitzant enviament...").setCategory(Notification.CATEGORY_SERVICE)
+                .setSmallIcon(R.drawable.icon_alarm) // required
+                .setContentText("Enviament Automàtic de l'historic de controls")
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.control_diabetic_logo))
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setTimeoutAfter(0)
+            val notification = builder.build()
+            startForeground(10000, notification)
+        }else{
+            notification = NotificationCompat.Builder(applicationContext, applicationContext.getString(R.string.app_name))
+                .setSmallIcon(R.drawable.icon_alarm)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.control_diabetic_logo))
+                .setAutoCancel(true)
+                .setContentTitle("Realitzant enviament...").setCategory(Notification.CATEGORY_SERVICE)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentText("Enviament Automàtic de l'historic de controls")
+                .setTimeoutAfter(0)
+                .build()
+            notificationManager.notify(10000, notification)
+        }
 
         // Fer loggin previ amb les dades del sharedPreference, per si l'aplicació està tancada i s'ha reiniciat
         recuperarUsuariDelPreference()
@@ -80,7 +110,6 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
         })
 
         // Fer filtratge
-
         var dataFiltreInici = llistaVisitesFiltre[1].dataVisita
         var dataFiltreFi = llistaVisitesFiltre[0].dataVisita
 
@@ -99,7 +128,7 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
         val mEmail: String = mailMetge
         val mSubject: String = "Control diabètic - Històric de controls de glucosa de $nomUsuari"
         var mMessage: String = "Històric de controls de glucosa: \n\n"
-        mMessage += "Usuari: $nomUsuari \n\n"
+        mMessage += "Pacient: $nomUsuari \n\n"
 
         var diaAcutal = ""
         if(llistaControlsFiltrats.size==0){
@@ -138,6 +167,8 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
         editor.clear()
     }
 
+
+
     override fun credencialsNOK() {}
     override fun visitesNOK() {}
     override fun llistaControlsNOK() {}
@@ -148,7 +179,7 @@ class EnviamentAutoHistoricService: IntentService , EnviamentAutoInterface{
         var usuariGuardat = preferences.getString("usuariGuardat", null)
         var contrasenyaGuardada = preferences.getString("contrasenyaGuardada", null)
         if (usuariGuardat != null && contrasenyaGuardada != null) {
-            adapter.loginAutomatic( usuariGuardat.toString(), contrasenyaGuardada.toString(),this)
+            adapter.loginAutomatic(usuariGuardat.toString(), contrasenyaGuardada.toString(), this)
         }
     }
 

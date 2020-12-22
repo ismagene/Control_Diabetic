@@ -70,6 +70,9 @@ class MenuPrincipalActivity : AppCompatActivity() {
                     mFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(visitesFragment).commit()
                     activeFragment = visitesFragment
+                    mFragmentManager.beginTransaction().detach(activeFragment).commitNow()
+                    mFragmentManager.beginTransaction().attach(activeFragment).commitNow()
+
                     binding.fav.show()
 
                 }

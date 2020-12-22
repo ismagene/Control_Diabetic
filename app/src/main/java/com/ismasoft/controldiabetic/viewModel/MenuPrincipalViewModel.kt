@@ -10,8 +10,4 @@ class MenuPrincipalViewModel (application: Application) : AndroidViewModel(appli
     val progressFinish : LiveData<Boolean> get() = _progressFinish
     val message = MutableLiveData<String>()
 
-     fun onButtonClicked (){
-
-    }
-
 }
