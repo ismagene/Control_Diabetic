@@ -12,6 +12,7 @@ import com.ismasoft.controldiabetic.R
 import com.ismasoft.controldiabetic.data.repository.interfaces.PerfilRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityModificarPasswordBinding
 import com.ismasoft.controldiabetic.utilities.Constants.COLOR_ERROR_FALTA_CAMP
+import com.ismasoft.controldiabetic.utilities.hideKeyboard
 import com.ismasoft.controldiabetic.viewModel.PerfilViewModel
 import org.jetbrains.anko.alert
 
@@ -56,6 +57,12 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
                 viewModel.validarContrasenya(binding.contrasenyaAntiga.text.toString(),this)
             }
         }
+
+        binding.cancelarModificarContrasenya.setOnClickListener(){
+            hideKeyboard(this)
+            finish()
+        }
+
         binding.contrasenyaAntiga.setOnClickListener(){
             binding.contrasenyaAntiga.setHintTextColor(colorHintDefault)
             binding.contrasenyaAntiga.setTextColor(colorTextDefault)
