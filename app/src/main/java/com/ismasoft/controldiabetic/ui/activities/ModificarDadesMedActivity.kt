@@ -66,17 +66,17 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         // Recuperar el valor del Spiner del tipus de diabetis
         if(viewModel.tipusDiabetis.value.equals("Tipus 1")) {
             binding.valueTipusDiabetis.setSelection(1)
-        }else if(viewModel.genere.value.equals("Tipus 2")) {
+        }else if(viewModel.tipusDiabetis.value.equals("Tipus 2")) {
             binding.valueTipusDiabetis.setSelection(2)
-        }else if(viewModel.genere.value.equals("Gestacional")) {
+        }else if(viewModel.tipusDiabetis.value.equals("Gestacional")) {
             binding.valueTipusDiabetis.setSelection(3)
-        }else if(viewModel.genere.value.equals("LADA o Tipus 1.5")) {
+        }else if(viewModel.tipusDiabetis.value.equals("LADA o Tipus 1.5")) {
             binding.valueTipusDiabetis.setSelection(4)
-        }else if(viewModel.genere.value.equals("MODY")) {
+        }else if(viewModel.tipusDiabetis.value.equals("MODY")) {
             binding.valueTipusDiabetis.setSelection(5)
-        }else if(viewModel.genere.value.equals("Secundaria")) {
+        }else if(viewModel.tipusDiabetis.value.equals("Secundaria")) {
             binding.valueTipusDiabetis.setSelection(6)
-        }else if(viewModel.genere.value.equals("Sense diagnòsis")) {
+        }else if(viewModel.tipusDiabetis.value.equals("Sense diagnòsis")) {
             binding.valueTipusDiabetis.setSelection(7)
         }else{
             binding.valueTipusDiabetis.setSelection(0)
