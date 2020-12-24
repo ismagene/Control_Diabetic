@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.ismasoft.controldiabetic.data.model.ControlAmbId
+import com.ismasoft.controldiabetic.data.repository.interfaces.ControlsRepositoryInterface
 import com.ismasoft.controldiabetic.databinding.ActivityHistoricControlsBinding
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapter
 import com.ismasoft.controldiabetic.ui.adapters.ControlsListAdapterInterface
@@ -23,7 +25,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemClickListener, ControlsListAdapterInterface {
+class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemClickListener, ControlsListAdapterInterface,
+    ControlsRepositoryInterface {
 
     private lateinit var viewModel: ControlsViewModel
     private lateinit var binding: ActivityHistoricControlsBinding
@@ -32,8 +35,11 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     private lateinit var adapter: ControlsListAdapter
 
     var llistaControls = ArrayList<ControlAmbId>()
-
     var llistaControlsFiltrats = ArrayList<ControlAmbId>()
+    var dataFiltreInici: Date =
+        SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/1900 00:00:00")
+    var dataFiltreFi: Date =
+        SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("01/01/2900 00:00:00")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +59,6 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             var date2 = o2.dataControl
             date2?.compareTo(date1)!! // Comparamem les dates
         })
-
         llistaControlsFiltrats = llistaControls
 
         binding = ActivityHistoricControlsBinding.inflate(layoutInflater)
@@ -66,6 +71,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
         recyclerView = binding.recyclerViewControls
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         // Posem els valors de la llista de controls
         adapter = ControlsListAdapter(this, llistaControls, this)
         adapter.setClickListener(this)
@@ -104,8 +110,6 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             if(validarFiltrar()) {
 
                 llistaControlsFiltrats = ArrayList<ControlAmbId>()
-                var dataFiltreInici = Date()
-                var dataFiltreFi = Date()
 
                 if (!binding.diaFiltreInici.text.toString().equals("")) {
                     val date = binding.diaFiltreInici.text.toString()
@@ -129,12 +133,14 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
                         llistaControlsFiltrats.add(control)
                     }
                 }
+                viewModel.hiHanControls(llistaControls, llistaControlsFiltrats, this)
 
                 adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
                 adapter.setClickListener(this)
                 recyclerView.adapter = adapter
                 adapter.notifyItemRangeChanged(0, llistaControlsFiltrats.size)
                 adapter.notifyDataSetChanged()
+
             }
 
         }
@@ -157,6 +163,14 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.recuperarLlistaControls(this)
+        viewModel.hiHanControls(llistaControls, llistaControlsFiltrats, this)
+        adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
+        adapter.notifyDataSetChanged()
+    }
+
     private fun validarEnviarHistoric(): Boolean {
         if(llistaControlsFiltrats.size<=0){
             Toast.makeText(this, "No hi ha cap control filtrat per poder enviar. ", Toast.LENGTH_SHORT).show()
@@ -166,7 +180,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     }
 
     private fun validarFiltrar(): Boolean {
-        if(llistaControlsFiltrats.size<=0){
+        if(llistaControls.size<=0){
             Toast.makeText(this, "No hi ha cap control per filtrar. ", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -251,20 +265,9 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         hideKeyboard(this)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.hiHanControls(llistaControls, this)
-        adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
-        adapter.notifyDataSetChanged()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    override fun onItemClick(view: View, position: Int) {
-//        Toast.makeText(this, "Clicat element $position", Toast.LENGTH_SHORT).show()
     }
 
     override fun eliminarControlOK(position: Int) {}
@@ -274,9 +277,51 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         adapter.notifyDataSetChanged()
     }
     override fun noHihaControls() {}
+    override fun hihaControlsFiltrats() {
+        adapter = ControlsListAdapter(this, llistaControls, this)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun noHihaControlsFiltrats() {}
 
     fun senseControls(){
         viewModel.senseControls()
     }
+
+    override fun afegirControlOK() {}
+    override fun afegirControlNOK() {}
+    override fun obtenirRangsOK(document: DocumentSnapshot) {}
+
+    override fun obtenirRangsNOK() {}
+    override fun llistaControlsOK(llistaRecuperada: ArrayList<ControlAmbId>) {
+
+        // Resultat per pantalla
+        llistaControls = llistaRecuperada
+        // Ordenem els controls.
+        llistaControls.sortWith(kotlin.Comparator { o1, o2 ->
+            var date1 = o1.dataControl
+            var date2 = o2.dataControl
+            date2?.compareTo(date1)!! // Comparamem les dates
+        })
+
+        llistaControlsFiltrats = ArrayList<ControlAmbId>()
+
+        for (control in llistaControls) {
+            if (dataFiltreInici.before(control.dataControl) && dataFiltreFi.after(control.dataControl)) {
+                llistaControlsFiltrats.add(control)
+            }
+        }
+
+        adapter = ControlsListAdapter(this, llistaControlsFiltrats, this)
+        adapter.setClickListener(this)
+        recyclerView.adapter = adapter
+        adapter.notifyItemRangeChanged(0, llistaControlsFiltrats.size)
+        adapter.notifyDataSetChanged()
+
+    }
+    override fun LlistaControlsNOK() {}
+    override fun modificarControlOK() {}
+    override fun modificarControlNOK() {}
+    override fun onItemClick(view: View, position: Int) {}
 
 }

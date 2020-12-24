@@ -81,7 +81,6 @@ class AlarmesFragment : Fragment(), AlarmesListAdapter.ItemClickListener,
     }
 
     override fun onItemClick(view: View, position: Int) {}
-
     override fun afegirAlarmaOK(idAlarmaManager: Int?) {}
     override fun afegirAlarmaNOK() {}
     override fun jaExisteixAlarma() {}

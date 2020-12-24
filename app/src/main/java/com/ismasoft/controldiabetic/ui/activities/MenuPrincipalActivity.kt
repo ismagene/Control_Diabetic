@@ -3,6 +3,7 @@ package com.ismasoft.controldiabetic.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +37,19 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        binding = ActivityMenuPrincipalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this).get()
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        initNav()
+    }
+
     private fun initNav() {
 
         var activeFragment : Fragment
@@ -56,29 +70,26 @@ class MenuPrincipalActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.controls -> {
                     mFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(controlsFragment).commit()
+                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(controlsFragment).commitNow()
                     activeFragment = controlsFragment
                     binding.fav.show()
                 }
                 R.id.alarmes -> {
                     mFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(alarmesFragment).commit()
+                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(alarmesFragment).commitNow()
                     activeFragment = alarmesFragment
                     binding.fav.show()
                 }
                 R.id.visites-> {
                     mFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(visitesFragment).commit()
+                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(visitesFragment).commitNow()
                     activeFragment = visitesFragment
-                    mFragmentManager.beginTransaction().detach(activeFragment).commitNow()
-                    mFragmentManager.beginTransaction().attach(activeFragment).commitNow()
-
                     binding.fav.show()
 
                 }
                 R.id.perfil -> {
                     mFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(perfilGlobal).commit()
+                        .setCustomAnimations(R.anim.fade_scale_in, R.anim.fade_scale_out).hide(activeFragment).show(perfilGlobal).commitNow()
                     activeFragment = perfilGlobal
                     binding.fav.hide()
                 }

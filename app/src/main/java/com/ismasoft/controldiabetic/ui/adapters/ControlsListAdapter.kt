@@ -76,7 +76,7 @@ class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbI
             val extras = Bundle()
             extras.putSerializable("controlModificar",control)
             modificarControl.putExtras(extras)
-            context.startActivity(modificarControl)
+            context.startActivity(modificarControl,)
         }
         item.eliminarControl.setOnClickListener(){
             context.alert ("Segur que voleu eliminar el control de l'hora:  ${item.hora.text} del dia: ${item.dia.text} ?","Eliminar alarma") {
@@ -117,5 +117,7 @@ class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbI
 
     override fun hihaControls() {}
     override fun noHihaControls() {}
+    override fun hihaControlsFiltrats() {}
+    override fun noHihaControlsFiltrats() {}
 
 }

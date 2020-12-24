@@ -43,6 +43,9 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
     private val _ambControls = MutableLiveData<Boolean>(false)
     val ambControls : LiveData<Boolean> get() = _ambControls
 
+    private val _ambControlsFiltrats = MutableLiveData<Boolean>(false)
+    val ambControlsFiltrats : LiveData<Boolean> get() = _ambControlsFiltrats
+
     private var controlAfegir = Control()
     private var controlModificar = ControlAmbId()
 
@@ -58,14 +61,32 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
         repository.recuperarLlistaControls(this)
     }
 
-    fun hiHanControls(llistaControls: ArrayList<ControlAmbId>, controlsListAdapterInterface: ControlsListAdapterInterface) {
+    fun hiHanControls(llistaControls: ArrayList<ControlAmbId>, llistaControlsFiltrats: ArrayList<ControlAmbId>, controlsListAdapterInterface: ControlsListAdapterInterface) {
         if(llistaControls != null && llistaControls.size>0){
             _ambControls.value = true
+            if(llistaControlsFiltrats != null && llistaControlsFiltrats.size>0){
+                _ambControlsFiltrats.value = true
+            }
+            else {
+                _ambControlsFiltrats.value = false
+            }
             controlsListAdapterInterface.hihaControls()
         }
         else{
             _ambControls.value = false
+            _ambControlsFiltrats.value = true
             controlsListAdapterInterface.noHihaControls()
+        }
+    }
+
+    fun hiHanControlsFiltrats(llistaControls: ArrayList<ControlAmbId>, controlsListAdapterInterface: ControlsListAdapterInterface) {
+        if(llistaControls != null && llistaControls.size>0){
+            _ambControlsFiltrats.value = true
+            controlsListAdapterInterface.hihaControlsFiltrats()
+        }
+        else{
+            _ambControlsFiltrats.value = false
+            controlsListAdapterInterface.noHihaControlsFiltrats()
         }
     }
 
@@ -382,6 +403,8 @@ class ControlsViewModel(application: Application) : AndroidViewModel(application
     }
     override fun hihaControls(){}
     override fun noHihaControls() {}
+    override fun hihaControlsFiltrats() {}
+    override fun noHihaControlsFiltrats() {}
 
 
 }

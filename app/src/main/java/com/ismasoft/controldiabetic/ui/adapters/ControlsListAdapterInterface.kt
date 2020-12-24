@@ -8,4 +8,7 @@ interface ControlsListAdapterInterface {
     fun hihaControls()
     fun noHihaControls()
 
+    fun hihaControlsFiltrats()
+    fun noHihaControlsFiltrats()
+
 }

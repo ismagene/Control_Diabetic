@@ -254,7 +254,8 @@ class AfegirVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface {
 
         var calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        var dataString = sdf.format(Date())
+        val dataHoraVisita  = SimpleDateFormat("dd/MM/yyyy").parse(binding.diaVisita.text.toString())
+        var dataString = sdf.format(dataHoraVisita)
         parts = dataString.split("/")
         var day =  parts[0].toInt()
         var month = parts[1].toInt()-1

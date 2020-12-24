@@ -141,8 +141,6 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
             return false
         }
 
-
-
         val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
         var dataString = sdf.format(controlModificar.dataControl)
         var parts = dataString.split(" ")
