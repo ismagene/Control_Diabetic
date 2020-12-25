@@ -38,9 +38,6 @@ class PerfilMedicFragment : Fragment(), PerfilRepositoryInterface {
         bindingFragment.viewModel = viewModel
         bindingFragment.lifecycleOwner = this
 
-        // Recuperem totes les dades de l'usuari
-        viewModel.recuperarDadesUsuari(this)
-
         bindingFragment.buttonModificarDMediques.setOnClickListener(){
             var usuari = recuperarDadesUsuari()
             val modificar = Intent(context, ModificarDadesMedActivity::class.java)
