@@ -51,8 +51,7 @@
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/selecciona"
-                        android:inputType="text"
-                        android:keyboardNavigationCluster="false"/>
+                        android:inputType="none" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -5,6 +5,7 @@ package com.ismasoft.controldiabetic.ui.activities
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.InputType
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -115,12 +116,15 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             view.performClick()
             return@setOnTouchListener true
         }
+        binding.loginDataDiagnosi.inputType = InputType.TYPE_NULL
         binding.loginDataDiagnosi.setOnFocusChangeListener { _, hasFocus->
+            hideKeyboard(this)
             if(hasFocus){
                 obrirCalendariPerSeleccionarData(binding.loginDataDiagnosi.text.toString())
             }
         }
         binding.loginDataDiagnosi.setOnClickListener(){
+            hideKeyboard(this)
             obrirCalendariPerSeleccionarData(binding.loginDataDiagnosi.text.toString())
         }
     }
@@ -267,9 +271,6 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
-
         binding.loginDataDiagnosi.setHintTextColor(colorHintDefault)
 
         val c = Calendar.getInstance()
@@ -301,10 +302,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     override fun comprobarExisteixEmailOK() {}

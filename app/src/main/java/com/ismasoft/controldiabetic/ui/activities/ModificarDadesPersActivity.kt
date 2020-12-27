@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -116,12 +117,15 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
         binding.valueCognom2.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.textValueCognom2.setTextColor(colorTextDefault)
         }
+        binding.valueDataNaixament.inputType = InputType.TYPE_NULL
         binding.valueDataNaixament.setOnFocusChangeListener { _, hasFocus ->
+            hideKeyboard(this)
             if(hasFocus) {
                 obrirCalendariPerSeleccionarData(binding.valueDataNaixament.text.toString())
             }
         }
         binding.valueDataNaixament.setOnClickListener {
+            hideKeyboard(this)
             obrirCalendariPerSeleccionarData(binding.valueDataNaixament.text.toString())
         }
         binding.valueGenere.setOnTouchListener { view, motionEvent ->
@@ -189,9 +193,19 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
             Toast.makeText(this, "El Pes és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
+        if (binding.valuePes.text.toString().toInt() <= 0) {
+            binding.textValuePes.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "El Pes no pot ser 0", Toast.LENGTH_SHORT).show()
+            return false
+        }
         if (binding.valueAltura.text == null || binding.valueAltura.text.toString() == "") {
             binding.textValueAltura.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(this, "L'altura és un camp obligatori", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (binding.valueAltura.text.toString().toInt() <= 0) {
+            binding.textValueAltura.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
+            Toast.makeText(this, "L'alçada no pot ser 0", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -199,9 +213,6 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
-
         binding.textValueDataNaixament.setTextColor(colorTextDefault)
 
         val c = Calendar.getInstance()
@@ -226,10 +237,7 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     private fun inicialitzarUsuari(): User {

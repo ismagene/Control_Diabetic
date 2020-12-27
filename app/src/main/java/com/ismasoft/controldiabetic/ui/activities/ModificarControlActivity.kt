@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -73,8 +74,8 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
             finish()
         }
 
+        binding.horaControl.inputType = InputType.TYPE_NULL
         binding.horaControl.setOnClickListener(){
-            hideKeyboard(this)
             binding.horaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
@@ -83,18 +84,18 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
                 binding.horaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
             }
-            hideKeyboard(this@ModificarControlActivity)
         }
+        binding.diaControl.inputType = InputType.TYPE_NULL
         binding.diaControl.setOnClickListener(){
+            hideKeyboard(this)
             binding.diaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
-            hideKeyboard(this)
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
+            hideKeyboard(this)
             if (hasFocus) {
                 binding.diaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
-                hideKeyboard(this)
             }
         }
         binding.glucosa.setOnClickListener(){
@@ -176,8 +177,6 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
         var hora = cal.get(Calendar.HOUR_OF_DAY)
         var minuts = cal.get(Calendar.MINUTE)
 
-        binding.horaControl.setTextColor(colorTextDefault)
-
         if(temps != null && !temps.equals("")){
             var parts = temps.split(":")
             hora =  parts[0].toInt()
@@ -203,10 +202,6 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
-
-        binding.diaControl.setTextColor(colorTextDefault)
 
         var c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
@@ -237,10 +232,7 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

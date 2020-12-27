@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
@@ -78,24 +79,25 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
 
+        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
+        hideKeyboard(this)
+
+        binding.diaFiltreInici.inputType = InputType.TYPE_NULL
         binding.diaFiltreInici.setOnClickListener {
             obrirCalendariPerSeleccionarData(binding.diaFiltreInici.text.toString())
-            hideKeyboard(this)
         }
         binding.diaFiltreInici.setOnFocusChangeListener(){ _, hasFocus->
-            hideKeyboard(this)
             if (hasFocus) {
                 obrirCalendariPerSeleccionarData(binding.diaFiltreInici.text.toString())
             }
         }
+        binding.diaFiltreFi.inputType = InputType.TYPE_NULL
         binding.diaFiltreFi.setOnClickListener {
             obrirCalendariPerSeleccionarDataFi(binding.diaFiltreFi.text.toString())
-            hideKeyboard(this)
         }
         binding.diaFiltreFi.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
                 obrirCalendariPerSeleccionarDataFi(binding.diaFiltreFi.text.toString())
-                hideKeyboard(this)
             }
         }
         binding.eliminarFiltreIni.setOnClickListener(){
@@ -188,8 +190,6 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
     }
 
     private fun obrirCalendariPerSeleccionarData(data :String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
 
         var c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
@@ -220,15 +220,11 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
+
     }
 
     private fun obrirCalendariPerSeleccionarDataFi(data :String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
 
         var c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
@@ -259,10 +255,7 @@ class HistoricControlsActivity : AppCompatActivity(), ControlsListAdapter.ItemCl
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

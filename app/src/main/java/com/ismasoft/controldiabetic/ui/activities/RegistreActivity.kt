@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.InputType
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -96,12 +97,15 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
         binding.loginCognom2.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus) binding.loginCognom2.setHintTextColor(colorHintDefault)
         }
+        binding.loginNaixament.inputType = InputType.TYPE_NULL
         binding.loginNaixament.setOnFocusChangeListener { _, hasFocus ->
+            hideKeyboard(this)
             if(hasFocus) {
                 obrirCalendariPerSeleccionarData(binding.loginNaixament.text.toString())
             }
         }
         binding.loginNaixament.setOnClickListener {
+            hideKeyboard(this)
             obrirCalendariPerSeleccionarData(binding.loginNaixament.text.toString())
         }
         binding.loginGenereSpiner.setOnTouchListener { view, motionEvent ->
@@ -139,7 +143,6 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-
         binding.loginNaixament.setHintTextColor(colorHintDefault)
 
         val c = Calendar.getInstance()
@@ -164,10 +167,7 @@ class RegistreActivity : AppCompatActivity(), RegistreRepositoryInterface {
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     private fun errorCorreuElectronicExistent() {

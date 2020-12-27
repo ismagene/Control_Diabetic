@@ -80,7 +80,7 @@
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/selecciona"
-                        android:inputType="text" />
+                        android:inputType="none" />
 
                     <ImageButton
                         android:id="@+id/eliminarFiltreIni"
@@ -127,7 +127,7 @@
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/selecciona"
-                        android:inputType="text" />
+                        android:inputType="none" />
 
 
                     <ImageButton

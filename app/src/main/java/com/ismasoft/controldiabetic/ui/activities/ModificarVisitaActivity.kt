@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -55,6 +56,8 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
 
         recuperarDadesVisita(visitaModificar)
 
+        binding.motiuVisita.hint = ""
+
         binding.modificarVisita.setOnClickListener(){
             /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
             hideKeyboard(this)
@@ -72,26 +75,26 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
             finish()
         }
 
+        binding.horaVisita.inputType = InputType.TYPE_NULL
         binding.horaVisita.setOnClickListener(){
-            hideKeyboard(this)
             binding.textHoraVisita.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
         }
         binding.horaVisita.setOnFocusChangeListener(){ _, hasFocus->
-            hideKeyboard(this@ModificarVisitaActivity)
             if (hasFocus) {
                 binding.textHoraVisita.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaVisita.text.toString())
             }
         }
+        binding.diaVisita.inputType = InputType.TYPE_NULL
         binding.diaVisita.setOnClickListener(){
             hideKeyboard(this)
             binding.textDiaVisita.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarData(binding.diaVisita.text.toString())
         }
         binding.diaVisita.setOnFocusChangeListener(){ _, hasFocus->
+            hideKeyboard(this)
             if (hasFocus) {
-                hideKeyboard(this)
                 binding.textDiaVisita.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarData(binding.diaVisita.text.toString())
             }
@@ -209,9 +212,6 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
-
         binding.diaVisita.setHintTextColor(colorHintDefault)
 
         var c = Calendar.getInstance()
@@ -243,10 +243,7 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

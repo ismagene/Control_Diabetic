@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -53,6 +54,9 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
         // dia i hora per defecte.
         dataIHoraPerDefecte()
 
+        // amaguem el teclat d'inici
+        hideKeyboard(this)
+
         // Per tornar endarrera
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -77,8 +81,8 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             finish()
         }
 
+        binding.horaControl.inputType = InputType.TYPE_NULL
         binding.horaControl.setOnClickListener(){
-            hideKeyboard(this)
             binding.horaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
         }
@@ -87,19 +91,19 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
                 binding.horaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaControl.text.toString())
             }
-            hideKeyboard(this@AfegirControlActivity)
         }
+
+        binding.diaControl.inputType = InputType.TYPE_NULL
         binding.diaControl.setOnClickListener(){
+            hideKeyboard(this)
             binding.diaControl.setTextColor(colorValorDefault)
             obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
-            hideKeyboard(this)
         }
         binding.diaControl.setOnFocusChangeListener(){ _, hasFocus->
             hideKeyboard(this)
             if (hasFocus) {
                 binding.diaControl.setTextColor(colorValorDefault)
                 obrirCalendariPerSeleccionarData(binding.diaControl.text.toString())
-                hideKeyboard(this)
             }
         }
         binding.glucosa.setOnClickListener(){
@@ -216,7 +220,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
     private fun obrirCalendariPerSeleccionarData(data: String){
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
+//        hideKeyboard(this)
 
         binding.diaControl.setHintTextColor(colorValorDefault)
 
@@ -252,7 +256,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
 
         dpd.show()
         /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
+//        hideKeyboard(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

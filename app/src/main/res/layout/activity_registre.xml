@@ -77,7 +77,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginBirthday"
-                    android:inputType="date" />
+                    android:inputType="none" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

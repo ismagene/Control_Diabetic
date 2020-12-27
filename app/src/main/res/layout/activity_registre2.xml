@@ -117,7 +117,7 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:hint="@string/loginDiagnosisDate"
-                    android:inputType="date" />
+                    android:inputType="none" />
 
                 <TextView
                     android:layout_width="wrap_content"

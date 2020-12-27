@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -137,12 +138,15 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
             view.performClick()
             return@setOnTouchListener true
         }
+        binding.valuedataDiagnosi.inputType = InputType.TYPE_NULL
         binding.valuedataDiagnosi.setOnFocusChangeListener { _, hasFocus ->
+            hideKeyboard(this)
             if(hasFocus) {
                 obrirCalendariPerSeleccionarData(binding.valuedataDiagnosi.text.toString())
             }
         }
         binding.valuedataDiagnosi.setOnClickListener() {
+            hideKeyboard(this)
             obrirCalendariPerSeleccionarData(binding.valuedataDiagnosi.text.toString())
         }
         binding.glucosaBaixa.setOnFocusChangeListener(){ _, hasFocus ->
@@ -345,8 +349,6 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
     }
 
     private fun obrirCalendariPerSeleccionarData(data: String){
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
 
         binding.textValuedataDiagnosi.setTextColor(colorTextDefault)
 
@@ -372,10 +374,8 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
             month,
             day
         )
-
         dpd.show()
-        /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
-        hideKeyboard(this)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

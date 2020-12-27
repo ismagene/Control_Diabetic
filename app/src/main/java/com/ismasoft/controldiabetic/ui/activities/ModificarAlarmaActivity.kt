@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -69,17 +70,16 @@ class ModificarAlarmaActivity : AppCompatActivity() , AlarmesRepositoryInterface
             finish()
         }
 
+        binding.horaAlarma.inputType = InputType.TYPE_NULL
         binding.horaAlarma.setOnClickListener(){
-            hideKeyboard(this)
-            binding.textHoraAlarma.setTextColor(colorTextDefault)
+            binding.horaAlarma.setTextColor(colorTextDefault)
             obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
         }
         binding.horaAlarma.setOnFocusChangeListener(){ _, hasFocus->
             if (hasFocus) {
-                binding.textHoraAlarma.setTextColor(colorTextDefault)
+                binding.horaAlarma.setTextColor(colorTextDefault)
                 obrirCalendariPerSeleccionarHora(binding.horaAlarma.text.toString())
             }
-            hideKeyboard(this@ModificarAlarmaActivity)
         }
     }
 
