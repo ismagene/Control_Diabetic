@@ -123,7 +123,7 @@
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/loginWeight"
-                        android:inputType="numberDecimal" />
+                        android:inputType="number" />
 
                     <TextView
                         android:id="@+id/textViewPes"
@@ -141,7 +141,7 @@
                         android:autofillHints=""
                         android:ems="10"
                         android:hint="@string/loginHeight"
-                        android:inputType="numberDecimal" />
+                        android:inputType="number" />
 
                     <TextView
                         android:id="@+id/textViewAltura"
