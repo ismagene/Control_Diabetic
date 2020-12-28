@@ -9,7 +9,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="login_failed">"Login failed"</string>
     <string name="registrarse">Registrar-se</string>
-    <string name="guardarUsuari">Mantenir conectat</string>
+    <string name="guardarUsuari">Mantenir connectat</string>
     <string name="recordarContrasenya">Has oblidat la contrasenya?</string>
     <string name="recuperarContrasenya">Recupera-la</string>
     <string name="titolrecuperarContrasenya">Recuperar contrasenya</string>

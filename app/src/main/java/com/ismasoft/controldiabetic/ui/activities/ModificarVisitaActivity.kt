@@ -55,9 +55,7 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         val visitaModificar : VisitaAmbId = objetoIntent.extras?.get("visitaModificar") as VisitaAmbId
 
         recuperarDadesVisita(visitaModificar)
-
-        binding.motiuVisita.hint = ""
-
+        
         binding.modificarVisita.setOnClickListener(){
             /* Si tenim obert el teclat virtual s'amaga automaticament quan apretem el botó */
             hideKeyboard(this)
