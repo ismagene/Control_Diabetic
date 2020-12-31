@@ -153,7 +153,7 @@ class ModificarControlActivity : AppCompatActivity() , ControlsRepositoryInterfa
             binding.glucosa.text == controlModificar.valorGlucosa &&
             (binding.insulina.text == controlModificar.valorInsulina ||
             (binding.insulina.text.equals("") && controlModificar.valorInsulina == 0))){
-            Toast.makeText(this, "No s'ha modificat les dades del control", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No s'han modificat les dades del control", Toast.LENGTH_SHORT).show()
             return false
         }
         return true

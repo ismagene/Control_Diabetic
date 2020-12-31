@@ -112,7 +112,7 @@ class ControlsListAdapter(var context: Context, val mData: ArrayList<ControlAmbI
     }
 
     override fun eliminarControlNOK() {
-        Toast.makeText(context, "Error al eliminar el control", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Error a l'eliminar el control", Toast.LENGTH_SHORT).show()
     }
 
     override fun hihaControls() {}

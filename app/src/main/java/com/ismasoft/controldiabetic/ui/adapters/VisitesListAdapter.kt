@@ -99,7 +99,7 @@ class VisitesListAdapter(var context: Context, val mData: ArrayList<VisitaAmbId>
     }
 
     override fun eliminarVisitaPasadaNOK() {
-        Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Error a l'eliminar la visita", Toast.LENGTH_SHORT).show()
     }
 
 }

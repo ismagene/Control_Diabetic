@@ -103,7 +103,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         }
         if(binding.contrasenyaAntiga.text.length < 6){
             binding.contrasenyaAntiga.setTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caracters",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caràcters",Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaNova.text == null || binding.contrasenyaNova.text.toString() == ""){
@@ -113,7 +113,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         }
         if(binding.contrasenyaNova.text.length < 6) {
             binding.contrasenyaNova.setTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caracters",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caràcters",Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaNovaConfirmar.text == null || binding.contrasenyaNovaConfirmar.text.toString() == "" ){
@@ -123,7 +123,7 @@ class ModificarPasswordActivity : AppCompatActivity(), PerfilRepositoryInterface
         }
         if(binding.contrasenyaNovaConfirmar.text.length < 6){
             binding.contrasenyaNovaConfirmar.setTextColor(COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caracters",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"La contrasenya ha de ser mínim de 6 caràcters",Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.contrasenyaNova.text.toString() != binding.contrasenyaNovaConfirmar.text.toString()){

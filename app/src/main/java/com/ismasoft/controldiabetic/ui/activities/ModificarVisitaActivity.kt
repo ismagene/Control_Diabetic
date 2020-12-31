@@ -145,7 +145,7 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
         if(binding.horaVisita.text.toString() == hora &&
             binding.diaVisita.text.toString() == dia &&
             binding.motiuVisita.text.toString() == visitaModificar.motiu){
-            Toast.makeText(this, "No s'ha modificat les dades de la visita", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No s'han modificat les dades de la visita", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -303,7 +303,7 @@ class ModificarVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface
 
     }
     override fun eliminarVisitaNOK() {
-        Toast.makeText(this, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Error a l'eliminar la visita", Toast.LENGTH_SHORT).show()
         finish()
     }
 

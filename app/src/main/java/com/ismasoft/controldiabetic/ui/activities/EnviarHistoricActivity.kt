@@ -93,7 +93,7 @@ class EnviarHistoricActivity : AppCompatActivity() {
                 javaMailAPI.execute()
 
                 alert(
-                    "S'ha enviat l'historial de controls al correu introduit.",
+                    "S'ha enviat l'historial de controls al correu introduït.",
                     "Històric enviat"
                 ) {
                     cancellable(false)
@@ -128,7 +128,7 @@ class EnviarHistoricActivity : AppCompatActivity() {
 
         if(binding.correuElectronicAEnviar.text == null || binding.correuElectronicAEnviar.text.toString() == ""){
             binding.textCorreuElectronicAenviar.setTextColor(Constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "És obligatori escriure un mail correcte per enviar l'històric.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "És obligatori escriure un correu electrònic correcte per enviar l'històric.", Toast.LENGTH_SHORT).show()
             return false
         }else {
             var mailCorrecte =

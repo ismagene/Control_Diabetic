@@ -53,11 +53,11 @@
         <item>Gestacional</item>
         <item>LADA o Tipus 1.5</item>
         <item>MODY</item>
-        <item>Secundaria</item>
+        <item>Secundària</item>
         <item>Sense diagnòsis</item>
     </string-array>
     <string name="loginDiagnosisDate">Data diagnosi *</string>
-    <string name="glucosaData" tools:ignore="StringEscaping">Dades glucosa - Els valors entre parentesis son estàndars, que s\'utilitzaràn en cas de no introduirne cap.</string>
+    <string name="glucosaData" tools:ignore="StringEscaping">Dades glucosa - Els valors entre parèntesis són estàndars, que s\'utilitzaran en cas de no introduir-ne cap.</string>
     <string name="glucosaDataInfo" tools:ignore="StringEscaping">Dades glucosa</string>
     <string name="mesuraGlucosa">mg/dL</string>
     <string name="mesuraInsulina">ui</string>
@@ -69,7 +69,7 @@
     <string name="glucosaAltaDespresApat" tools:ignore="StringEscaping">Alta després d\'un àpat (180)</string>
 
     <string name="textRegistreFeedback">Registre realitzat.</string>
-    <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduit.</string>
+    <string name="textRegistreFeedback2" tools:ignore="StringEscaping">S\'ha enviat un mail de confirmació al correu introduït.</string>
 
     <string name="guardar">Guardar</string>
     <string name="modificar">Modificar</string>
@@ -97,7 +97,7 @@
     <string name="selecciona">Selecciona</string>
     <string name="dia">Dia: </string>
     <string name="literalInsulina">Insulina</string>
-    <string name="esDespresDapat" tools:ignore="StringEscaping">Es després d\'un àpat</string>
+    <string name="esDespresDapat" tools:ignore="StringEscaping">És després d\'un àpat</string>
     <string name="dataFiltreInici">Data Inici: </string>
     <string name="dataFiltreFi">Data Fi: </string>
 
@@ -106,7 +106,7 @@
     <string name="cognom">Primer cognom: </string>
     <string name="cognom2">Segon cognom: </string>
     <string name="dataNaixement">Data naixement: </string>
-    <string name="genere">Genere: </string>
+    <string name="genere">Gènere: </string>
     <string name="pes">Pes: </string>
     <string name="altura">Alçada: </string>
     <string name="correuElectronic">Correu electrònic: </string>
@@ -172,6 +172,6 @@
 
     <!-- Enviar mail -->
     <string name="mailAEnviar">Escriu el correu electrònic a enviar</string>
-    <string name="mailAEnviarexplicacio">S\enviaràn al correu introduit els controls filtrats en la pantalla anterior. Apreteu enviar per continuar.</string>
+    <string name="mailAEnviarexplicacio">S\'enviaran al correu introduït, els controls filtrats en la pantalla anterior. Premeu enviar per continuar.</string>
 
 </resources>

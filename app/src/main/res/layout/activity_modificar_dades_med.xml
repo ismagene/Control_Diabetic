@@ -15,8 +15,9 @@
         android:padding="12dp">
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="399dp"
-            android:layout_height="649dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_above="@id/linearLayoutguardarDadesMed"
             android:layout_marginBottom="7dp">
 

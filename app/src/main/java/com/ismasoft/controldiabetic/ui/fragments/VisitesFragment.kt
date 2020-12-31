@@ -146,7 +146,7 @@ class VisitesFragment : Fragment(), VisitesListAdapter.ItemClickListener, Visite
         deleteVisitaAlarm(10000, requireContext())
     }
     override fun eliminarVisitaNOK() {
-        Toast.makeText(context, "Error al eliminar la visita", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Error a l'eliminar la visita", Toast.LENGTH_SHORT).show()
     }
 
     fun noVisites(){

@@ -178,7 +178,7 @@ class AfegirControlActivity : AppCompatActivity(), ControlsRepositoryInterface {
             binding.horaControl.setTextColor(COLOR_ERROR_FALTA_CAMP)
             Toast.makeText(
                 this,
-                "La data i hora del control no  pot ser superior a l'actual",
+                "La data i hora del control no pot ser superior a l'actual",
                 Toast.LENGTH_SHORT
             ).show()
             return false

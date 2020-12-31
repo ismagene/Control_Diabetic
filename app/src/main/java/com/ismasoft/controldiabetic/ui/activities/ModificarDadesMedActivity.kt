@@ -75,7 +75,7 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
             binding.valueTipusDiabetis.setSelection(4)
         }else if(viewModel.tipusDiabetis.value.equals("MODY")) {
             binding.valueTipusDiabetis.setSelection(5)
-        }else if(viewModel.tipusDiabetis.value.equals("Secundaria")) {
+        }else if(viewModel.tipusDiabetis.value.equals("Secundària")) {
             binding.valueTipusDiabetis.setSelection(6)
         }else if(viewModel.tipusDiabetis.value.equals("Sense diagnòsis")) {
             binding.valueTipusDiabetis.setSelection(7)
@@ -230,7 +230,7 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
                 binding.textValuecorreuElectronicMetge.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
                 Toast.makeText(
                     this,
-                    "El format del correu electrònic del metge no es correcte",
+                    "El format del correu electrònic del metge no és correcte",
                     Toast.LENGTH_SHORT
                 ).show()
                 return false
@@ -257,7 +257,7 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         if(dataIntroduida.after(dataActual))
         {
             binding.textValuedataDiagnosi.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de diagnosi no pot ser superior a l'actual'", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La data de diagnosi no pot ser superior a l'actual", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -284,12 +284,12 @@ class ModificarDadesMedActivity : AppCompatActivity() , PerfilRepositoryInterfac
         }
         if(binding.glucosaBaixaDA.text == null || binding.glucosaBaixaDA.text.toString() == "" || binding.glucosaBaixaDA.text.toString() == "0"){
             binding.textGlucosaBaixaDA.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El valor de la glucosa Baixa desprès d'un apat és obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El valor de la glucosa Baixa desprès d'un àpat és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
         if(binding.glucosaAltaDA.text == null || binding.glucosaAltaDA.text.toString() == "" || binding.glucosaAltaDA.text.toString() == "0"){
             binding.textGlucosaAltaDA.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El valor de la glucosa Alta desprès d'un apat és obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El valor de la glucosa Alta desprès d'un àpat és obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
         return true

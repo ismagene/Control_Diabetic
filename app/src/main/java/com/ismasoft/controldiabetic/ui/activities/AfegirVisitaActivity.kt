@@ -278,7 +278,7 @@ class AfegirVisitaActivity : AppCompatActivity() , VisitesRepositoryInterface {
         Toast.makeText(this, "Error al guardar la visita", Toast.LENGTH_SHORT).show()
     }
     override fun existeixVisitaVigent() {
-        alert("Ja existeix una visita vigent, no s'en pot afegir una altra, modifica l'actual","Visita Existent") {
+        alert("Ja existeix una visita vigent, no se'n pot afegir una altra, modifica l'actual","Visita Existent") {
             cancellable(false)
             positiveButton("Continuar") {
                 setResult(RESULT_OK)

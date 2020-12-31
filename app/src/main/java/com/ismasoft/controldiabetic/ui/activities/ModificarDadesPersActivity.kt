@@ -150,7 +150,6 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
             Toast.makeText(this, "El correu electrònic no es pot modificar", Toast.LENGTH_SHORT).show()
         }
 
-
     }
 
     private fun validarEntrada(): Boolean {
@@ -180,7 +179,7 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
         if(dataIntroduida.after(dataActual))
         {
             binding.textValueDataNaixament.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "La data de naixement no pot ser igual o superior a l'actual'", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La data de naixement no pot ser igual o superior a l'actual", Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.valueGenere.selectedItem == constants.OPCIO_DEFECTE_SPINER) {
@@ -190,12 +189,12 @@ class ModificarDadesPersActivity : AppCompatActivity() , PerfilRepositoryInterfa
         }
         if (binding.valuePes.text == null || binding.valuePes.text.toString() == "") {
             binding.textValuePes.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El Pes és un camp obligatori", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El pes és un camp obligatori", Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.valuePes.text.toString().toInt() <= 0) {
             binding.textValuePes.setTextColor(constants.COLOR_ERROR_FALTA_CAMP)
-            Toast.makeText(this, "El Pes no pot ser 0", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El pes no pot ser 0", Toast.LENGTH_SHORT).show()
             return false
         }
         if (binding.valueAltura.text == null || binding.valueAltura.text.toString() == "") {

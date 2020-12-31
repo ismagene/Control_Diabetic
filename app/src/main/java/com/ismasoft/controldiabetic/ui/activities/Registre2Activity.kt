@@ -329,7 +329,7 @@ class Registre2Activity : AppCompatActivity(), RegistreRepositoryInterface {
         javaMailAPI.execute()
 
         alert(
-            "S'ha enviat un correu de confirmació del registre al correu electrònic introduit.",
+            "S'ha enviat un correu de confirmació del registre al correu electrònic introduït.",
             "Registre realitzat"
         ) {
             cancellable(false)

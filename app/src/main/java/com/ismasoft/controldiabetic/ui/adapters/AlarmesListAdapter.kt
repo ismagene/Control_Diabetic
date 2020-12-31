@@ -73,7 +73,7 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
             context.startActivity(modificarAlarma)
         }
         item.eliminarAlarma.setOnClickListener(){
-            context.alert ("Segur que voleu eliminar la alarma ${item.hora.text} ?","Eliminar alarma") {
+            context.alert ("Segur que voleu eliminar l'alarma ${item.hora.text} ?","Eliminar alarma") {
                 cancellable(false)
                 positiveButton("Confirmar") {
                     viewModel = AlarmesViewModel(application = Application())
@@ -108,7 +108,7 @@ class AlarmesListAdapter(var context: Context, val mData: ArrayList<AlarmaAmbId>
     }
 
     override fun eliminarAlarmaNOK() {
-        Toast.makeText(context, "Error al eliminar l'alarma", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Error a l'eliminar l'alarma", Toast.LENGTH_SHORT).show()
     }
 
 }
